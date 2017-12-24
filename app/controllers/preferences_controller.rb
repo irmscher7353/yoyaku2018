@@ -4,7 +4,7 @@ class PreferencesController < ApplicationController
   # GET /preferences
   # GET /preferences.json
   def index
-    @preferences = Preference.all
+    @preferences = Preference.all.order(:id)
   end
 
   # GET /preferences/1
