@@ -4,7 +4,13 @@ class MenusController < ApplicationController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.all
+    @menus = Menu.all.order('updated_at DESC')
+		current = Date.today.strftime('%Y-%m')
+		if Menu.where(name: current).blank?
+			@menu = Menu.new(name: current)
+		else
+			@menu = Menu.new
+		end
   end
 
   # GET /menus/1
@@ -28,7 +34,7 @@ class MenusController < ApplicationController
 
     respond_to do |format|
       if @menu.save
-        format.html { redirect_to @menu, notice: 'Menu was successfully created.' }
+        format.html { redirect_to menus_url, notice: 'Menu was successfully created.' }
         format.json { render :show, status: :created, location: @menu }
       else
         format.html { render :new }
