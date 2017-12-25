@@ -1,4 +1,5 @@
 class Preference < ApplicationRecord
+	validates :name, presence: true
 
 	def self.to_hash
 		h = {}
