@@ -4,7 +4,11 @@ class TitlesController < ApplicationController
   # GET /titles
   # GET /titles.json
   def index
-    @titles = Title.all
+    @titles = Title.order(:name)
+		if params[:title] and params[:title][:name]
+			@titles = @titles.where("name like ?", ["#{params[:title][:name]}%", ])
+		end
+		@title = Title.new
   end
 
   # GET /titles/1
@@ -28,7 +32,7 @@ class TitlesController < ApplicationController
 
     respond_to do |format|
       if @title.save
-        format.html { redirect_to @title, notice: 'Title was successfully created.' }
+        format.html { redirect_to titles_url, notice: 'Title was successfully created.' }
         format.json { render :show, status: :created, location: @title }
       else
         format.html { render :new }
@@ -60,6 +64,12 @@ class TitlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+	# GET  /title/update_index.js
+	def update_index
+		logger.info 'params = %s' % [params]
+		@titles = Title.order('id DESC')
+	end
 
   private
     # Use callbacks to share common setup or constraints between actions.
