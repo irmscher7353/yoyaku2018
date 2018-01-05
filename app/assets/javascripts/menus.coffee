@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-@updateSubmitButtonStatus = (element, id) ->
-	document.getElementById(id).disabled =
-		if element.value is '' then "disabled" else ""
+@menus =
+	updateSubmitButtonStatus: (element, id) ->
+		document.getElementById(id).disabled =
+			if element.value is '' then "disabled" else ""
