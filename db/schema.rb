@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226112316) do
+ActiveRecord::Schema.define(version: 20180106110949) do
 
   create_table "menus", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20171226112316) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "menu_id"
+    t.bigint "title_id"
+    t.string "size"
+    t.integer "limit"
+    t.integer "remain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id"], name: "index_products_on_menu_id"
+    t.index ["title_id"], name: "index_products_on_title_id"
+  end
+
   create_table "titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "priority"
@@ -34,4 +46,6 @@ ActiveRecord::Schema.define(version: 20171226112316) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "products", "menus"
+  add_foreign_key "products", "titles"
 end
