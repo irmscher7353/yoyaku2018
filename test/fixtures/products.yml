@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  menu: one
+  title: one
+  size: MyString
+  limit: 1
+  remain: 1
+
+two:
+  menu: two
+  title: two
+  size: MyString
+  limit: 1
+  remain: 1

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   resources :titles do
 		collection do
 			get :update_index
