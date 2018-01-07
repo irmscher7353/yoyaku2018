@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180106110949) do
     t.bigint "menu_id"
     t.bigint "title_id"
     t.string "size"
+    t.integer "price"
     t.integer "limit"
     t.integer "remain"
     t.datetime "created_at", null: false

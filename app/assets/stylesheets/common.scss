@@ -2,6 +2,17 @@
 	display: none;
 }
 
+// Chrome, Safari
+input[type="number"].no-spin-button::-webkit-outer-spin-button,
+input[type="number"].no-spin-button::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+		margin: 0;
+}
+// Firefox, IE
+input[type="number"].no-spin-button {
+    -moz-appearance: textfield;
+}
+
 .numeric {
 	text-align: right;
 }

@@ -14,11 +14,15 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = Product.new(title_id: session[:title_id])
+		@menus = Menu.order("name DESC")
+		@titles = Title.order(:name)
   end
 
   # GET /products/1/edit
   def edit
+		@menus = Menu.order("name DESC")
+		@titles = Title.order(:name)
   end
 
   # POST /products
@@ -28,7 +32,8 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+				session[:title_id] = @product.title_id
+        format.html { redirect_to products_url, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -69,6 +74,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:menu_id, :title_id, :size, :limit, :remain)
+      params.require(:product).permit(:menu_id, :title_id, :size, :price, :limit, :remain)
     end
 end

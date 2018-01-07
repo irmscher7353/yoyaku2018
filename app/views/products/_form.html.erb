@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :menu_id %>
-    <%= form.text_field :menu_id, id: :product_menu_id %>
+    <%= form.collection_select :menu_id, @menus, :id, :name, id: :product_menu_id %>
   </div>
 
   <div class="field">
     <%= form.label :title_id %>
-    <%= form.text_field :title_id, id: :product_title_id %>
+    <%= form.collection_select :title_id, @titles, :id, :name, id: :product_title_id %>
   </div>
 
   <div class="field">
@@ -27,13 +27,22 @@
   </div>
 
   <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, id: :product_price,
+			min:  0, class: 'numeric no-spin-button' %>
+  </div>
+
+  <div class="field">
+		<%= form.hidden_field :limit, id: :old_limit, name: :old_limit %>
     <%= form.label :limit %>
-    <%= form.number_field :limit, id: :product_limit %>
+    <%= form.number_field :limit, id: :product_limit,
+			min: -1, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
     <%= form.label :remain %>
-    <%= form.number_field :remain, id: :product_remain %>
+    <%= form.number_field :remain, id: :product_remain,
+			min: -1, class: 'numeric no-spin-button', disabled: true %>
   </div>
 
   <div class="actions">
