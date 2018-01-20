@@ -4,7 +4,12 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+		session[:menu_id] = (params[:product] and params[:product][:menu_id] or (
+			session[:menu_id] or Menu.latest.id
+		))
+		@product = Product.new(menu_id: session[:menu_id])
+    @products = Product.where(menu_id: @product.menu_id)
+		@menus = Menu.ordered
   end
 
   # GET /products/1
@@ -15,13 +20,13 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new(title_id: session[:title_id])
-		@menus = Menu.order("name DESC")
+		@menus = Menu.ordered
 		@titles = Title.order(:name)
   end
 
   # GET /products/1/edit
   def edit
-		@menus = Menu.order("name DESC")
+		@menus = Menu.ordered
 		@titles = Title.order(:name)
   end
 
