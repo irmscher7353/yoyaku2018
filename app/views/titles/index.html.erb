@@ -24,7 +24,7 @@
 			</td>
 			<td >
 				<%= form.number_field :priority, min: 11, max: 99, step: 1,
-					size: 4, class: 'numeric' %>
+					size: 4, class: 'numeric no-spin-button' %>
 			</td>
 			<td colspan="3" >
 				<%= form.submit disabled: @title.name.blank?, id: :submit %>

@@ -13,10 +13,11 @@ input[type="number"].no-spin-button {
     -moz-appearance: textfield;
 }
 
+.center {
+	text-align: center;
+}
+
 .numeric {
 	text-align: right;
-}
-td.numeric {
-	padding-right: 2em;
 }
 

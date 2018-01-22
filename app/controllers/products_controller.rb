@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 			session[:menu_id] or Menu.latest.id
 		))
 		@product = Product.new(menu_id: session[:menu_id])
-    @products = Product.where(menu_id: @product.menu_id)
+    @products = Product.ordered(menu_id: @product.menu_id)
 		@menus = Menu.ordered
   end
 

@@ -18,4 +18,9 @@ class Product < ApplicationRecord
 		product.limit ||= -1
 		product.remain ||= -1
 	end
+
+	def self.ordered(*args)
+		where(*args).includes(:title).order("titles.priority, products.created_at")
+	end
+
 end
