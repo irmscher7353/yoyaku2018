@@ -4,12 +4,15 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-		session[:menu_id] = (params[:product] and params[:product][:menu_id] or (
-			session[:menu_id] or Menu.latest.id
-		))
-		@product = Product.new(menu_id: session[:menu_id])
-    @products = Product.ordered(menu_id: @product.menu_id)
 		@menus = Menu.ordered
+		@titles = Title.order(:name)
+		params[:product] ||= session[:product] || {menu_id: Menu.latest.id}
+		session[:product] = @product = Product.new(product_params)
+		@p_min, @p_max = Product.priority_range(@product.priority)
+		@products = Product.ordered(menu_id: @product.menu_id)
+		if @product.title_id.present?
+			@products = @products.where(title_id: @product.title_id)
+		end
   end
 
   # GET /products/1
@@ -79,6 +82,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:menu_id, :title_id, :size, :price, :limit, :remain)
+      params.require(:product).permit(:menu_id, :title_id, :size, :priority, :price, :limit, :remain)
     end
 end

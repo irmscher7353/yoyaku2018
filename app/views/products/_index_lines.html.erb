@@ -1,7 +1,7 @@
     <% products.each do |product| %>
       <tr>
         <td class="center" ><%= product.menu.name %></td>
-				<td class="numeric" ><%= product.title.priority %></td>
+				<td class="numeric" ><%= product.priority %></td>
         <td><%= product.title.name %></td>
         <td class="center" ><%= product.size %></td>
         <td class="numeric" ><%= number_with_delimiter(product.price, delimiter: ',') %></td>

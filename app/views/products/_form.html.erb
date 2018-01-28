@@ -17,6 +17,12 @@
   </div>
 
   <div class="field">
+    <%= form.label :priority %>
+    <%= form.number_field :priority, id: :product_priority,
+			min: 11, max: 99, class: 'numeric no-spin-button' %>
+  </div>
+
+  <div class="field">
     <%= form.label :title_id %>
     <%= form.collection_select :title_id, @titles, :id, :name, id: :product_title_id %>
   </div>

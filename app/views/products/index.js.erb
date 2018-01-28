@@ -1,2 +1,5 @@
 document.getElementById('index_tbody').innerHTML =
 	"<%= escape_javascript(render 'index_lines', products: @products) %>";
+var p = document.getElementById('product_priority');
+p.value = <%= @product.priority %>;
+p.min = <%= @p_min %>, p.max = <%= @p_max %>;

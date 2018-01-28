@@ -5,4 +5,4 @@
 @products =
 	updateLines: (element) ->
 		element.blur()
-		document.getElementById('submit').click()
+		document.getElementById('submit_update').click()
