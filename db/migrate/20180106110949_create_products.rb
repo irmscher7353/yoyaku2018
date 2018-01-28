@@ -4,6 +4,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.references :menu, foreign_key: true
       t.references :title, foreign_key: true
       t.string :size
+      t.integer :priority
       t.integer :price
       t.integer :limit
       t.integer :remain
