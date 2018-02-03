@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Products</h1>
+<% if @product.price.present? %>
+<%   @product.price = number_with_delimiter(@product.price) %>
+<% end %>
 
-<%= form_with(model: @product, method: :get, html: {autocomplete: :off}) do |form| %>
+<%= form_with(model: @product, html: { autocomplete: :off, } ) do |form| %>
 <table>
   <thead>
     <tr>
@@ -26,7 +29,7 @@
 			<td ><!-- Menu -->
 				<%= form.collection_select :menu_id, @menus, :id, :name,
 					{ selected: @product.menu.id, },
-					{ id: :product_menu_id, onChange: "products.updateLines(this);" } %>
+					{ id: :product_menu_id, onChange: "products.updateLines(this, 'submit');" } %>
 			</td>
 			<td ><!-- Priority -->
 				<%= form.number_field :priority, id: :product_priority,
@@ -35,15 +38,16 @@
 			<td ><!-- Title -->
 				<%= form.collection_select :title_id, @titles, :id, :name,
 					{ include_blank: true, },
-					{ id: :product_title_id, onChange: "products.updateLines(this);" } %>
+					{ id: :product_title_id, onChange: "products.updateLines(this, 'submit');" } %>
 			</td>
 			<td ><!-- Size -->
 				<%= form.text_field :size, id: :product_size,
 					class: 'center', size: 12 %>
 			</td>
 			<td ><!-- Price -->
-				<%= form.number_field :price, id: :product_price,
-					min:  0, class: 'numeric price no-spin-button' %>
+				<%= form.text_field :price, id: :product_price,
+					class: 'numeric price no-spin-button',
+					onChange: "products.updateButtonStatus(this, 'submit');" %>
 			</td>
 			<td ><!-- Limit -->
 				<%= form.number_field :limit, id: :product_limit,
@@ -55,6 +59,7 @@
 			</td>
 			<td colspan="3" >
 				<%= form.submit id: :submit_update, format: :js, class: :hidden %>
+				<%= form.submit id: :submit, disabled: (@product.title_id.blank? || @product.price.blank?) %>
 			</td>
 		</tr>
 	</tfoot>

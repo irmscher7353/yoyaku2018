@@ -1,3 +1,6 @@
+<% if @product.price.present? %>
+<%   @product.price = number_with_delimiter(@product.price) %>
+<% end %>
 <%= form_with(model: product, local: true) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
@@ -34,8 +37,9 @@
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.number_field :price, id: :product_price,
-			min:  0, class: 'numeric no-spin-button' %>
+    <%= form.text_field :price, id: :product_price,
+			onChange: "products.updatePrice(this);",
+			class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">

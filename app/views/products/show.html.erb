@@ -7,7 +7,7 @@
 
 <p>
   <strong>Priority:</strong>
-  <%= @product.Priority %>
+  <%= @product.priority %>
 </p>
 
 <p>
@@ -22,7 +22,7 @@
 
 <p>
   <strong>Price:</strong>
-  <%= @product.price %>
+  <%= number_with_delimiter(@product.price) %>
 </p>
 
 <p>
