@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 	#validates :size, presence: true
 	validates :priority, numericality: {
 		only_integer: true, 
-		greater_than_or_equal_to: 11, less_than_or_equal_to: 99,
+		greater_than_or_equal_to: 101, less_than_or_equal_to: 999,
 	}
 	validates :price, numericality: {
 		only_integer: true, greater_than: 0,
@@ -18,9 +18,9 @@ class Product < ApplicationRecord
 	after_initialize do |product|
 		product.menu ||= Menu.latest
 		if product.title.present?
-			p = product.title.priority
+			p = (product.title.products.where(menu: product.menu).maximum(:priority) || product.title.priority) + 1
 			if product.priority.present?
-				p_min, p_max = Product.priority_range(p)
+				p_min, p_max = Product.priority_range(product.title.priority)
 				if product.priority < p_min or p_max < product.priority
 					product.priority = p
 				end
@@ -28,7 +28,7 @@ class Product < ApplicationRecord
 				product.priority = p
 			end
 		else
-			product.priority ||= 55
+			product.priority ||= 501
 		end
 		product.size ||= ''
 		product.price ||= 0
@@ -37,14 +37,14 @@ class Product < ApplicationRecord
 	end
 
 	def self.ordered(*args)
-		where(*args).order("priority, created_at")
+		where(*args).order("priority")
 	end
 
 	private
 
 	def self.priority_range(p)
-		p_base = p.div(10)*10
-		p_min, p_max = p_base + 1, p_base + 9
+		p_base = p.div(100)*100
+		p_min, p_max = p_base + 1, p_base + 99
 	end
 
 
