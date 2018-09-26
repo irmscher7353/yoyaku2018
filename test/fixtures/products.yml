@@ -1,15 +1,1824 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+r1:
+  id: 1
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 2700
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
 
-one:
-  menu: one
-  title: one
-  size: MyString
-  limit: 1
-  remain: 1
+r2:
+  id: 2
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3400
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
 
-two:
-  menu: two
-  title: two
-  size: MyString
-  limit: 1
+r3:
+  id: 3
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4300
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r4:
+  id: 4
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r5:
+  id: 5
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "10号"
+  priority: 110
+  price: 12600
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r6:
+  id: 6
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 2700
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r7:
+  id: 7
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3400
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r8:
+  id: 8
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4300
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r9:
+  id: 9
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r10:
+  id: 10
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "10号"
+  priority: 210
+  price: 12600
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r11:
+  id: 11
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'ティラミスタルト').first.id %>
+  size: "5号"
+  priority: 501
+  price: 2700
+  limit: 100
+  remain: 81
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r12:
+  id: 12
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルデコレーション').first.id %>
+  size: "6号"
+  priority: 502
+  price: 3800
+  limit: 200
+  remain: 121
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r13:
+  id: 13
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'ツインデコ').first.id %>
+  size: "4号"
+  priority: 503
+  price: 3800
+  limit: 180
+  remain: 136
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r14:
+  id: 14
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごとチョコのハーフ').first.id %>
+  size: "6号"
+  priority: 504
+  price: 3800
+  limit: 300
+  remain: 210
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r15:
+  id: 15
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'ビッシュ・ド・ノエル キャラメル').first.id %>
+  size: ""
+  priority: 505
+  price: 3150
+  limit: 100
+  remain: 83
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r16:
+  id: 16
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'タルトフレーズ').first.id %>
+  size: "5号"
+  priority: 506
+  price: 3150
+  limit: 210
+  remain: 178
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r17:
+  id: 17
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チーズタルト').first.id %>
+  size: "6号"
+  priority: 507
+  price: 2800
+  limit: 100
+  remain: 89
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r18:
+  id: 18
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'フォンダンショコラ').first.id %>
+  size: "6号"
+  priority: 508
+  price: 3150
+  limit: 100
+  remain: 69
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r19:
+  id: 19
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマス・シフォン').first.id %>
+  size: "5号"
+  priority: 509
+  price: 2300
+  limit: 100
+  remain: 79
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r20:
+  id: 20
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマス・レインボー').first.id %>
+  size: "6号サイズ"
+  priority: 510
+  price: 2800
+  limit: 100
+  remain: 7
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r21:
+  id: 21
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'ピザ').first.id %>
+  size: ""
+  priority: 801
+  price: 1680
+  limit: 100
+  remain: 93
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r22:
+  id: 22
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'キッシュ').first.id %>
+  size: ""
+  priority: 802
+  price: 1890
+  limit: 100
+  remain: 96
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r23:
+  id: 23
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'フライドチキン').first.id %>
+  size: "3P"
+  priority: 803
+  price: 500
+  limit: 100
+  remain: 89
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r24:
+  id: 24
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'フライドチキン').first.id %>
+  size: "5P"
+  priority: 804
+  price: 800
+  limit: 100
+  remain: 86
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r25:
+  id: 25
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "(1本)"
+  priority: 805
+  price: 500
+  limit: 100
+  remain: 100
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r26:
+  id: 26
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r27:
+  id: 27
+  menu_id: <%= Menu.where(name: '2011-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r28:
+  id: 28
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 2800
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r29:
+  id: 29
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r30:
+  id: 30
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r31:
+  id: 31
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r32:
+  id: 32
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 2800
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r33:
+  id: 33
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r34:
+  id: 34
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "7号 "
+  priority: 207
+  price: 4500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r35:
+  id: 35
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r36:
+  id: 36
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごタルト').first.id %>
+  size: "5号"
+  priority: 501
+  price: 3150
+  limit: 100
+  remain: 5
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r37:
+  id: 37
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごとチョコのハーフ').first.id %>
+  size: "6号"
+  priority: 502
+  price: 3800
+  limit: 300
   remain: 1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r38:
+  id: 38
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマス・レインボー').first.id %>
+  size: "7種類"
+  priority: 503
+  price: 3000
+  limit: 100
+  remain: 0
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r39:
+  id: 39
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'ビッシュドノエル ショコラ').first.id %>
+  size: "約21cm"
+  priority: 504
+  price: 3150
+  limit: 100
+  remain: 17
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r40:
+  id: 40
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルいちご').first.id %>
+  size: "6号"
+  priority: 505
+  price: 4200
+  limit: 100
+  remain: 5
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r41:
+  id: 41
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'ガトーショコラ').first.id %>
+  size: "5号"
+  priority: 506
+  price: 2500
+  limit: 100
+  remain: 100
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r42:
+  id: 42
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'スフレチーズドーム').first.id %>
+  size: "6号"
+  priority: 507
+  price: 2600
+  limit: 100
+  remain: 68
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r43:
+  id: 43
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごシフォン').first.id %>
+  size: "約17cm"
+  priority: 508
+  price: 2300
+  limit: 100
+  remain: 46
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r44:
+  id: 44
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r45:
+  id: 45
+  menu_id: <%= Menu.where(name: '2012-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r46:
+  id: 46
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 2800
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r47:
+  id: 47
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r48:
+  id: 48
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r49:
+  id: 49
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごデコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:48:52 +0900
+  updated_at: 2013-11-29 20:48:52 +0900
+
+r50:
+  id: 50
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 2800
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r51:
+  id: 51
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r52:
+  id: 52
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r53:
+  id: 53
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6500
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:49:06 +0900
+  updated_at: 2013-11-29 20:49:06 +0900
+
+r54:
+  id: 54
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごとチョコのハーフ').first.id %>
+  size: "6号"
+  priority: 501
+  price: 3800
+  limit: 300
+  remain: 46
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r55:
+  id: 55
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマス・レインボー').first.id %>
+  size: "7種（約18cm）"
+  priority: 502
+  price: 3000
+  limit: 200
+  remain: 64
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r56:
+  id: 56
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'サンタデコ').first.id %>
+  size: "約17cm"
+  priority: 503
+  price: 3200
+  limit: 100
+  remain: 31
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r57:
+  id: 57
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルデコ').first.id %>
+  size: "6号"
+  priority: 504
+  price: 4200
+  limit: 100
+  remain: 45
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r58:
+  id: 58
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: '赤い実のタルト').first.id %>
+  size: "5号"
+  priority: 505
+  price: 3150
+  limit: 100
+  remain: 0
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r59:
+  id: 59
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'トナカイデコ').first.id %>
+  size: "約16cm"
+  priority: 506
+  price: 3200
+  limit: 100
+  remain: 0
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r60:
+  id: 60
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: '苺シフォンケーキ').first.id %>
+  size: "約17cm"
+  priority: 507
+  price: 2500
+  limit: 100
+  remain: 61
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r61:
+  id: 61
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'タルトデコレーション').first.id %>
+  size: "5号"
+  priority: 508
+  price: 3500
+  limit: 100
+  remain: 66
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r62:
+  id: 62
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'ミックスピザ').first.id %>
+  size: "約28cm"
+  priority: 801
+  price: 1200
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r63:
+  id: 63
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "(1本)"
+  priority: 802
+  price: 450
+  limit: 200
+  remain: 57
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r64:
+  id: 64
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r65:
+  id: 65
+  menu_id: <%= Menu.where(name: '2013-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2013-11-29 20:25:45 +0900
+  updated_at: 2013-11-29 20:25:45 +0900
+
+r66:
+  id: 66
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴデコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 3000
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:33:55 +0900
+  updated_at: 2014-11-05 22:33:55 +0900
+
+r67:
+  id: 67
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴデコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:34:09 +0900
+  updated_at: 2014-11-05 22:34:09 +0900
+
+r68:
+  id: 68
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴデコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:34:17 +0900
+  updated_at: 2014-11-05 22:34:17 +0900
+
+r69:
+  id: 69
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 3000
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:34:25 +0900
+  updated_at: 2014-11-05 22:34:25 +0900
+
+r70:
+  id: 70
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:34:34 +0900
+  updated_at: 2014-11-05 22:34:34 +0900
+
+r71:
+  id: 71
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコデコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:34:43 +0900
+  updated_at: 2014-11-05 22:34:43 +0900
+
+r72:
+  id: 72
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴとチョコのハーフ').first.id %>
+  size: "6号"
+  priority: 501
+  price: 3900
+  limit: 300
+  remain: 0
+  created_at: 2014-11-05 22:34:58 +0900
+  updated_at: 2014-11-05 22:34:58 +0900
+
+r73:
+  id: 73
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'ミルクレープ').first.id %>
+  size: "約18cm"
+  priority: 502
+  price: 3600
+  limit: 100
+  remain: 69
+  created_at: 2014-11-05 22:35:10 +0900
+  updated_at: 2014-11-05 22:35:10 +0900
+
+r74:
+  id: 74
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルデコレーション').first.id %>
+  size: "6号"
+  priority: 503
+  price: 4300
+  limit: 100
+  remain: 41
+  created_at: 2014-11-05 22:35:22 +0900
+  updated_at: 2014-11-05 22:35:22 +0900
+
+r75:
+  id: 75
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごのタルト').first.id %>
+  size: "5号"
+  priority: 504
+  price: 3500
+  limit: 100
+  remain: 0
+  created_at: 2014-11-05 22:35:32 +0900
+  updated_at: 2014-11-05 22:35:32 +0900
+
+r76:
+  id: 76
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'ビッシュフレーズ').first.id %>
+  size: "約21cm"
+  priority: 505
+  price: 3800
+  limit: 100
+  remain: 72
+  created_at: 2014-11-05 22:35:41 +0900
+  updated_at: 2014-11-05 22:35:41 +0900
+
+r77:
+  id: 77
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマスアソート').first.id %>
+  size: "5種(約18cm)"
+  priority: 506
+  price: 3900
+  limit: 100
+  remain: 13
+  created_at: 2014-11-05 22:35:50 +0900
+  updated_at: 2014-11-05 22:35:50 +0900
+
+r78:
+  id: 78
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: '苺シフォンケーキ').first.id %>
+  size: "約17cm"
+  priority: 507
+  price: 2800
+  limit: 100
+  remain: 67
+  created_at: 2014-11-05 22:36:00 +0900
+  updated_at: 2014-11-05 22:36:00 +0900
+
+r79:
+  id: 79
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'トナカイデコ(生チョコ)').first.id %>
+  size: "約16cm"
+  priority: 508
+  price: 3600
+  limit: 100
+  remain: 0
+  created_at: 2014-11-05 22:36:15 +0900
+  updated_at: 2014-11-05 22:36:15 +0900
+
+r80:
+  id: 80
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'ミックスピザ').first.id %>
+  size: "約28cm"
+  priority: 801
+  price: 1200
+  limit: -1
+  remain: -1
+  created_at: 2014-11-05 22:36:30 +0900
+  updated_at: 2014-11-05 22:36:30 +0900
+
+r81:
+  id: 81
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "1本"
+  priority: 802
+  price: 500
+  limit: 200
+  remain: 107
+  created_at: 2014-11-05 22:37:00 +0900
+  updated_at: 2014-11-05 22:37:00 +0900
+
+r82:
+  id: 82
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2014-12-21 10:45:32 +0900
+  updated_at: 2014-12-21 10:45:32 +0900
+
+r83:
+  id: 83
+  menu_id: <%= Menu.where(name: '2014-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2014-12-21 10:46:06 +0900
+  updated_at: 2014-12-21 10:46:06 +0900
+
+r84:
+  id: 84
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:54:24 +0900
+  updated_at: 2015-11-06 20:54:24 +0900
+
+r85:
+  id: 85
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:54:39 +0900
+  updated_at: 2015-11-06 20:54:39 +0900
+
+r86:
+  id: 86
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:54:50 +0900
+  updated_at: 2015-11-06 20:54:50 +0900
+
+r87:
+  id: 87
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:55:10 +0900
+  updated_at: 2015-11-06 20:55:10 +0900
+
+r88:
+  id: 88
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:55:21 +0900
+  updated_at: 2015-11-06 20:55:21 +0900
+
+r89:
+  id: 89
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 20:55:33 +0900
+  updated_at: 2015-11-06 20:55:33 +0900
+
+r90:
+  id: 90
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴとチョコのハーフ').first.id %>
+  size: "6号"
+  priority: 501
+  price: 4100
+  limit: 300
+  remain: 112
+  created_at: 2015-11-06 20:55:47 +0900
+  updated_at: 2015-11-06 20:55:47 +0900
+
+r91:
+  id: 91
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマスパリブレスト').first.id %>
+  size: "約18cm"
+  priority: 502
+  price: 3500
+  limit: 100
+  remain: 82
+  created_at: 2015-11-06 20:56:02 +0900
+  updated_at: 2015-11-06 20:56:02 +0900
+
+r92:
+  id: 92
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルデコレーション').first.id %>
+  size: "6号"
+  priority: 503
+  price: 4300
+  limit: 100
+  remain: 10
+  created_at: 2015-11-06 20:56:16 +0900
+  updated_at: 2015-11-06 20:56:16 +0900
+
+r93:
+  id: 93
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'ミルフィーユ').first.id %>
+  size: "約18cm"
+  priority: 504
+  price: 3800
+  limit: 100
+  remain: 23
+  created_at: 2015-11-06 20:56:31 +0900
+  updated_at: 2015-11-06 20:56:31 +0900
+
+r94:
+  id: 94
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'トリプルノエル').first.id %>
+  size: "約21cm"
+  priority: 505
+  price: 3800
+  limit: 70
+  remain: 0
+  created_at: 2015-11-06 20:56:44 +0900
+  updated_at: 2015-11-06 20:56:44 +0900
+
+r95:
+  id: 95
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'くまサンタ').first.id %>
+  size: "約16cm"
+  priority: 506
+  price: 3600
+  limit: 100
+  remain: 13
+  created_at: 2015-11-06 20:56:57 +0900
+  updated_at: 2015-11-06 20:56:57 +0900
+
+r96:
+  id: 96
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマスモンブラン').first.id %>
+  size: "約15cm"
+  priority: 507
+  price: 3600
+  limit: 100
+  remain: 72
+  created_at: 2015-11-06 20:57:11 +0900
+  updated_at: 2015-11-06 20:57:11 +0900
+
+r97:
+  id: 97
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごのタルト').first.id %>
+  size: "約15cm"
+  priority: 508
+  price: 3500
+  limit: 100
+  remain: 1
+  created_at: 2015-11-06 20:57:27 +0900
+  updated_at: 2015-11-06 20:57:27 +0900
+
+r98:
+  id: 98
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'トナカイデコ').first.id %>
+  size: "約16cm"
+  priority: 509
+  price: 3800
+  limit: 100
+  remain: 0
+  created_at: 2015-11-06 20:58:28 +0900
+  updated_at: 2015-11-06 20:58:28 +0900
+
+r99:
+  id: 99
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "1本"
+  priority: 802
+  price: 540
+  limit: 75
+  remain: 0
+  created_at: 2015-11-06 21:01:55 +0900
+  updated_at: 2015-11-06 21:01:55 +0900
+
+r100:
+  id: 100
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 21:02:07 +0900
+  updated_at: 2015-11-06 21:02:07 +0900
+
+r101:
+  id: 101
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 21:02:22 +0900
+  updated_at: 2015-11-06 21:02:22 +0900
+
+r102:
+  id: 102
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'ミックスピザ').first.id %>
+  size: "約28cm"
+  priority: 801
+  price: 1200
+  limit: -1
+  remain: -1
+  created_at: 2015-11-06 21:02:47 +0900
+  updated_at: 2015-11-06 21:02:47 +0900
+
+r103:
+  id: 103
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2015-12-03 21:16:02 +0900
+  updated_at: 2015-12-03 21:16:02 +0900
+
+r104:
+  id: 104
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "10号"
+  priority: 110
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2015-12-03 21:16:25 +0900
+  updated_at: 2015-12-03 21:16:25 +0900
+
+r105:
+  id: 105
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2015-12-03 21:16:39 +0900
+  updated_at: 2015-12-03 21:16:39 +0900
+
+r106:
+  id: 106
+  menu_id: <%= Menu.where(name: '2015-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "10号"
+  priority: 210
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2015-12-03 21:16:54 +0900
+  updated_at: 2015-12-03 21:16:54 +0900
+
+r107:
+  id: 107
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:19:34 +0900
+  updated_at: 2016-12-10 20:19:34 +0900
+
+r108:
+  id: 108
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:19:58 +0900
+  updated_at: 2016-12-10 20:19:58 +0900
+
+r109:
+  id: 109
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:20:17 +0900
+  updated_at: 2016-12-10 20:20:17 +0900
+
+r110:
+  id: 110
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:21:00 +0900
+  updated_at: 2016-12-10 20:21:00 +0900
+
+r111:
+  id: 111
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "10号"
+  priority: 110
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:21:10 +0900
+  updated_at: 2016-12-10 20:21:10 +0900
+
+r112:
+  id: 112
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:21:43 +0900
+  updated_at: 2016-12-10 20:21:43 +0900
+
+r113:
+  id: 113
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:21:53 +0900
+  updated_at: 2016-12-10 20:21:53 +0900
+
+r114:
+  id: 114
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:22:04 +0900
+  updated_at: 2016-12-10 20:22:04 +0900
+
+r115:
+  id: 115
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:22:13 +0900
+  updated_at: 2016-12-10 20:22:13 +0900
+
+r116:
+  id: 116
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "10号"
+  priority: 210
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:22:23 +0900
+  updated_at: 2016-12-10 20:22:23 +0900
+
+r117:
+  id: 117
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'イチゴとチョコのハーフ').first.id %>
+  size: "6号(約18cm)"
+  priority: 501
+  price: 4300
+  limit: 200
+  remain: 2
+  created_at: 2016-12-10 20:22:37 +0900
+  updated_at: 2016-12-10 20:22:37 +0900
+
+r118:
+  id: 118
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごのタルト').first.id %>
+  size: "約15cm"
+  priority: 502
+  price: 3500
+  limit: 100
+  remain: 0
+  created_at: 2016-12-10 20:22:48 +0900
+  updated_at: 2016-12-10 20:22:48 +0900
+
+r119:
+  id: 119
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'ティラミスタルト').first.id %>
+  size: "約15cm"
+  priority: 503
+  price: 2800
+  limit: 100
+  remain: 51
+  created_at: 2016-12-10 20:22:57 +0900
+  updated_at: 2016-12-10 20:22:57 +0900
+
+r120:
+  id: 120
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルいちご').first.id %>
+  size: "6号(約18cm)"
+  priority: 504
+  price: 4300
+  limit: 100
+  remain: 16
+  created_at: 2016-12-10 20:23:08 +0900
+  updated_at: 2016-12-10 20:23:08 +0900
+
+r121:
+  id: 121
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'ガトーショコラ').first.id %>
+  size: "約18cm"
+  priority: 505
+  price: 3000
+  limit: 100
+  remain: 38
+  created_at: 2016-12-10 20:23:19 +0900
+  updated_at: 2016-12-10 20:23:19 +0900
+
+r122:
+  id: 122
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'スフレチーズケーキ').first.id %>
+  size: "約18cm"
+  priority: 506
+  price: 3000
+  limit: 100
+  remain: 39
+  created_at: 2016-12-10 20:23:29 +0900
+  updated_at: 2016-12-10 20:23:29 +0900
+
+r123:
+  id: 123
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: '和栗のビッシュドノエル').first.id %>
+  size: "約21cm"
+  priority: 507
+  price: 3600
+  limit: 100
+  remain: 20
+  created_at: 2016-12-10 20:23:39 +0900
+  updated_at: 2016-12-10 20:23:39 +0900
+
+r124:
+  id: 124
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'くまサンタ(苺と生クリーム)').first.id %>
+  size: "約16cm"
+  priority: 508
+  price: 3600
+  limit: 100
+  remain: 0
+  created_at: 2016-12-10 20:23:48 +0900
+  updated_at: 2016-12-10 20:23:48 +0900
+
+r125:
+  id: 125
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'トナカイデコ(生チョコ)').first.id %>
+  size: "約16cm"
+  priority: 509
+  price: 3800
+  limit: 100
+  remain: 7
+  created_at: 2016-12-10 20:23:58 +0900
+  updated_at: 2016-12-10 20:23:58 +0900
+
+r126:
+  id: 126
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'ミックスピザ').first.id %>
+  size: "約28cm"
+  priority: 801
+  price: 1280
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:24:35 +0900
+  updated_at: 2016-12-10 20:24:35 +0900
+
+r127:
+  id: 127
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "1本"
+  priority: 802
+  price: 540
+  limit: 200
+  remain: 124
+  created_at: 2016-12-10 20:24:48 +0900
+  updated_at: 2016-12-10 20:24:48 +0900
+
+r128:
+  id: 128
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:25:01 +0900
+  updated_at: 2016-12-10 20:25:01 +0900
+
+r129:
+  id: 129
+  menu_id: <%= Menu.where(name: '2016-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2016-12-10 20:25:13 +0900
+  updated_at: 2016-12-10 20:25:13 +0900
+
+r130:
+  id: 130
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "5号"
+  priority: 105
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:13:36 +0900
+  updated_at: 2017-10-28 21:13:36 +0900
+
+r131:
+  id: 131
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "6号"
+  priority: 106
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:13:54 +0900
+  updated_at: 2017-10-28 21:13:54 +0900
+
+r132:
+  id: 132
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "7号"
+  priority: 107
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:14:15 +0900
+  updated_at: 2017-10-28 21:14:15 +0900
+
+r133:
+  id: 133
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "8号"
+  priority: 108
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:14:26 +0900
+  updated_at: 2017-10-28 21:14:26 +0900
+
+r134:
+  id: 134
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちご生デコレーション').first.id %>
+  size: "10号"
+  priority: 110
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:14:36 +0900
+  updated_at: 2017-10-28 21:14:36 +0900
+
+r135:
+  id: 135
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "5号"
+  priority: 205
+  price: 3200
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:14:46 +0900
+  updated_at: 2017-10-28 21:14:46 +0900
+
+r136:
+  id: 136
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "6号"
+  priority: 206
+  price: 3800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:14:58 +0900
+  updated_at: 2017-10-28 21:14:58 +0900
+
+r137:
+  id: 137
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "7号"
+  priority: 207
+  price: 4800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:15:08 +0900
+  updated_at: 2017-10-28 21:15:08 +0900
+
+r138:
+  id: 138
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "8号"
+  priority: 208
+  price: 6800
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:15:20 +0900
+  updated_at: 2017-10-28 21:15:20 +0900
+
+r139:
+  id: 139
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコ生デコレーション').first.id %>
+  size: "10号"
+  priority: 210
+  price: 13300
+  limit: -1
+  remain: -1
+  created_at: 2017-10-28 21:15:33 +0900
+  updated_at: 2017-10-28 21:15:33 +0900
+
+r140:
+  id: 140
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'クリスマスレインボー').first.id %>
+  size: "6号（約18cm）"
+  priority: 501
+  price: 4500
+  limit: 100
+  remain: 35
+  created_at: 2017-10-28 21:17:33 +0900
+  updated_at: 2017-10-28 21:17:33 +0900
+
+r141:
+  id: 141
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: '木いちごチョコ').first.id %>
+  size: "約16.5×16cm"
+  priority: 502
+  price: 3500
+  limit: 50
+  remain: 0
+  created_at: 2017-10-28 21:19:07 +0900
+  updated_at: 2017-10-28 21:19:07 +0900
+
+r142:
+  id: 142
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'スペシャルデコレーション').first.id %>
+  size: "約18cm"
+  priority: 503
+  price: 4500
+  limit: 100
+  remain: 67
+  created_at: 2017-10-28 21:20:09 +0900
+  updated_at: 2017-10-28 21:20:09 +0900
+
+r143:
+  id: 143
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごとチョコのハーフ').first.id %>
+  size: "約18cm"
+  priority: 504
+  price: 4300
+  limit: 200
+  remain: 0
+  created_at: 2017-10-28 21:21:15 +0900
+  updated_at: 2017-10-28 21:21:15 +0900
+
+r144:
+  id: 144
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'キャラメルノア').first.id %>
+  size: "約16.5×16cm"
+  priority: 505
+  price: 3500
+  limit: 50
+  remain: 23
+  created_at: 2017-10-28 21:22:37 +0900
+  updated_at: 2017-10-28 21:22:37 +0900
+
+r145:
+  id: 145
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごとチョコのツインデコ').first.id %>
+  size: "約12cm×2台"
+  priority: 506
+  price: 4500
+  limit: 100
+  remain: 5
+  created_at: 2017-10-28 21:24:23 +0900
+  updated_at: 2017-10-28 21:24:23 +0900
+
+r146:
+  id: 146
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'ガトーショコラ').first.id %>
+  size: "約18cm"
+  priority: 507
+  price: 3000
+  limit: 100
+  remain: 38
+  created_at: 2017-10-28 21:25:02 +0900
+  updated_at: 2017-10-28 21:25:02 +0900
+
+r147:
+  id: 147
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'いちごタルト').first.id %>
+  size: "約16cm"
+  priority: 508
+  price: 3500
+  limit: 101
+  remain: 0
+  created_at: 2017-10-28 21:26:44 +0900
+  updated_at: 2017-10-28 21:26:44 +0900
+
+r148:
+  id: 148
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'トナカイデコ(生チョコ)').first.id %>
+  size: "約16cm"
+  priority: 509
+  price: 3800
+  limit: 100
+  remain: 7
+  created_at: 2017-10-28 21:27:50 +0900
+  updated_at: 2017-10-28 21:27:50 +0900
+
+r149:
+  id: 149
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'ミックスピザ').first.id %>
+  size: "約28cm"
+  priority: 801
+  price: 1280
+  limit: -1
+  remain: -1
+  created_at: 2017-12-02 20:00:46 +0900
+  updated_at: 2017-12-02 20:00:46 +0900
+
+r150:
+  id: 150
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'スモークターキー').first.id %>
+  size: "1本"
+  priority: 802
+  price: 540
+  limit: 200
+  remain: 124
+  created_at: 2017-12-02 20:01:06 +0900
+  updated_at: 2017-12-02 20:01:06 +0900
+
+r151:
+  id: 151
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'チョコプレート').first.id %>
+  size: ""
+  priority: 901
+  price: 108
+  limit: -1
+  remain: -1
+  created_at: 2017-12-02 21:08:21 +0900
+  updated_at: 2017-12-02 21:08:21 +0900
+
+r152:
+  id: 152
+  menu_id: <%= Menu.where(name: '2017-12').first.id %>
+  title_id: <%= Title.where(name: 'シャンメリー').first.id %>
+  size: ""
+  priority: 902
+  price: 280
+  limit: -1
+  remain: -1
+  created_at: 2017-12-02 21:08:47 +0900
+  updated_at: 2017-12-02 21:08:47 +0900
+

@@ -1,13 +1,529 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+いちごデコレーション:
+  id: 1
+  name: いちごデコレーション
+  priority: 100
+  description: |-
+    ふわふわスポンジに真っ白いクリームと真っ赤ないちご。
+    みんな大好きいちごのケーキ。
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2014-11-05 22:04:25 +0900
 
-one:
-  name: MyString
-  priority: 1
-  description: MyText
-  image_url: MyString
+チョコデコレーション:
+  id: 2
+  name: チョコデコレーション
+  priority: 200
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2015-11-06 20:19:20 +0900
 
-two:
-  name: MyString
-  priority: 1
-  description: MyText
-  image_url: MyString
+ティラミスタルト:
+  id: 3
+  name: ティラミスタルト
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2017-10-28 21:06:07 +0900
+
+いちごタルト:
+  id: 4
+  name: いちごタルト
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2017-10-28 21:27:33 +0900
+
+スペシャルデコレーション:
+  id: 5
+  name: スペシャルデコレーション
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2017-10-28 21:01:48 +0900
+
+ツインデコ:
+  id: 6
+  name: ツインデコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2012-11-01 20:20:26 +0900
+
+ビッシュドノエル いちご:
+  id: 7
+  name: ビッシュドノエル いちご
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-11-06 12:07:43 +0900
+
+ビッシュドノエル キャラメルポワール:
+  id: 8
+  name: ビッシュドノエル キャラメルポワール
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-11-06 12:07:43 +0900
+
+モンブラン:
+  id: 9
+  name: モンブラン
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-11-06 12:07:43 +0900
+
+スフレ ショコラ:
+  id: 10
+  name: スフレ ショコラ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-11-06 12:07:43 +0900
+
+ピッツア:
+  id: 11
+  name: ピッツア
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-11-06 12:07:43 +0900
+
+チキン:
+  id: 12
+  name: チキン
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-10-12 23:34:12 +0900
+  updated_at: 2011-10-21 00:44:10 +0900
+
+いちごとチョコのハーフ:
+  id: 13
+  name: いちごとチョコのハーフ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2017-10-28 21:02:29 +0900
+
+ビッシュ・ド・ノエル キャラメル:
+  id: 14
+  name: ビッシュ・ド・ノエル キャラメル
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:20:55 +0900
+
+タルトフレーズ:
+  id: 15
+  name: タルトフレーズ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:21:20 +0900
+
+チーズタルト:
+  id: 16
+  name: チーズタルト
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:21:37 +0900
+
+フォンダンショコラ:
+  id: 17
+  name: フォンダンショコラ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:21:53 +0900
+
+クリスマス・シフォン:
+  id: 18
+  name: クリスマス・シフォン
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:22:09 +0900
+
+クリスマス・レインボー:
+  id: 19
+  name: クリスマス・レインボー
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2014-11-05 21:58:55 +0900
+
+ピザ:
+  id: 20
+  name: ピザ
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:52:30 +0900
+
+キッシュ:
+  id: 21
+  name: キッシュ
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-01 20:52:39 +0900
+
+フライドチキン:
+  id: 22
+  name: フライドチキン
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-10-21 00:35:59 +0900
+  updated_at: 2012-11-03 20:18:26 +0900
+
+スモークターキー:
+  id: 23
+  name: スモークターキー
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2011-11-06 21:34:12 +0900
+  updated_at: 2013-11-02 16:14:36 +0900
+
+チョコプレート:
+  id: 24
+  name: チョコプレート
+  priority: 900
+  description: |-
+  image_url: 
+  created_at: 2011-11-11 20:58:12 +0900
+  updated_at: 2012-11-03 20:06:12 +0900
+
+シャンメリー:
+  id: 25
+  name: シャンメリー
+  priority: 900
+  description: |-
+  image_url: 
+  created_at: 2011-11-11 21:06:43 +0900
+  updated_at: 2012-11-03 20:06:24 +0900
+
+いちご生デコレーション:
+  id: 26
+  name: いちご生デコレーション
+  priority: 100
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:18:19 +0900
+  updated_at: 2015-11-06 20:18:46 +0900
+
+チョコ生デコレーション:
+  id: 27
+  name: チョコ生デコレーション
+  priority: 200
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:18:55 +0900
+  updated_at: 2015-11-06 20:19:08 +0900
+
+ビッシュドノエル ショコラ:
+  id: 28
+  name: ビッシュドノエル ショコラ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:23:29 +0900
+  updated_at: 2013-11-02 16:05:19 +0900
+
+スペシャルいちご:
+  id: 29
+  name: スペシャルいちご
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:25:42 +0900
+  updated_at: 2017-10-28 21:08:42 +0900
+
+ガトーショコラ:
+  id: 30
+  name: ガトーショコラ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:26:38 +0900
+  updated_at: 2017-10-28 21:25:45 +0900
+
+スフレチーズドーム:
+  id: 31
+  name: スフレチーズドーム
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:27:25 +0900
+  updated_at: 2013-11-02 16:05:57 +0900
+
+いちごシフォン:
+  id: 32
+  name: いちごシフォン
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2012-11-01 20:28:07 +0900
+  updated_at: 2013-11-02 16:06:10 +0900
+
+サンタデコ:
+  id: 33
+  name: サンタデコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:45:25 +0900
+  updated_at: 2014-11-05 22:03:44 +0900
+
+スペシャルデコ:
+  id: 34
+  name: スペシャルデコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:49:42 +0900
+  updated_at: 2014-11-05 22:06:06 +0900
+
+赤い実のタルト:
+  id: 35
+  name: 赤い実のタルト
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:51:45 +0900
+  updated_at: 2014-11-05 22:06:18 +0900
+
+トナカイデコ:
+  id: 36
+  name: トナカイデコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:52:43 +0900
+  updated_at: 2016-10-28 20:42:53 +0900
+
+苺シフォンケーキ:
+  id: 37
+  name: 苺シフォンケーキ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:56:59 +0900
+  updated_at: 2015-11-06 20:25:41 +0900
+
+タルトデコレーション:
+  id: 38
+  name: タルトデコレーション
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 15:59:49 +0900
+  updated_at: 2014-11-05 22:10:45 +0900
+
+ミックスピザ:
+  id: 39
+  name: ミックスピザ
+  priority: 800
+  description: |-
+  image_url: 
+  created_at: 2013-11-02 16:08:54 +0900
+  updated_at: 2013-11-02 16:08:54 +0900
+
+イチゴデコレーション:
+  id: 40
+  name: イチゴデコレーション
+  priority: 100
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 21:57:12 +0900
+  updated_at: 2015-11-06 20:25:04 +0900
+
+イチゴとチョコのハーフ:
+  id: 41
+  name: イチゴとチョコのハーフ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 21:58:11 +0900
+  updated_at: 2017-10-28 21:08:02 +0900
+
+ミルクレープ:
+  id: 42
+  name: ミルクレープ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 21:59:48 +0900
+  updated_at: 2015-11-06 20:26:19 +0900
+
+いちごのタルト:
+  id: 43
+  name: いちごのタルト
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 22:00:24 +0900
+  updated_at: 2017-10-28 21:07:43 +0900
+
+ビッシュフレーズ:
+  id: 44
+  name: ビッシュフレーズ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 22:02:54 +0900
+  updated_at: 2015-11-06 20:26:51 +0900
+
+クリスマスアソート:
+  id: 45
+  name: クリスマスアソート
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 22:03:12 +0900
+  updated_at: 2015-11-06 20:34:43 +0900
+
+トナカイデコ(生チョコ):
+  id: 46
+  name: トナカイデコ(生チョコ)
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2014-11-05 22:27:41 +0900
+  updated_at: 2017-10-28 21:30:18 +0900
+
+クリスマスパリブレスト:
+  id: 47
+  name: クリスマスパリブレスト
+  priority: 500
+  description: |-
+    プラリネのシュークリーム
+  image_url: 
+  created_at: 2015-11-06 20:18:19 +0900
+  updated_at: 2016-10-28 20:50:45 +0900
+
+ミルフィーユ:
+  id: 48
+  name: ミルフィーユ
+  priority: 500
+  description: |-
+    苺のパイ
+  image_url: 
+  created_at: 2015-11-06 20:20:29 +0900
+  updated_at: 2016-10-28 20:46:52 +0900
+
+トリプルノエル:
+  id: 49
+  name: トリプルノエル
+  priority: 500
+  description: |-
+    ティラミス・チョコ・苺
+  image_url: 
+  created_at: 2015-11-06 20:21:32 +0900
+  updated_at: 2016-10-28 20:47:17 +0900
+
+くまサンタ:
+  id: 50
+  name: くまサンタ
+  priority: 500
+  description: |-
+    苺と生クリーム
+  image_url: 
+  created_at: 2015-11-06 20:22:10 +0900
+  updated_at: 2016-10-28 20:47:30 +0900
+
+クリスマスモンブラン:
+  id: 51
+  name: クリスマスモンブラン
+  priority: 500
+  description: |-
+    和栗
+  image_url: 
+  created_at: 2015-11-06 20:22:57 +0900
+  updated_at: 2016-10-28 21:01:48 +0900
+
+スフレチーズケーキ:
+  id: 52
+  name: スフレチーズケーキ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2016-10-28 20:38:00 +0900
+  updated_at: 2017-10-28 21:07:29 +0900
+
+和栗のビッシュドノエル:
+  id: 53
+  name: 和栗のビッシュドノエル
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2016-10-28 20:38:55 +0900
+  updated_at: 2017-10-28 21:07:15 +0900
+
+くまサンタ(苺と生クリーム):
+  id: 54
+  name: くまサンタ(苺と生クリーム)
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2016-10-28 20:40:05 +0900
+  updated_at: 2017-10-28 21:07:01 +0900
+
+クリスマスレインボー:
+  id: 55
+  name: クリスマスレインボー
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2017-10-28 21:00:00 +0900
+  updated_at: 2017-10-28 21:00:00 +0900
+
+木いちごチョコ:
+  id: 56
+  name: 木いちごチョコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2017-10-28 21:00:45 +0900
+  updated_at: 2017-10-28 21:00:45 +0900
+
+キャラメルノア:
+  id: 57
+  name: キャラメルノア
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2017-10-28 21:03:16 +0900
+  updated_at: 2017-10-28 21:23:03 +0900
+
+いちごとチョコのツインデコ:
+  id: 58
+  name: いちごとチョコのツインデコ
+  priority: 500
+  description: |-
+  image_url: 
+  created_at: 2017-10-28 21:04:03 +0900
+  updated_at: 2017-10-28 21:24:43 +0900
+
