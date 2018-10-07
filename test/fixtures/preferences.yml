@@ -1,9 +1,75 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% i = 0 %>
 
-one:
-  name: MyString
-  value: MyText
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 店名
+  value: |-
+    プルミエ
+  created_at: 2011-09-29 13:45:17 +0900
+  updated_at: 2011-09-29 13:45:17 +0900
 
-two:
-  name: MyString
-  value: MyText
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 前修飾
+  value: |-
+    スイーツカフェ
+  created_at: 2011-09-29 13:45:17 +0900
+  updated_at: 2011-09-29 13:45:55 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 住所
+  value: |-
+    群馬県太田市鳥山下町395-1
+  created_at: 2011-09-29 13:45:55 +0900
+  updated_at: 2011-09-29 13:46:48 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 電話番号
+  value: |-
+    0276-32-6090
+  created_at: 2011-09-29 13:46:48 +0900
+  updated_at: 2011-09-29 13:47:21 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 営業時間
+  value: |-
+    10:00～20:00
+  created_at: 2011-09-29 13:47:21 +0900
+  updated_at: 2011-09-29 13:48:23 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 予約伝票の注記
+  value: |-
+    上記の通りご予約承りました。ご来店の際は、お客様控えをお持ち下さい。
+  created_at: 2011-09-29 13:48:23 +0900
+  updated_at: 2011-11-06 16:16:19 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 引渡し開始時間
+  value: |-
+    10:00
+  created_at: 2011-11-06 16:16:19 +0900
+  updated_at: 2011-11-13 20:29:21 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 引渡し終了時間
+  value: |-
+    21:00
+  created_at: 2011-11-13 20:29:21 +0900
+  updated_at: 2011-11-13 20:49:44 +0900
+
+r<%= i += 1 %>:
+  id: <%= i %>
+  name: 備考欄の常套句
+  value: |-
+    おたんじょうびおめでとう
+    Happy Birthday
+    ローソク　大　本・小　本
+  created_at: 2011-11-13 20:49:44 +0900
+  updated_at: 2011-11-20 21:38:27 +0900
