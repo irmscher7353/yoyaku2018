@@ -10,12 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106110949) do
+ActiveRecord::Schema.define(version: 20181006121758) do
+
+  create_table "buyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_buyers_on_customer_id"
+  end
+
+  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "menus", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "menu_id"
+    t.integer "number"
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.bigint "buyer_id"
+    t.datetime "due"
+    t.integer "due_datenum"
+    t.string "means"
+    t.integer "total_price"
+    t.integer "amount_paid"
+    t.integer "balance"
+    t.string "payment"
+    t.string "state"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["menu_id"], name: "index_orders_on_menu_id"
   end
 
   create_table "preferences", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -48,6 +88,9 @@ ActiveRecord::Schema.define(version: 20180106110949) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "buyers", "customers"
+  add_foreign_key "orders", "buyers"
+  add_foreign_key "orders", "menus"
   add_foreign_key "products", "menus"
   add_foreign_key "products", "titles"
 end
