@@ -4,7 +4,7 @@ class BuyersController < ApplicationController
   # GET /buyers
   # GET /buyers.json
   def index
-    @buyers = Buyer.all
+    @buyers = Buyer.all.page(params[:page])
   end
 
   # GET /buyers/1

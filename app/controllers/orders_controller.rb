@@ -4,7 +4,9 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+		session[:menu] ||= Menu.latest
+    @orders = Order.where(menu_id: session[:menu]['id']).order(updated_at: 'DESC')
+		.page(params[:page])
   end
 
   # GET /orders/1

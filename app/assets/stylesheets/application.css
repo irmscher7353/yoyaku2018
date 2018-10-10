@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+body {
+	margin: 3px; // 33px;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+	margin-top: 10px; // 20px;
+	margin-bottom: 5px; // 10px;
+}
