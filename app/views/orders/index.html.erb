@@ -5,14 +5,12 @@
 <table>
   <thead>
     <tr>
-      <th>Number</th>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Due</th>
-      <th>Means</th>
-      <th>Total price</th>
-      <th>Payment</th>
-      <th>State</th>
+      <th><%= t '.number' %></th>
+      <th><%= t '.name' %></th>
+      <th><%= t '.phone' %></th>
+      <th><%= t '.due' %></th>
+      <th><%= t '.means' %></th>
+      <th><%= t '.state' %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,12 +23,12 @@
         <td><%= order.phone %></td>
         <td><%= order.due.localtime.strftime('%m/%d %H:%M') %></td>
         <td class="center" ><%= order.means %></td>
-        <td class="numeric" ><%= number_with_delimiter(order.total_price, delimiter: ',') %></td>
-        <td class="center" ><%= order.payment %></td>
         <td class="center" ><%= order.state %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), order %></td>
+        <td><%= link_to t('Edit'), edit_order_path(order) %></td>
+				<!--
+        <td><%= link_to t('Destroy'), order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				-->
       </tr>
     <% end %>
   </tbody>
