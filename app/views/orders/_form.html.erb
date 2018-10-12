@@ -1,3 +1,6 @@
+<% if order.total_price.present? %>
+<%   order.total_price = number_with_delimiter(order.total_price) %>
+<% end %>
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -11,82 +14,209 @@
     </div>
   <% end %>
 
-  <div class="field">
+<% colspan = 4 %>
+<table class="order-form" >
+	<caption >ご予約伝票</caption>
+<tbody >
+	<tr >
+		<td class="field">
+    <%= form.label :number %>
+		</td>
+		<td class="filed" colspan=<%= colspan %> >
+    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', disabled: true %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
+		</td>
+		<td class="field" colspan=<%= colspan %> >
     <%= form.label :menu_id %>
     <%= form.text_field :menu_id, id: :order_menu_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.number_field :number, id: :order_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :order_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone, id: :order_phone %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address, id: :order_address %>
-  </div>
-
-  <div class="field">
     <%= form.label :buyer_id %>
     <%= form.text_field :buyer_id, id: :order_buyer_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :due %>
-    <%= form.datetime_select :due, id: :order_due %>
-  </div>
-
-  <div class="field">
     <%= form.label :due_datenum %>
     <%= form.number_field :due_datenum, id: :order_due_datenum %>
-  </div>
-
-  <div class="field">
-    <%= form.label :means %>
-    <%= form.text_field :means, id: :order_means %>
-  </div>
-
-  <div class="field">
-    <%= form.label :total_price %>
-    <%= form.number_field :total_price, id: :order_total_price %>
-  </div>
-
-  <div class="field">
     <%= form.label :amount_paid %>
     <%= form.number_field :amount_paid, id: :order_amount_paid %>
-  </div>
-
-  <div class="field">
     <%= form.label :balance %>
     <%= form.number_field :balance, id: :order_balance %>
-  </div>
+		</td>
+	</tr>
+	<tr >
+		<td class="field">
+    <%= form.label :name %>
+		</td>
+		<td class="field">
+    <%= form.text_field :name, id: :order_name, class: 'mandatory' %>
+		</td>
+		<td >
+		様
+		</td>
+		<td class="field">
+    <%= form.label :phone %>
+		</td>
+		<td class="field">
+    <%= form.text_field :phone, id: :order_phone, class: 'mandatory' %>
+		</td>
+	</tr>
+	<tr >
+		<td class="field">
+    <%= form.label :address %>
+		</td>
+		<td class="field" colspan=<%= colspan %> >
+    <%= form.text_field :address, id: :order_address %>
+		</td>
+	</tr>
+	<tr >
+		<td class="field">
+    <%= form.label :due %>
+		</td>
+		<td class="field" colspan=<%= colspan %> >
+		<% year = (order.created_at or Time.zone.now).localtime.year %>
+    <%= form.datetime_select :due, id: :order_due,
+			use_month_numbers: true,
+			start_year: year, end_year: year + 1, discard_year: true,
+			minute_step: 30,
+			date_separator: '月', datetime_separator: '日（）', time_separator: '時'%>
+		<% due = order.due.present? ? {
+			year: order.due.localtime.year,
+			month: order.due.localtime.month,
+			day: order.due.localtime.day,
+			wday: I18n.l(order.due.localtime, format: '%a'),
+			hour: order.due.localtime.hour,
+			min: order.due.localtime.min
+			} : { year:year, month: 12, day: '', wday: '　', hour: '', min: 0 } %>
+		<% nd = 4 %>
+		<%= text_field_tag 'due_year', due[:year], size: nd, class: 'mandatory center hidden' %><!-- 年 -->
+		<%= text_field_tag 'due_month', due[:month], size: nd, class: 'mandatory center' %> 月
+		<%= text_field_tag 'due_day', due[:day], size: nd, class: 'mandatory center' %> 日
+		（<span id="due_wday" class="mandatory" ><%= due[:wday] %></span>）
+		<%= text_field_tag 'due_hour', due[:hour], size: nd, class: 'mandatory center' %> 時
+		<%= text_field_tag 'due_min', '%02d' % [due[:min]], size: nd, class: 'mandatory center' %> 分
+		</td>
+	</tr>
+</tbody>
+</table>
 
-  <div class="field">
+<% rowspan = 5 %>
+<% nd_count = 4 %>
+<% nd_price = 8 %>
+<table class="order-lineitems" >
+<thead >
+	<tr >
+		<th >商品名</th>
+		<th >サイズ</th>
+		<th >数量</th>
+		<th >限定</th>
+		<th >金額</th>
+		<th ></th>
+		<th >備考</th>
+	</tr>
+</thead>
+<tbody >
+	<% (1..5).each do |i| %>
+	<tr >
+		<td >
+		<%= form.text_field "lineitem#{i}_name", size: 30 %>
+		</td>
+		<td >
+		<%= form.text_field "lineitem#{i}_size", size: 20, class: 'center' %>
+		</td>
+		<td >
+		<%= form.text_field "lineitem#{i}_quantity", size: nd_count, class: 'numeric' %>
+		</td>
+		<td >
+		<%= form.text_field "lineitem#{i}_remain", size: nd_count, class: 'numeric', disabled: true %>
+		</td>
+		<td >
+		<%= form.text_field "lineitem#{i}_price", size: nd_price, class: 'numeric' %>
+		</td>
+		<% if i == 1 %>
+		<td >
+		</td>
+		<td class="field text_area" rowspan=<%= rowspan %> >
+    <%= form.text_area :note, id: :order_note, size: '20x6' %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+</tbody>
+<tfoot >
+	<tr >
+		<td colspan=3 >
+		</td>
+		<th class="field">
+    <%= form.label :total_price %>
+		</th>
+		<td class="field">
+    <%= form.text_field :total_price, id: :order_total_price, size: nd_price, disabled: true, class: 'numeric no-spin-button' %>
+		</td>
+		<td >
+		円
+		</td>
+	</tr>
+	<tr >
+		<td colspan=3 >
+		</td>
+		<th class="field">
     <%= form.label :payment %>
+		</th>
+		<td colspan=2 class="payment" >
+		<% s = '未' %>
+		<%= form.radio_button :payment_yet, s, checked: (order.payment == s) %>
+		<%= s %>
+		・
+		<% s = '済' %>
+		<%= form.radio_button :payment_done, s, checked: (order.payment == s) %>
+		<%= s %>
+		</td>
+		<td class="field">
     <%= form.text_field :payment, id: :order_payment %>
-  </div>
-
-  <div class="field">
+		</td>
+	</tr>
+	<tr >
+		<td colspan=3 >
+		</td>
+		<th class="field">
+    <%= form.label :means %>
+		</th>
+		<td colspan=2 >
+		<% s = '電話' %>
+		<%= form.radio_button :means_phone, s, checked: (order.means == s) %>
+		<%= s %>
+		・
+		<% s = '来店' %>
+		<%= form.radio_button :means_store, s, checked: (order.means == s) %>
+		<%= s %>
+		</td>
+		<td class="field">
+    <%= form.text_field :means, id: :order_means %>
+		</td>
+	</tr>
+	<tr >
+		<td colspan=3 >
+		</td>
+		<th class="field">
     <%= form.label :state %>
+		</th>
+		<td >
+		</td>
+		<td >
+		</td>
+		<td class="field">
     <%= form.text_field :state, id: :order_state %>
-  </div>
+		</td>
+	</tr>
+	<tr >
+		<td colspan=3 >
+		</td>
+		<td >
+		</td>
+		<td class="actions">
+    <%= form.submit disabled: true %>
+		</td>
+	</tr>
+</tfoot>
+</table>
 
-  <div class="field">
-    <%= form.label :note %>
-    <%= form.text_area :note, id: :order_note %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
