@@ -13,6 +13,9 @@ table.order-form {
 	td .mandatory {
 		font-size: large;
 	}
+	input#order_address {
+		width: 100%;
+	}
 }
 
 table.order-lineitems {

@@ -47,7 +47,7 @@
     <%= form.label :name %>
 		</td>
 		<td class="field">
-    <%= form.text_field :name, id: :order_name, class: 'mandatory' %>
+    <%= form.text_field :name, id: :order_name, size: 30, class: 'mandatory' %>
 		</td>
 		<td >
 		様
@@ -71,7 +71,7 @@
 		<td class="field">
     <%= form.label :due %>
 		</td>
-		<td class="field" colspan=<%= colspan %> >
+		<td class="field" colspan=<%= colspan - 1 %> >
 		<% year = (order.created_at or Time.zone.now).localtime.year %>
 		<% due = order.due.present? ? {
 			year: order.due.localtime.year,
@@ -85,9 +85,14 @@
 		<%= text_field_tag 'due_year', due[:year], size: nd, class: 'mandatory center hidden' %><!-- 年 -->
 		<%= text_field_tag 'due_month', due[:month], size: nd, class: 'mandatory center' %> 月
 		<%= text_field_tag 'due_day', due[:day], size: nd, class: 'mandatory center' %> 日
-		（<span id="due_wday" class="mandatory" ><%= due[:wday] %></span>）
+		（ <span id="due_wday" class="mandatory" ><%= due[:wday] %></span> ）
 		<%= text_field_tag 'due_hour', due[:hour], size: nd, class: 'mandatory center' %> 時
 		<%= text_field_tag 'due_min', '%02d' % [due[:min]], size: nd, class: 'mandatory center' %> 分
+		</td>
+		<td class="numeric" >
+		<% if order.created_at.present? %>
+		受付日時：<%= order.created_at.localtime.strftime('%Y-%m-%d %H:%M') %>
+		<% end %>
 		</td>
 	</tr>
 </tbody>
