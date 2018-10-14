@@ -114,7 +114,7 @@
 	</tr>
 </thead>
 <tbody >
-	<% (1..5).each do |i| %>
+	<% (1..rowspan).each do |i| %>
 	<tr >
 		<td >
 		<%= form.text_field "lineitem#{i}_name", size: 30 %>
@@ -154,9 +154,15 @@
 		<td >
 		円
 		</td>
+		<td class="phrases" rowspan=5 >
+			<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
+				<%= form.button s, type: 'button' %><br />
+			<% end %>
+		</td>
 	</tr>
 	<tr >
 		<td colspan=3 >
+    <%= form.text_field :payment, id: :order_payment %>
 		</td>
 		<th class="field">
     <%= form.label :payment %>
@@ -170,12 +176,10 @@
 		<%= form.radio_button :payment_done, s, checked: (order.payment == s) %>
 		<%= s %>
 		</td>
-		<td class="field">
-    <%= form.text_field :payment, id: :order_payment %>
-		</td>
 	</tr>
 	<tr >
 		<td colspan=3 >
+    <%= form.text_field :means, id: :order_means %>
 		</td>
 		<th class="field">
     <%= form.label :means %>
@@ -189,12 +193,10 @@
 		<%= form.radio_button :means_store, s, checked: (order.means == s) %>
 		<%= s %>
 		</td>
-		<td class="field">
-    <%= form.text_field :means, id: :order_means %>
-		</td>
 	</tr>
 	<tr >
 		<td colspan=3 >
+    <%= form.text_field :state, id: :order_state %>
 		</td>
 		<th class="field">
     <%= form.label :state %>
@@ -202,9 +204,6 @@
 		<td >
 		</td>
 		<td >
-		</td>
-		<td class="field">
-    <%= form.text_field :state, id: :order_state %>
 		</td>
 	</tr>
 	<tr >

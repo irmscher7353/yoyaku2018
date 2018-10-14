@@ -28,4 +28,11 @@ table.order-lineitems {
 	td.payment {
 		font-size: large;
 	}
+	td.phrases {
+		vertical-align: top;
+		button {
+			text-align: left;
+			width: 100%;
+		}
+	}
 }
