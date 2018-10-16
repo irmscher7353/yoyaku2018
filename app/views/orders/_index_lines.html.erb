@@ -1,0 +1,18 @@
+		<% this_year = Time.zone.today.year %>
+    <% orders.each do |order| %>
+      <tr>
+				<% due = order.due.localtime %>
+				<% fmt = due.year == this_year ? '%m/%d %H:%M' : '%Y/%m/%d %H:%M' %>
+        <td class="center" ><%= order.number %></td>
+        <td class="name" ><%= order.name %></td>
+        <td class="phone" ><%= order.phone %></td>
+        <td class="center" ><%= due.strftime(fmt) %></td>
+        <td class="center" ><%= order.means %></td>
+        <td class="center" ><%= order.state %></td>
+        <td><%= link_to t('Show'), order %></td>
+        <td><%= link_to t('Edit'), edit_order_path(order) %></td>
+				<!--
+        <td><%= link_to t('Destroy'), order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				-->
+      </tr>
+    <% end %>

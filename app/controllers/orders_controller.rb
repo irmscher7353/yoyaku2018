@@ -5,8 +5,55 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
 		session[:menu] ||= Menu.latest
-    @orders = Order.where(menu_id: session[:menu]['id']).order(updated_at: 'DESC')
-		.page(params[:page])
+		params[:order] ||= session[:order] || { menu_id: session[:menu]['id'] }
+
+		@order = Order.new(order_params)
+
+		order_by = "updated_at DESC"
+		if params[:number].present?
+			@orders = Order.where(number: params[:number])
+		else
+    	@orders = Order.where(menu_id: session[:menu]['id'])
+			n = 0
+			if params[:name].present?
+				@orders = @orders.where("name like ?", ["%#{params[:name]}%", ])
+				n += 1
+			end
+			if params[:phone].present?
+				@orders = @orders.where("phone like ?", ["%#{params[:phone]}%", ])
+				n += 1
+			end
+			if params[:due_datenum].present?
+				@orders = @orders.where("due_datenum = ?", [params[:due_datenum]])
+				n += 1
+			end
+			if params[:means].present?
+				@orders = @orders.where("means = ?", [params[:means], ])
+				n += 1
+			end
+			if params[:state].present?
+				@orders = @orders.where("state = ?", [params[:state], ])
+				n += 1
+			end
+			if n <= 0
+				order = @orders.where(state: '', due_datenum: Time.zone.today.strftime('%Y%m%d').to_i )
+				if 0 < order.count
+					@order = order
+					order_by = "due ASC"
+				end
+			end
+		end
+
+		@due_dates = @orders.select(:due_datenum).distinct.order(:due_datenum).map{|order|
+			order.due_datenum.to_s.match(/^(\d{4})(\d{2})(\d{2})$/)
+			year, month, day = [$1, $2, $3]
+			[year.to_i == Time.zone.today.year ? '%s/%s' % [month, day] : '%s/%s/%s' % [year, month, day], order.due_datenum]
+		}
+		
+		@count = @orders.count
+		@orders = @orders.order(order_by).page(params[:page])
+
+		session_order @order
   end
 
   # GET /orders/1
@@ -73,4 +120,12 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:menu_id, :number, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note)
     end
+
+		def session_order(order)
+			session[:order] = {
+				menu_id: order.menu_id, name: order.name, phone: order.phone,
+				address: order.address, due_datenum: order.due_datenum,
+				means: order.means, state: order.state,
+			}
+		end
 end

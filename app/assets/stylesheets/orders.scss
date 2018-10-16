@@ -18,6 +18,21 @@ table.order-form {
 	}
 }
 
+table.order-index {
+	tbody {
+		td.name, td.phone {
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	}
+	tfoot tr td input#search {
+		padding: 0.2em 2.0em 0.2em 2.0em;
+	}
+	thead th {
+		text-align: center;
+	}
+}
+
 table.order-lineitems {
 	th {
 		text-align: center;

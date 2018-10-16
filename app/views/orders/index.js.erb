@@ -1,0 +1,4 @@
+document.getElementById('index_tbody').innerHTML =
+	"<%= escape_javascript(render 'index_lines', orders: @orders) %>";
+document.getElementById('pager').innerHTML =
+	"<%= escape_javascript(paginate @orders) %>";
