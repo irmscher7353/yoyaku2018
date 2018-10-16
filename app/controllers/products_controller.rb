@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
   def index
 		#logger.debug 'start: ' + session[:product].to_s
 		#logger.debug params
-		params[:product] ||= session[:product] || {menu_id: Menu.latest.id}
+		session[:menu] ||= Menu.latest
+		params[:product] ||= session[:product] || { menu_id: session[:menu]['id'] }
 
 		@menus = Menu.ordered
 		@titles = Title.order(:name)
