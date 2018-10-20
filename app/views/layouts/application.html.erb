@@ -22,6 +22,15 @@
 							<li class="nav-item" ><%= link_to "Customers", customers_path -%></li>
 							<li class="nav-item" ><%= link_to "Preferences", preferences_path -%></li>
 						</ul>
+						<div id="menu_selector" >
+							<%= form_tag(set_current_menus_path, method: :get, ) do |form| %>
+								<%= select_tag :menu_id, options_from_collection_for_select(
+									Menu.ordered, :id, :name,
+									session[:menu].present? ? session[:menu]['id'] : Manu.latest.id ),
+									include_blank: true, onchange: 'this.form.submit()'
+								%>
+							<% end %>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" >

@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @menus =
+	selectMenu: (element) ->
+		element.form.submit()
 	updateSubmitButtonStatus: (element, id) ->
 		document.getElementById(id).disabled =
 			if element.value is '' then "disabled" else ""

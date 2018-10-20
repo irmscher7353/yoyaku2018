@@ -7,6 +7,11 @@ class ProductsController < ApplicationController
 		#logger.debug 'start: ' + session[:product].to_s
 		#logger.debug params
 		session[:menu] ||= Menu.latest
+		if session[:product].present?
+			if session[:product]['menu_id'] != session[:menu]['id']
+				session[:product] = nil
+			end
+		end
 		params[:product] ||= session[:product] || { menu_id: session[:menu]['id'] }
 
 		@menus = Menu.ordered
