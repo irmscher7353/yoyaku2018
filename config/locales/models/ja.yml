@@ -1,8 +1,8 @@
 ---
 ja:
   Destroy: 削除
-  Edit: 変更
-  Show: 表示・印刷
+  Edit: 編集
+  Show: 表示
   activerecord:
     models:
       order: 予約
@@ -34,6 +34,10 @@ ja:
       payment: 代金
       state: 状態
       note: 備考
+    index_lines:
+      Destroy: 削除
+      Edit: 変更
+      Show: 表示・印刷
   views:
     pagination:
       first: 最初

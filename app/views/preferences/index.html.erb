@@ -18,9 +18,9 @@
         <td><%= preference.name %></td>
         <td><%= preference.value %></td>
 				<td ><%= preference.updated_at.strftime('%Y-%m-%d') %></td>
-        <td><%= link_to 'Show', preference %></td>
-        <td><%= link_to 'Edit', edit_preference_path(preference) %></td>
-        <td><%= link_to 'Destroy', preference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), preference %></td>
+        <td><%= link_to t('Edit'), edit_preference_path(preference) %></td>
+        <td><%= link_to t('Destroy'), preference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

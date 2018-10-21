@@ -3,20 +3,20 @@
 <h1>Menus</h1>
 
 <%= form_with(model: @menu, local: true ) do |form| %>
-<table>
+<table class="menu-index" >
   <thead>
     <tr>
       <th>Name</th>
       <th colspan="3"></th>
     </tr>
 		<tr >
-			<th >
+			<td >
 				<%= form.text_field :name, id: :menu_name,
 					onInput: "menus.updateSubmitButtonStatus(this, 'submit');" %>
-			</th>
-			<th colspan="3" >
+			</td>
+			<td colspan="3" >
 				<%= form.submit disabled: @menu.name.blank?, id: :submit %>
-			</th>
+			</td>
 		</tr>
   </thead>
 
@@ -24,9 +24,9 @@
     <% @menus.each do |menu| %>
       <tr>
         <td><%= menu.name %></td>
-        <td><%= link_to 'Show', menu %></td>
-        <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
-        <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), menu %></td>
+        <td><%= link_to t('Edit'), edit_menu_path(menu) %></td>
+        <td><%= link_to t('Destroy'), menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

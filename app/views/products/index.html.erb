@@ -6,7 +6,7 @@
 <% end %>
 
 <%= form_with(model: @product, html: { autocomplete: :off, } ) do |form| %>
-<table>
+<table class="product-index" >
   <thead>
     <tr>
       <th>Menu</th>
@@ -18,13 +18,6 @@
       <th>Remain</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
-
-  <tbody id="index_tbody" >
-<%= render 'index_lines', products: @products %>
-  </tbody>
-
-	<tfoot >
 		<tr >
 			<td ><!-- Menu -->
 				<%= form.collection_select :menu_id, @menus, :id, :name,
@@ -62,6 +55,13 @@
 				<%= form.submit id: :submit, disabled: (@product.title_id.blank? || @product.price.blank?) %>
 			</td>
 		</tr>
+  </thead>
+
+  <tbody id="index_tbody" >
+<%= render 'index_lines', products: @products %>
+  </tbody>
+
+	<tfoot >
 	</tfoot>
 </table>
 <% end %>

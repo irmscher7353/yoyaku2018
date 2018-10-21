@@ -7,8 +7,8 @@
         <td class="numeric" ><%= number_with_delimiter(product.price, delimiter: ',') %></td>
         <td class="numeric" ><%= product.limit %></td>
         <td class="numeric" ><%= product.remain %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), product %></td>
+        <td><%= link_to t('Edit'), edit_product_path(product) %></td>
+        <td><%= link_to t('Destroy'), product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
