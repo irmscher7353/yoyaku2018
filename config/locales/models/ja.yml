@@ -20,6 +20,13 @@ ja:
         payment: 代金
         state: 状態
         note: 備考
+  line_items:
+    index:
+      number: 予約番号
+      title: 商品名
+      size: サイズ
+      quantity: 数量
+      total_price: 小計
   orders:
     index:
       number: 予約番号

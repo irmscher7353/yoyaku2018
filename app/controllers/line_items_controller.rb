@@ -4,7 +4,7 @@ class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
   def index
-    @line_items = LineItem.all
+    @line_items = LineItem.all.page(params[:page])
   end
 
   # GET /line_items/1
