@@ -28,18 +28,63 @@
 	</tr>
 	<tr class="hidden" >
 		<td >
+    <%= form.label :menu_id %>
 		</td>
 		<td class="field" colspan=<%= colspan %> >
-    <%= form.label :menu_id %>
     <%= form.text_field :menu_id, id: :order_menu_id %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
     <%= form.label :buyer_id %>
+		</td>
+		<td >
     <%= form.text_field :buyer_id, id: :order_buyer_id %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
     <%= form.label :due_datenum %>
+		</td>
+		<td >
     <%= form.number_field :due_datenum, id: :order_due_datenum %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
     <%= form.label :amount_paid %>
+		</td>
+		<td >
     <%= form.number_field :amount_paid, id: :order_amount_paid %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
     <%= form.label :balance %>
+		</td>
+		<td >
     <%= form.number_field :balance, id: :order_balance %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
+		</td>
+		<td >
+    <%= form.text_field :payment, id: :order_payment %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
+		</td>
+		<td >
+    <%= form.text_field :means, id: :order_means %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<td >
+		</td>
+		<td >
+    <%= form.text_field :state, id: :order_state %>
 		</td>
 	</tr>
 	<tr >
@@ -91,7 +136,6 @@
 
 <% n_lines = Order::N_LINES %>
 <% nd_count = 4 %>
-<% nd_price = 8 %>
 <table class="order-lineitems" >
 <thead >
 	<tr >
@@ -131,7 +175,7 @@
 		<%= item.text_field :product_remain, size: nd_count, class: 'numeric', readonly: true %>
 		</td>
 		<td >
-		<%= item.text_field :total_price_delimited, size: nd_price, class: 'numeric', readonly: true %>
+		<%= item.text_field :total_price_delimited, size: 1, class: 'numeric price', readonly: true %>
 		</td>
 	</tr>
 	<% end %>
@@ -152,7 +196,7 @@
 		<%= form.text_field "remain[#{i}]", size: nd_count, class: 'numeric', disabled: true %>
 		</td>
 		<td >
-		<%= form.text_field "price[#{i}]", size: nd_price, class: 'numeric', disabled: true %>
+		<%= form.text_field "price[#{i}]", size: 1, class: 'numeric', disabled: true %>
 		</td>
 	</tr>
 	<% end %>
@@ -165,20 +209,19 @@
     <%= form.label :total_price %>
 		</th>
 		<td class="field">
-    <%= form.text_field :total_price, id: :order_total_price, size: nd_price, readonly: true, class: 'numeric no-spin-button' %>
+    <%= form.text_field :total_price, id: :order_total_price, size: 6, readonly: true, class: 'numeric price no-spin-button' %>
 		</td>
 		<td >
 		円
 		</td>
 		<td class="phrases" rowspan=5 >
 			<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
-				<%= form.button s, type: 'button' %><br />
+				<%= form.button s, type: 'button', class: 'phrase' %><br />
 			<% end %>
 		</td>
 	</tr>
 	<tr >
 		<td colspan=3 >
-    <%= form.text_field :payment, id: :order_payment %>
 		</td>
 		<th class="field">
     <%= form.label :payment %>
@@ -195,7 +238,6 @@
 	</tr>
 	<tr >
 		<td colspan=3 >
-    <%= form.text_field :means, id: :order_means %>
 		</td>
 		<th class="field">
     <%= form.label :means %>
@@ -212,7 +254,6 @@
 	</tr>
 	<tr >
 		<td colspan=3 >
-    <%= form.text_field :state, id: :order_state %>
 		</td>
 		<th class="field">
     <%= form.label :state %>
@@ -228,7 +269,7 @@
 		<td >
 		</td>
 		<td class="actions">
-    <%= form.submit disabled: true %>
+    <%= form.submit id: :submit, disabled: true %>
 		</td>
 	</tr>
 </tfoot>
