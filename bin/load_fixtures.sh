@@ -4,7 +4,7 @@
 # 依存関係順に特定の .yml を load する．
 
 dir=test/fixtures
-class_list="preferences menus titles products orders"
+class_list="preferences menus titles products orders line_items"
 
 for class in $class_list; do
 	yml=${class}.yml
