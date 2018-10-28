@@ -23,7 +23,7 @@
     <%= form.label :number %>
 		</td>
 		<td class="filed" colspan=<%= colspan %> >
-    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', disabled: true %>
+    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', readonly: true %>
 		</td>
 	</tr>
 	<tr class="hidden" >
@@ -72,22 +72,13 @@
     <%= form.label :due %>
 		</td>
 		<td class="field" colspan=<%= colspan - 1 %> >
-		<% year = (order.created_at or Time.zone.now).localtime.year %>
-		<% due = order.due.present? ? {
-			year: order.due.localtime.year,
-			month: order.due.localtime.month,
-			day: order.due.localtime.day,
-			wday: I18n.l(order.due.localtime, format: '%a'),
-			hour: order.due.localtime.hour,
-			min: order.due.localtime.min
-			} : { year:year, month: 12, day: '', wday: '　', hour: '', min: 0 } %>
 		<% nd = 4 %>
-		<%= text_field_tag 'due_year', due[:year], size: nd, class: 'mandatory center hidden' %><!-- 年 -->
-		<%= text_field_tag 'due_month', due[:month], size: nd, class: 'mandatory center' %> 月
-		<%= text_field_tag 'due_day', due[:day], size: nd, class: 'mandatory center' %> 日
-		（ <span id="due_wday" class="mandatory" ><%= due[:wday] %></span> ）
-		<%= text_field_tag 'due_hour', due[:hour], size: nd, class: 'mandatory center' %> 時
-		<%= text_field_tag 'due_min', '%02d' % [due[:min]], size: nd, class: 'mandatory center' %> 分
+		<%= form.text_field :due_year, size: nd, class: 'mandatory center hidden' %><!-- 年 -->
+		<%= form.text_field :due_month, size: nd, class: 'mandatory center' %> 月
+		<%= form.text_field :due_day, size: nd, class: 'mandatory center' %> 日
+		（ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
+		<%= form.text_field :due_hour, size: nd, class: 'mandatory center' %> 時
+		<%= form.text_field :due_min, size: nd, class: 'mandatory center' %> 分
 		</td>
 		<td class="numeric" >
 		<% if order.created_at.present? %>
@@ -98,7 +89,7 @@
 </tbody>
 </table>
 
-<% rowspan = 5 %>
+<% n_lines = Order::N_LINES %>
 <% nd_count = 4 %>
 <% nd_price = 8 %>
 <table class="order-lineitems" >
@@ -114,30 +105,55 @@
 	</tr>
 </thead>
 <tbody >
-	<% (1..rowspan).each do |i| %>
-	<tr >
-		<td >
-		<%= form.text_field "lineitem#{i}_name", size: 30 %>
+	<tr id="line_note" >
+		<td colspan="6" >
 		</td>
-		<td >
-		<%= form.text_field "lineitem#{i}_size", size: 20, class: 'center' %>
-		</td>
-		<td >
-		<%= form.text_field "lineitem#{i}_quantity", size: nd_count, class: 'numeric' %>
-		</td>
-		<td >
-		<%= form.text_field "lineitem#{i}_remain", size: nd_count, class: 'numeric', disabled: true %>
-		</td>
-		<td >
-		<%= form.text_field "lineitem#{i}_price", size: nd_price, class: 'numeric' %>
-		</td>
-		<% if i == 1 %>
-		<td >
-		</td>
-		<td class="field text_area" rowspan=<%= rowspan %> >
+		<td class="field text_area" rowspan=<%= 1 + n_lines %> >
     <%= form.text_area :note, id: :order_note, size: '20x6' %>
 		</td>
-		<% end %>
+	</tr>
+	<% i = -1 %>
+	<%= form.fields_for :line_items, order.current_line_items do |item| %>
+		<% i += 1 %>
+	<tr id="line_<%= i %>" >
+		<td >
+		<%= item.hidden_field :id %>
+		<%= item.hidden_field :product_id %>
+		<%= item.text_field :product_name, size: 30, readonly: true %>
+		</td>
+		<td >
+		<%= item.text_field :product_size, size: 20, readonly: true, class: 'center' %>
+		</td>
+		<td >
+		<%= item.text_field :quantity, size: nd_count, class: 'numeric' %>
+		</td>
+		<td >
+		<%= item.text_field :product_remain, size: nd_count, class: 'numeric', readonly: true %>
+		</td>
+		<td >
+		<%= item.text_field :total_price_delimited, size: nd_price, class: 'numeric', readonly: true %>
+		</td>
+	</tr>
+	<% end %>
+<% # Order.current_line_items でパディングを行なえば，不要な訳だが．．． %>
+	<% while i < (n_lines - 1) %>
+		<% i += 1 %>
+	<tr id="line_<%= i %>" >
+		<td >
+		<%= form.text_field "product_name[#{i}]", size: 30 %>
+		</td>
+		<td >
+		<%= form.text_field "product_size[#{i}]", size: 20, class: 'center' %>
+		</td>
+		<td >
+		<%= form.text_field "quantity[#{i}]", size: nd_count, class: 'numeric' %>
+		</td>
+		<td >
+		<%= form.text_field "remain[#{i}]", size: nd_count, class: 'numeric', disabled: true %>
+		</td>
+		<td >
+		<%= form.text_field "price[#{i}]", size: nd_price, class: 'numeric', disabled: true %>
+		</td>
 	</tr>
 	<% end %>
 </tbody>
@@ -149,7 +165,7 @@
     <%= form.label :total_price %>
 		</th>
 		<td class="field">
-    <%= form.text_field :total_price, id: :order_total_price, size: nd_price, disabled: true, class: 'numeric no-spin-button' %>
+    <%= form.text_field :total_price, id: :order_total_price, size: nd_price, readonly: true, class: 'numeric no-spin-button' %>
 		</td>
 		<td >
 		円

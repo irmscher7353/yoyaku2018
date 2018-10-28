@@ -50,4 +50,11 @@ table.order-lineitems {
 			width: 100%;
 		}
 	}
+	tr#line_note {
+		td {
+			height: 0px;
+			margin: 0px;
+			padding: 0px;
+		}
+	}
 }
