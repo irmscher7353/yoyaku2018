@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= t '.number' %></th>
+      <th><%= t '.revision' %></th>
       <th><%= t '.title' %></th>
       <th><%= t '.size' %></th>
       <th><%= t '.quantity' %></th>
@@ -18,6 +19,7 @@
     <% @line_items.each do |line_item| %>
       <tr>
         <td class="center" ><%= line_item.order.number %></td>
+        <td class="numeric" ><%= line_item.revision %></td>
         <td><%= line_item.product.title.name %></td>
         <td class="center" ><%= line_item.product.size %></td>
         <td class="numeric" ><%= line_item.quantity %></td>
