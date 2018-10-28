@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20181025143237) do
 
   create_table "line_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "order_id"
+    t.integer "revision"
     t.bigint "product_id"
     t.integer "quantity"
     t.integer "total_price"
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20181025143237) do
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "menu_id"
     t.integer "number"
+    t.integer "revision"
     t.string "name"
     t.string "phone"
     t.string "address"

@@ -3,6 +3,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
     create_table :orders do |t|
       t.references :menu, foreign_key: true
       t.integer :number
+      t.integer :revision
       t.string :name
       t.string :phone
       t.string :address
