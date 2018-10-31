@@ -17,7 +17,7 @@ class Order < ApplicationRecord
 	end
 
 	def due_year
-		due.present? ? due.localtime.year : (order.created_at or Time.zone.now).localtime.year
+		due.present? ? due.localtime.year : (created_at or Time.zone.now).localtime.year
 	end
 
 	def due_month
