@@ -162,20 +162,28 @@
 	<tr id="line_<%= i %>" >
 		<td >
 		<%= item.hidden_field :id %>
-		<%= item.hidden_field :product_id %>
-		<%= item.text_field :product_name, size: 30, readonly: true %>
+		<%= item.hidden_field :product_id, class: 'product_id' %>
+		<%= item.hidden_field :product_price, class: 'product_price' %>
+		<%= item.text_field :product_name, class: 'product_name',
+		    size: 30, readonly: true,
+		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
 		</td>
 		<td >
-		<%= item.text_field :product_size, size: 20, readonly: true, class: 'center' %>
+		<%= item.text_field :product_size, class: 'product_size center',
+		    size: 20, readonly: true,
+		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
 		</td>
 		<td >
-		<%= item.text_field :quantity, size: nd_count, class: 'numeric' %>
+		<%= item.text_field :quantity, size: nd_count, class: 'numeric quantity',
+		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
 		</td>
 		<td >
-		<%= item.text_field :product_remain, size: nd_count, class: 'numeric', readonly: true %>
+		<%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
+		    tabindex: -1, readonly: true %>
 		</td>
 		<td >
-		<%= item.text_field :total_price_delimited, size: 1, class: 'numeric price', readonly: true %>
+		<%= item.text_field :total_price_delimited, size: 1, class: 'numeric total_price',
+		    tabindex: -1, readonly: true %>
 		</td>
 	</tr>
 	<% end %>
@@ -203,7 +211,12 @@
 </tbody>
 <tfoot >
 	<tr >
-		<td colspan=3 >
+		<td id="title_page_selector" >
+<%= render 'title_page_selector' %>
+		</td>
+		<td >
+		</td>
+		<td >
 		</td>
 		<th class="field">
     <%= form.label :total_price %>
@@ -214,15 +227,24 @@
 		<td >
 		円
 		</td>
-		<td class="phrases" rowspan=5 >
+		<td class="phrases" rowspan=7 >
 			<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
 				<%= form.button s, type: 'button', class: 'phrase' %><br />
 			<% end %>
 		</td>
 	</tr>
-	<tr >
-		<td colspan=3 >
+	<tr id="item_selector" >
+		<td rowspan=6 class="selector" >
+<%= render 'product_selector' %>
 		</td>
+		<td rowspan=6 class="selector" >
+<%= render 'size_selector' %>
+		</td>
+		<td rowspan=6 id="quantity_selector" class="selector" >
+<%= render 'quantity_selector' %>
+		</td>
+	</tr>
+	<tr >
 		<th class="field">
     <%= form.label :payment %>
 		</th>
@@ -237,8 +259,6 @@
 		</td>
 	</tr>
 	<tr >
-		<td colspan=3 >
-		</td>
 		<th class="field">
     <%= form.label :means %>
 		</th>
@@ -253,8 +273,6 @@
 		</td>
 	</tr>
 	<tr >
-		<td colspan=3 >
-		</td>
 		<th class="field">
     <%= form.label :state %>
 		</th>
@@ -264,12 +282,15 @@
 		</td>
 	</tr>
 	<tr >
-		<td colspan=3 >
-		</td>
 		<td >
 		</td>
 		<td class="actions">
     <%= form.submit id: :submit, disabled: true %>
+		</td>
+	</tr>
+	<tr >
+		<td >
+			<br/>
 		</td>
 	</tr>
 </tfoot>

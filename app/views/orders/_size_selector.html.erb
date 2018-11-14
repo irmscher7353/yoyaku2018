@@ -1,0 +1,17 @@
+<%
+n = 5
+lines = []
+i = 0
+@products.each do |title, products|
+	lines << '<div id="title-%d" class="%s" >' % [title.id, 'hidden', ]
+	products.each do |product|
+		lines << button_tag(product.size, id: 'product-button-%d' % [product.id],
+		type: :button, remote: true, disabled: (products.size == 1),
+		class: 'size' + (product.size.blank? ? ' hidden' : ''),
+		onClick: "orders.select_product(this, #{product.id});"
+		) + '<br/>'.html_safe
+	end
+	lines << '</div>'
+end
+%>
+<%= lines.join("\n").html_safe %>

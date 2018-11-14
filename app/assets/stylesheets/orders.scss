@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*
+.activefield {
+	border-color: #f00;
+}
+/* */
+
 table.order-form {
 	caption {
 		font-size: x-large;
@@ -36,7 +42,7 @@ table.order-index {
 }
 
 table.order-lineitems {
-	.price {
+	.total_price {
 		width: 100%
 	}
 	button.phrase {
@@ -46,7 +52,10 @@ table.order-lineitems {
 		font-size: large;
 	}
 	input#submit {
-		padding: 0.2em 2.0em 0.2em 2.0em;
+		width: 100%;
+	}
+	textarea#order_note {
+		width: 100%;
 	}
 	th {
 		text-align: center;
@@ -60,9 +69,29 @@ table.order-lineitems {
 	td.phrases {
 		vertical-align: top;
 		button {
+			margin: 0.1em 0.0em 0.1em 0.0em;
 			text-align: left;
 			width: 100%;
 		}
+	}
+	td.selector {
+		text-align: center;
+		vertical-align: top;
+		button {
+			margin: 0.1em 0.0em 0.1em 0.0em;
+			width: 90%;
+		}
+	}
+	td#quantity_selector {
+		button {
+			padding: 0;
+		}
+	}
+	td#title_page_selector {
+		text-align: center;
+	}
+	tr.current_row {
+		background-color: #f00;
 	}
 	tr#line_note {
 		td {

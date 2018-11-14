@@ -1,0 +1,13 @@
+<%
+n = 5
+m = (@products.size - 1).div(n) + 1
+lines = []
+(1..m).each do |ii|
+	title_page_id = "title-page-#{ii}"
+	lines << button_tag(ii, name: 'title-page-button-%d' % [ii, ],
+	type: :button, remote: true, disabled: (ii == 1),
+	class: (ii == 1 ? 'current-title-page-button' : ''),
+	onClick: "orders.select_title_page(this, '##{title_page_id}');")
+end
+%>
+<%= lines.join("\n").html_safe %>

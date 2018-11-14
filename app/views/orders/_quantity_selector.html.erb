@@ -1,0 +1,8 @@
+<% (1..4).each do |i| %>
+<%= button_tag i, type: :button, remote: true,
+    onClick: "orders.select_quantity(this);" -%><br/>
+<% end %>
+<%= button_tag '+', type: :button, remote: true,
+    onClick: "orders.select_quantity(this);" -%><br/>
+<%= button_tag '-', type: :button, remote: true,
+    onClick: "orders.select_quantity(this);" -%><br/>

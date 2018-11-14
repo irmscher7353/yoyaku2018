@@ -1,0 +1,23 @@
+<%
+n, i = 6, 0
+lines = []
+@products.each do |title, products|
+	if (i % n) == 0
+		if 0 < i
+			lines << '</div>'
+		end
+		ip = i.div(n) + 1
+		id = "title-page-#{ip}"
+		cls = ip == 1 ? 'current-title-page' : 'hidden'
+		lines << '<div id="%s" class="%s" >' % [id, cls, ]
+	end
+	product_id = products.size == 1 ? products[0].id : 0
+	lines << button_tag(title.name, id: 'title-button-%d' % [title.id],
+	type: :button, remote: true, class: 'title',
+	onClick: "orders.select_title(this, '#title-#{title.id}', #{product_id});"
+	) + '<br/>'.html_safe
+	i += 1
+end
+lines << '</div>'
+%>
+<%= lines.join("\n").html_safe %>
