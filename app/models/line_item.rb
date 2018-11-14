@@ -12,6 +12,10 @@ class LineItem < ApplicationRecord
 		product.present? ? (product.title.present? ? product.title.name : '') : ''
 	end
 
+	def product_price
+		product.present? ? product.price : ''
+	end
+
 	def product_size
 		product.present? ? product.size : ''
 	end

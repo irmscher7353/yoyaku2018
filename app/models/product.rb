@@ -36,6 +36,14 @@ class Product < ApplicationRecord
 		product.remain ||= -1
 	end
 
+	def self.by_title(*args)
+		@result = Hash.new {|h,k| h[k] = Array.new }
+		ordered(*args).each do |product|
+			@result[product.title] << product
+		end
+		@result
+	end
+
 	def self.ordered(*args)
 		where(*args).order("priority")
 	end
