@@ -63,11 +63,15 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+		session[:menu] ||= Menu.latest
     @order = Order.new
+		@products = Product.by_title(menu_id: session[:menu]['id'])
   end
 
   # GET /orders/1/edit
   def edit
+		session[:menu] ||= Menu.latest
+		@products = Product.by_title(menu_id: session[:menu]['id'])
   end
 
   # POST /orders
