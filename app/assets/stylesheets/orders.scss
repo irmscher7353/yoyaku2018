@@ -57,9 +57,6 @@ table.order-lineitems {
 	textarea#order_note {
 		width: 100%;
 	}
-	th {
-		text-align: center;
-	}
 	td.text_area {
 		vertical-align: top;
 	}
@@ -82,12 +79,23 @@ table.order-lineitems {
 			width: 90%;
 		}
 	}
+	td#message {
+		font-size: large;
+		vertical-align: top;
+	}
+	td#order_total_price {
+		margin: 0;
+		padding: 0;
+	}
 	td#quantity_selector {
 		button {
 			padding: 0;
 		}
 	}
 	td#title_page_selector {
+		text-align: center;
+	}
+	th {
 		text-align: center;
 	}
 	tr.current_row {
@@ -98,6 +106,14 @@ table.order-lineitems {
 			height: 0px;
 			margin: 0px;
 			padding: 0px;
+		}
+	}
+	tfoot {
+		th {
+			padding-bottom: 0;
+			label {
+				padding-bottom: 0;
+			}
 		}
 	}
 }

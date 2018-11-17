@@ -159,23 +159,23 @@
 	<% i = -1 %>
 	<%= form.fields_for :line_items, order.current_line_items do |item| %>
 		<% i += 1 %>
-	<tr id="line_<%= i %>" >
+	<tr id="line_<%= i %>" index="<%= i %>" >
 		<td >
 		<%= item.hidden_field :id %>
 		<%= item.hidden_field :product_id, class: 'product_id' %>
 		<%= item.hidden_field :product_price, class: 'product_price' %>
 		<%= item.text_field :product_name, class: 'product_name',
 		    size: 30, readonly: true,
-		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
+		    onFocus: "orders.select_row(this);" %>
 		</td>
 		<td >
 		<%= item.text_field :product_size, class: 'product_size center',
 		    size: 20, readonly: true,
-		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
+		    onFocus: "orders.select_row(this);" %>
 		</td>
 		<td >
 		<%= item.text_field :quantity, size: nd_count, class: 'numeric quantity',
-		    onFocus: "orders.select_row(this.parentNode.parentNode);" %>
+		    onFocus: "orders.select_row(this);" %>
 		</td>
 		<td >
 		<%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
@@ -190,7 +190,7 @@
 <% # Order.current_line_items でパディングを行なえば，不要な訳だが．．． %>
 	<% while i < (n_lines - 1) %>
 		<% i += 1 %>
-	<tr id="line_<%= i %>" >
+	<tr id="line_<%= i %>" index="<%= i %>" >
 		<td >
 		<%= form.text_field "product_name[#{i}]", size: 30 %>
 		</td>
@@ -210,37 +210,42 @@
 	<% end %>
 </tbody>
 <tfoot >
-	<tr >
-		<td id="title_page_selector" >
-<%= render 'title_page_selector' %>
+	<tr id="line_order_total" >
+		<td colspan="3" >
 		</td>
-		<td >
-		</td>
-		<td >
-		</td>
-		<th class="field">
+		<th rowspan="2" >
     <%= form.label :total_price %>
 		</th>
-		<td class="field">
+		<td class="field" rowspan="2" >
     <%= form.text_field :total_price, id: :order_total_price, size: 6, readonly: true, class: 'numeric price no-spin-button' %>
 		</td>
-		<td >
+		<td rowspan="2" >
 		円
 		</td>
 		<td class="phrases" rowspan=7 >
-			<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
-				<%= form.button s, type: 'button', class: 'phrase' %><br />
-			<% end %>
+		<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
+			<%= form.button s, type: 'button', class: 'phrase' %><br />
+		<% end %>
 		</td>
 	</tr>
-	<tr id="item_selector" >
+	<tr class="message currentpanel" >
+		<td id="message" colspan="3" rowspan="6" >
+<%= @message %>
+		</td>
+	</tr>
+	<tr class="item_selector hidden" >
+		<td id="title_page_selector" >
+<%= render 'title_page_selector' %>
+		</td>
+	</tr>
+	<tr class="item_selector hidden" >
 		<td rowspan=6 class="selector" >
 <%= render 'product_selector' %>
 		</td>
 		<td rowspan=6 class="selector" >
 <%= render 'size_selector' %>
 		</td>
-		<td rowspan=6 id="quantity_selector" class="selector" >
+		<td rowspan=6 class="selector" id="quantity_selector" >
 <%= render 'quantity_selector' %>
 		</td>
 	</tr>
@@ -250,11 +255,11 @@
 		</th>
 		<td colspan=2 class="payment" >
 		<% s = '未' %>
-		<%= form.radio_button :payment_yet, s, checked: (order.payment == s) %>
+		<%= form.radio_button :payment, s, checked: (order.payment == s) %>
 		<%= s %>
 		・
 		<% s = '済' %>
-		<%= form.radio_button :payment_done, s, checked: (order.payment == s) %>
+		<%= form.radio_button :payment, s, checked: (order.payment == s) %>
 		<%= s %>
 		</td>
 	</tr>
@@ -264,11 +269,11 @@
 		</th>
 		<td colspan=2 >
 		<% s = '電話' %>
-		<%= form.radio_button :means_phone, s, checked: (order.means == s) %>
+		<%= form.radio_button :means, s, checked: (order.means == s) %>
 		<%= s %>
 		・
 		<% s = '来店' %>
-		<%= form.radio_button :means_store, s, checked: (order.means == s) %>
+		<%= form.radio_button :means, s, checked: (order.means == s) %>
 		<%= s %>
 		</td>
 	</tr>
