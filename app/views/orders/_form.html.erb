@@ -118,12 +118,22 @@
 		</td>
 		<td class="field" colspan=<%= colspan - 1 %> >
 		<% nd = 4 %>
-		<%= form.text_field :due_year, size: nd, class: 'mandatory center hidden' %><!-- 年 -->
-		<%= form.text_field :due_month, size: nd, class: 'mandatory center' %> 月
-		<%= form.text_field :due_day, size: nd, class: 'mandatory center' %> 日
+		<%= form.text_field :due_year, size: nd, class: 'mandatory center hidden',
+		    onClick: "orders.select_text(this);",
+		    onFocus: "orders.select_datetime(this);" %><!-- 年 -->
+		<%= form.text_field :due_month, size: nd, class: 'mandatory center',
+		    onClick: "orders.select_text(this);",
+		    onFocus: "orders.select_datetime(this);" %> 月
+		<%= form.text_field :due_day, size: nd, class: 'mandatory center',
+		    onClick: "orders.select_text(this);",
+		    onFocus: "orders.select_datetime(this);" %> 日
 		（ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
-		<%= form.text_field :due_hour, size: nd, class: 'mandatory center' %> 時
-		<%= form.text_field :due_min, size: nd, class: 'mandatory center' %> 分
+		<%= form.text_field :due_hour, size: nd, class: 'mandatory center',
+		    onClick: "orders.select_text(this);",
+		    onFocus: "orders.select_datetime(this);" %> 時
+		<%= form.text_field :due_min, size: nd, class: 'mandatory center',
+		    onClick: "orders.select_text(this);",
+		    onFocus: "orders.select_datetime(this);" %> 分
 		</td>
 		<td class="numeric" >
 		<% if order.created_at.present? %>
@@ -223,14 +233,19 @@
 		円
 		</td>
 		<td class="phrases" rowspan=7 >
-		<% Preference.get_value('備考欄の常套句').split(/[\r\n]+/).each do |s| %>
-			<%= form.button s, type: 'button', class: 'phrase' %><br />
+		<% @phraes.each do |phrase| %>
+			<%= form.button phrase, type: 'button', class: 'phrase' %><br />
 		<% end %>
 		</td>
 	</tr>
 	<tr class="message currentpanel" >
 		<td id="message" colspan="3" rowspan="6" >
 <%= @message %>
+		</td>
+	</tr>
+	<tr class="datetime_selector hidden" >
+		<td id="datetime_selector" colspan="3" rowspan="6" >
+<%= render 'datetime_selector' %>
 		</td>
 	</tr>
 	<tr class="item_selector hidden" >

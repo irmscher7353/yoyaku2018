@@ -3,6 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @orders =
 
+	select_datetime: (element) ->
+		# 日付／時刻はキーボードからの入力を許容する．
+		#$(element).blur()
+		$('.current_row').removeClass('current_row')
+		if 0 < $('.currentpanel').length and not $('currentpanel').hasClass('datetime')
+			$('.currentpanel').removeClass('currentpanel').addClass('hidden')
+			$('.datetime_selector').addClass('currentpanel').removeClass('hidden')
+
 	select_product: (element, product_id, product_price, product_remain) ->
 		$('.current_row .product_id').val(product_id)
 		$('.current_row .product_size').val($(element).html())
@@ -32,18 +40,10 @@
 		quantity.val(new_val)
 		@update_total_price()
 
-	update_total_price: () ->
-		total_price = Number($('.current_row .product_price').val()) * Number($('.current_row .quantity').val())
-		$('.current_row .total_price').val(total_price.toLocaleString())
-		order_total_price = 0
-		$('.total_price').each (index) ->
-			order_total_price += Number($(this).val().replace(/,/g, ''))
-		$('#order_total_price').val(order_total_price.toLocaleString())
-
 	select_row: (element) ->
 		$(element).blur()
 		tr = $(element).parent().parent()
-		while 0 < Number($(tr).attr('index')) && $(tr).prev().find('.quantity').val() == ''
+		while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
 			tr = $(tr).prev()
 		if $('.current_row').length == 0
 			$('.currentpanel').removeClass('currentpanel').addClass('hidden')
@@ -73,6 +73,9 @@
 				$('.current_row .product_size').val('')
 				$('#quantity_selector button').attr('disabled', 'disabled')
 
+	select_text: (element) ->
+		$(element).select()
+
 	select_title_page: (button, page_selector) ->
 		cls = 'current-title-page-button'
 		$('.'+cls).removeClass(cls).removeAttr('disabled')
@@ -81,4 +84,12 @@
 		$('.'+cls).removeClass(cls).addClass('hidden')
 		$(page_selector).addClass(cls).removeClass('hidden')
 		$('.current-title').removeClass('current-title').addClass('hidden')
+
+	update_total_price: () ->
+		total_price = Number($('.current_row .product_price').val()) * Number($('.current_row .quantity').val())
+		$('.current_row .total_price').val(total_price.toLocaleString())
+		order_total_price = 0
+		$('.total_price').each (index) ->
+			order_total_price += Number($(this).val().replace(/,/g, ''))
+		$('#order_total_price').val(order_total_price.toLocaleString())
 

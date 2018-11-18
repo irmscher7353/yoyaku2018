@@ -66,12 +66,16 @@ class OrdersController < ApplicationController
 		session[:menu] ||= Menu.latest
     @order = Order.new
 		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@datetime = Preference.get_due_datetime
+		@phrases = Preference.get_phrases
   end
 
   # GET /orders/1/edit
   def edit
 		session[:menu] ||= Menu.latest
 		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@datetime = Preference.get_due_datetime
+		@phrases = Preference.get_phrases
   end
 
   # POST /orders
