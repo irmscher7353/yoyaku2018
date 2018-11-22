@@ -42,99 +42,119 @@ table.order-index {
 }
 
 table.order-lineitems {
-	.total_price {
-		width: 100%
-	}
-	button.phrase {
-		padding: 0.2em 0.5em 0.2em 0.5em;
-	}
-	div.datetime_selector {
-		display: inline-block;
-		vertical-align: top;
-		padding-left: 1em;
-		padding-right: 1em;
-	}
-	div.datetime_selector_column {
-		display: inline-block;
-		vertical-align: top;
-		button {
-			display: block;
-			margin: 0.1em 0.0em 0.1em 0.0em;
-		}
-	}
-	div.datetime_selector_header {
-		text-align: center;
-	}
-	input#order_total_price {
-		font-size: large;
-	}
-	input#submit {
-		width: 100%;
-	}
-	textarea#order_note {
-		width: 100%;
-	}
-	td.text_area {
-		vertical-align: top;
-	}
-	td.payment {
-		font-size: large;
-	}
-	td.phrases {
-		vertical-align: top;
-		button {
-			margin: 0.1em 0.0em 0.1em 0.0em;
-			text-align: left;
-			width: 100%;
-		}
-	}
-	td.selector {
-		text-align: center;
-		vertical-align: top;
-		button {
-			margin: 0.1em 0.0em 0.1em 0.0em;
-			width: 90%;
-		}
-	}
-	td#datetime_selector {
-		text-align: right;
-		vertical-align: top;
-	}
-	td#message {
-		font-size: large;
-		vertical-align: top;
-	}
-	td#order_total_price {
-		margin: 0;
-		padding: 0;
-	}
-	td#quantity_selector {
-		button {
-			padding: 0;
-		}
-	}
-	td#title_page_selector {
-		text-align: center;
-	}
 	th {
 		text-align: center;
 	}
-	tr.current_row {
-		background-color: #f00;
-	}
-	tr#line_note {
-		td {
-			height: 0px;
-			margin: 0px;
-			padding: 0px;
+	tbody {
+		.total_price {
+			width: 100%
+		}
+		textarea#order_note {
+			width: 100%;
+		}
+		td.text_area {
+			vertical-align: top;
+		}
+		tr.current_row {
+			background-color: #f00;
+		}
+		tr#line_note {
+			td {
+				height: 0px;
+				margin: 0px;
+				padding: 0px;
+			}
 		}
 	}
 	tfoot {
+		div.datetime_selector {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+		div.datetime_selector_column {
+			display: inline-block;
+			vertical-align: top;
+			button {
+				display: block;
+				margin: 0.1em 0.0em 0.1em 0.0em;
+			}
+		}
+		div.datetime_selector_header {
+			text-align: center;
+		}
+		input#order_total_price {
+			font-size: large;
+		}
+		input#submit {
+			width: 100%;
+		}
+		td {
+			vertical-align: top;
+			button {
+				margin: 0.1em 0.0em 0.1em 0.0em;
+			}
+		}
+		td.message {
+			font-size: large;
+			padding-top: 0.5em;
+		}
+		td.payment {
+			font-size: large;
+		}
+		td.selector {
+			text-align: center;
+		}
+		td.phrases {
+			button {
+				text-align: left;
+				width: 100%;
+			}
+		}
+		td.balance {
+			input {
+				width: 100%;
+			}
+		}
+		td.product_selector {
+			button {
+				width: 90%;
+			}
+		}
+		td.quantity_selector {
+			button {
+				width: 100%;
+			}
+		}
+		td.size_selector {
+			button {
+				width: 90%;
+			}
+		}
+		td.title_page_selector {
+			vertical-align: bottom;
+			button {
+			}
+		}
+		td#datetime_selector {
+			text-align: right;
+		}
+		td#order_total_price {
+			margin: 0;
+			padding: 0;
+		}
 		th {
+			text-align: center;
 			padding-bottom: 0;
 			label {
 				padding-bottom: 0;
 			}
 		}
+//	tr#line_order_total {
+//		td {
+//			vertical-align: top;
+//		}
+//	}
 	}
 }

@@ -65,6 +65,7 @@ class OrdersController < ApplicationController
   def new
 		session[:menu] ||= Menu.latest
     @order = Order.new
+		@message = '新規の注文です'
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
@@ -73,6 +74,7 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
 		session[:menu] ||= Menu.latest
+		@message = '既存の注文です'
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases

@@ -16,7 +16,7 @@
 		$('.current_row .product_size').val($(element).html())
 		$('.current_row .product_price').val(product_price)
 		$('.current_row .product_remain').val(product_remain)
-		$('#quantity_selector button').removeAttr('disabled')
+		$('.quantity_selector button').removeAttr('disabled')
 		if $('.current_row .quantity').val() != ''
 			@update_total_price()
 
@@ -51,17 +51,17 @@
 		$('.current_row').removeClass('current_row')
 		$(tr).addClass('current_row').find('.product_id').focus()
 		if $('.current_row .quantity').val() == ''
-			$('#quantity_selector button').attr('disabled','disabled')
+			$('.quantity_selector button').attr('disabled','disabled')
 		else
-			$('#quantity_selector button').removeAttr('disabled')
+			$('.quantity_selector button').removeAttr('disabled')
 
 	select_title: (element, title_selector, product_id) ->
 		field = $('.current_row .product_name')
+		$('.current-title').removeClass('current-title').addClass('hidden')
+		$(title_selector).addClass('current-title').removeClass('hidden')
 		new_val = $(element).html()
 		if field.val() != new_val
 			field.val(new_val)
-			$('.current-title').removeClass('current-title').addClass('hidden')
-			$(title_selector).addClass('current-title').removeClass('hidden')
 			$('.current_row .quantity').val('')
 			$('.current_row .product_remain').val('')
 			$('.current_row .total_price').val('')
@@ -71,7 +71,7 @@
 				$('.current_row .product_id').val('')
 				$('.current_row .product_price').val('')
 				$('.current_row .product_size').val('')
-				$('#quantity_selector button').attr('disabled', 'disabled')
+				$('.quantity_selector button').attr('disabled', 'disabled')
 
 	select_text: (element) ->
 		$(element).select()
