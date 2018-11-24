@@ -13,10 +13,12 @@
 			$('.datetime-panel').addClass('current-panel').removeClass('hidden')
 
 	select_phrase: (element, target_selector) ->
-		str = $(element).html()
+		str = $(element).text()
+		console.log str
 		target = $(target_selector)
-		if target.html().search(str) < 0
-			target.html(target.html() + str + "\n")
+		console.log target.val()
+		if target.val().search(str) < 0
+			target.val(target.val() + str + "\n")
 
 	select_product: (element, product_id, product_price, product_remain) ->
 		$('.current-row .product_id').val(product_id)
