@@ -8,6 +8,9 @@
 }
 /* */
 
+:disabled {
+	background-color: whitesmoke;
+}
 table.order-form {
 	caption {
 		font-size: x-large;
@@ -42,6 +45,7 @@ table.order-index {
 }
 
 table.order-lineitems {
+	position: relative;
 	th {
 		text-align: center;
 	}
@@ -83,6 +87,7 @@ table.order-lineitems {
 		}
 		div.datetime_selector_header {
 			text-align: center;
+			vertical-align: bottom; // efectless
 		}
 		input#order_total_price {
 			font-size: large;
@@ -103,7 +108,8 @@ table.order-lineitems {
 		td.payment {
 			font-size: large;
 		}
-		td.selector {
+		div.selector {
+			width: 100%;
 			text-align: center;
 		}
 		td.phrases {
@@ -117,27 +123,27 @@ table.order-lineitems {
 				width: 100%;
 			}
 		}
-		td.product_selector {
+		div.product_selector {
 			button {
 				width: 90%;
 			}
 		}
-		td.quantity_selector {
+		div.quantity_selector {
 			button {
 				width: 100%;
 			}
 		}
-		td.size_selector {
+		div.size_selector {
 			button {
 				width: 90%;
 			}
 		}
-		td.title_page_selector {
+		div.title_page_selector {
 			vertical-align: bottom;
 			button {
 			}
 		}
-		td#datetime_selector {
+		td.datetime_selector {
 			text-align: right;
 		}
 		td#order_total_price {
@@ -151,10 +157,5 @@ table.order-lineitems {
 				padding-bottom: 0;
 			}
 		}
-//	tr#line_order_total {
-//		td {
-//			vertical-align: top;
-//		}
-//	}
 	}
 }

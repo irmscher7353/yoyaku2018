@@ -214,18 +214,33 @@
 <tfoot >
 	<% num_rows = 8 %>
 	<tr id="line_order_total" >
-		<td rowspan="<%= num_rows %>" colspan="3" class="message current-panel" >
+		<td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
 <%= @message %>
 		</td>
-		<td rowspan="<%= num_rows %>" colspan="3" class="datetime_selector selector hidden" >
+		<td rowspan="<%= num_rows %>" colspan="3" class="datetime-panel hidden selector datetime_selector" >
 <%= render 'datetime_selector' %>
 		</td>
-		<td class="item_selector selector title_page_selector hidden" >
+		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
+			<div class="selector title_page_selector" >
 <%= render 'title_page_selector' %>
+			</div>
+			<div class="selector product_selector" >
+<%= render 'product_selector' %>
+			</div>
 		</td>
-		<td class="item_selector hidden" >
+		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
+			<div class="selector title_page_selector" >
+			</div>
+			<div class-"selector size_selector" >
+<%= render 'size_selector' %>
+			</div>
 		</td>
-		<td class="item_selector hidden" >
+		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
+			<div class="selector title_page_selector" >
+			</div>
+			<div class="selector quantity_selector" >
+<%= render 'quantity_selector' %>
+			</div>
 		</td>
 		<th >
     <%= form.label :total_price %>
@@ -241,17 +256,6 @@
 		<% @phrases.each do |phrase| %>
 			<%= form.button phrase, type: 'button', class: 'phrase' %><br />
 		<% end %>
-		</td>
-	</tr>
-	<tr class="item_selector hidden" >
-		<td rowspan="<%= num_rows - 1 %>" class="selector product_selector" >
-<%= render 'product_selector' %>
-		</td>
-		<td rowspan="<%= num_rows - 1 %>" class="selector size_selector" >
-<%= render 'size_selector' %>
-		</td>
-		<td rowspan="<%= num_rows - 1 %>" class="selector quantity_selector" >
-<%= render 'quantity_selector' %>
 		</td>
 	</tr>
 	<tr class="field">

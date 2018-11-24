@@ -7,9 +7,10 @@
 		# 日付／時刻はキーボードからの入力を許容する．
 		#$(element).blur()
 		$('.current-row').removeClass('current-row')
-		if 0 < $('.current-panel').length and not $('current-panel').hasClass('datetime')
+		if 0 < $('.current-panel').length and not $('current-panel').hasClass('datetime-panel')
+			$('.datetime_selector_header').css('height', $('#order_total_price').parent().css('height'))
 			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.datetime_selector').addClass('current-panel').removeClass('hidden')
+			$('.datetime-panel').addClass('current-panel').removeClass('hidden')
 
 	select_product: (element, product_id, product_price, product_remain) ->
 		$('.current-row .product_id').val(product_id)
@@ -46,8 +47,9 @@
 		while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
 			tr = $(tr).prev()
 		if $('.current-row').length == 0
+			$('.title_page_selector').css('height', $('#order_total_price').parent().css('height'))
 			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.item_selector').addClass('current-panel').removeClass('hidden')
+			$('.item-panel').addClass('current-panel').removeClass('hidden')
 		$('.current-row').removeClass('current-row')
 		$(tr).addClass('current-row').find('.product_id').focus()
 		if $('.current-row .quantity').val() == ''
