@@ -254,7 +254,8 @@
 		</th>
 		<td rowspan="<%= num_rows %>" class="phrases" >
 		<% @phrases.each do |phrase| %>
-			<%= form.button phrase, type: 'button', class: 'phrase' %><br />
+			<%= form.button phrase, type: 'button', class: 'phrase',
+			    onClick: "orders.select_phrase(this, '#order_note');" %><br />
 		<% end %>
 		</td>
 	</tr>

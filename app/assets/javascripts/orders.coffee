@@ -12,6 +12,12 @@
 			$('.current-panel').removeClass('current-panel').addClass('hidden')
 			$('.datetime-panel').addClass('current-panel').removeClass('hidden')
 
+	select_phrase: (element, target_selector) ->
+		str = $(element).html()
+		target = $(target_selector)
+		if target.html().search(str) < 0
+			target.html(target.html() + str + "\n")
+
 	select_product: (element, product_id, product_price, product_remain) ->
 		$('.current-row .product_id').val(product_id)
 		$('.current-row .product_size').val($(element).html())
