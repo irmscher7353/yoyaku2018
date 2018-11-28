@@ -1,7 +1,7 @@
 <% n = 6 %>
 <div class="datetime_selector" id="month_selector" >
 	<div class="datetime_selector_header" >
-	月
+<span >月</span>
 	</div>
 <% @datetime[:monthes].fold(n).each do |mm_list| %>
 	<div class="datetime_selector_column" >
@@ -14,7 +14,7 @@
 </div>
 <div class="datetime_selector" id="day_selector" >
 	<div class="datetime_selector_header" >
-	日
+<span >日</span>
 	</div>
 <% @datetime[:days].fold(n).each do |dd_list| %>
 	<div class="datetime_selector_column" >
@@ -27,7 +27,7 @@
 </div>
 <div class="datetime_selector" id="hour_selector" >
 	<div class="datetime_selector_header" >
-	時
+<span >時</span>
 	</div>
 <% @datetime[:hours].fold(n).each do |hh_list| %>
 	<div class="datetime_selector_column" >
@@ -40,7 +40,7 @@
 </div>
 <div class="datetime_selector" id="minute_selector" >
 	<div class="datetime_selector_header" >
-	分
+<span >分</span>
 	</div>
 <% @datetime[:minutes].fold(n).each do |mm_list| %>
 	<div class="datetime_selector_column" >

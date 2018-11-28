@@ -22,6 +22,9 @@ table.order-form {
 	td .mandatory {
 		font-size: large;
 	}
+	td .optional {
+		font-size: large;
+	}
 	input#order_address {
 		width: 100%;
 	}
@@ -49,12 +52,20 @@ table.order-lineitems {
 	th {
 		text-align: center;
 	}
+	thead {
+		th {
+			padding: 2px 0px 2px;
+		}
+	}
 	tbody {
 		.total_price {
 			width: 100%
 		}
 		textarea#order_note {
 			width: 100%;
+		}
+		td {
+			padding: 3px 5px 3px; // override 0 5px 7px; in scaffolds.scss
 		}
 		td.text_area {
 			vertical-align: top;
@@ -82,45 +93,25 @@ table.order-lineitems {
 			vertical-align: top;
 			button {
 				display: block;
-				margin: 0.1em 0.0em 0.1em 0.0em;
+				font-size: large;
+				margin-bottom: 0.5rem;
+				padding: 0.5rem 1.5rem;
 			}
 		}
 		div.datetime_selector_header {
+			padding-top: 0.4rem;
 			text-align: center;
 			vertical-align: bottom; // efectless
-		}
-		input#order_total_price {
-			font-size: large;
-		}
-		input#submit {
-			width: 100%;
-		}
-		td {
-			vertical-align: top;
-			button {
-				margin: 0.1em 0.0em 0.1em 0.0em;
+			span {
+				text-align: center;
 			}
-		}
-		td.message {
-			font-size: large;
-			padding-top: 0.5em;
-		}
-		td.payment {
-			font-size: large;
 		}
 		div.selector {
 			width: 100%;
 			text-align: center;
-		}
-		td.phrases {
 			button {
-				text-align: left;
-				width: 100%;
-			}
-		}
-		td.balance {
-			input {
-				width: 100%;
+				margin-bottom: 0.5rem;
+				padding: 0.5rem 0.0rem;
 			}
 		}
 		div.product_selector {
@@ -130,6 +121,7 @@ table.order-lineitems {
 		}
 		div.quantity_selector {
 			button {
+				font-size: large;
 				width: 100%;
 			}
 		}
@@ -141,6 +133,41 @@ table.order-lineitems {
 		div.title_page_selector {
 			vertical-align: bottom;
 			button {
+				margin-bottom: 0.0rem;
+				padding: 0.0rem 1.0rem;
+			}
+		}
+		input#order_total_price {
+			font-size: large;
+		}
+		input#submit {
+			width: 100%;
+		}
+		td {
+			vertical-align: top;
+			button {
+				white-space: nowrap;
+			}
+		}
+		td.message {
+			font-size: large;
+			padding-top: 0.5em;
+		}
+		td.payment {
+			font-size: large;
+		}
+		td.phrases {
+			button {
+				font-size: large;
+				margin-bottom: 0.5rem;
+				padding: 1.0rem 2.0rem;
+				text-align: left;
+				width: 100%;
+			}
+		}
+		td.balance {
+			input {
+				width: 100%;
 			}
 		}
 		td.datetime_selector {
