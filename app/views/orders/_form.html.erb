@@ -19,111 +19,121 @@
 	<caption >ご予約伝票</caption>
 <tbody >
 	<tr >
-		<td class="field">
+		<th class="field">
     <%= form.label :number %>
-		</td>
-		<td class="filed" colspan=<%= colspan %> >
+		</th>
+		<td class="filed" colspan="<%= colspan %>" >
     <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', readonly: true %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
+		<th >
     <%= form.label :menu_id %>
-		</td>
-		<td class="field" colspan=<%= colspan %> >
+		</th>
+		<td class="field" >
     <%= form.text_field :menu_id, id: :order_menu_id %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
+		<th >
     <%= form.label :buyer_id %>
-		</td>
+		</th>
 		<td >
     <%= form.text_field :buyer_id, id: :order_buyer_id %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
+		<th >
     <%= form.label :due_datenum %>
-		</td>
+		</th>
 		<td >
     <%= form.number_field :due_datenum, id: :order_due_datenum %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
+		<th >
     <%= form.label :amount_paid %>
-		</td>
+		</th>
 		<td >
     <%= form.number_field :amount_paid, id: :order_amount_paid %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
-		</td>
+		<th >
+		</th>
 		<td >
     <%= form.text_field :payment, id: :order_payment %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
-		</td>
+		<th >
+		</th>
 		<td >
     <%= form.text_field :means, id: :order_means %>
 		</td>
 	</tr>
 	<tr class="hidden" >
-		<td >
-		</td>
+		<th >
+		</th>
 		<td >
     <%= form.text_field :state, id: :order_state %>
 		</td>
 	</tr>
 	<tr >
-		<td class="field">
+		<th class="field">
     <%= form.label :name %>
-		</td>
+		</th>
 		<td class="field">
     <%= form.text_field :name, id: :order_name, size: 30, class: 'mandatory' %>
 		</td>
-		<td >
+		<td class="honorific" >
 		様
 		</td>
-		<td class="field">
+		<th class="field">
     <%= form.label :phone %>
-		</td>
+		</th>
 		<td class="field">
-    <%= form.text_field :phone, id: :order_phone, class: 'mandatory' %>
+    <%= form.text_field :phone, id: :order_phone, type: :tel,
+		    class: 'mandatory',
+		    onFocus: "orders.select_phone(this);" %>
 		</td>
 	</tr>
 	<tr >
-		<td class="field">
+		<th class="field">
     <%= form.label :address %>
-		</td>
-		<td class="field" colspan=<%= colspan %> >
+		</th>
+		<td class="field" colspan="<%= colspan %>" >
     <%= form.text_field :address, id: :order_address, class: 'optional' %>
 		</td>
 	</tr>
 	<tr >
-		<td class="field">
+		<th class="field">
     <%= form.label :due %>
-		</td>
+		</th>
 		<td class="field" colspan=<%= colspan - 1 %> >
+		<!-- input の type を指定すれば，ime-mode は自動調整されるが，size は
+		     効かなくなり，css の width で指定する必要が出て来る． -->
 		<% nd = 4 %>
-		<%= form.text_field :due_year, size: nd, class: 'mandatory center hidden',
+		<%= form.text_field :due_year, id: :due_year, type: :number, size: nd,
+		    class: 'mandatory due no-spin-button center hidden',
 		    onClick: "orders.select_text(this);",
 		    onFocus: "orders.select_datetime(this);" %><!-- 年 -->
-		<%= form.text_field :due_month, size: nd, class: 'mandatory center',
+		<%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
+		    class: 'mandatory due no-spin-button center',
 		    onClick: "orders.select_text(this);",
 		    onFocus: "orders.select_datetime(this);" %> 月
-		<%= form.text_field :due_day, size: nd, class: 'mandatory center',
+		<%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
+		    class: 'mandatory due no-spin-button center',
 		    onClick: "orders.select_text(this);",
 		    onFocus: "orders.select_datetime(this);" %> 日
 		（ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
-		<%= form.text_field :due_hour, size: nd, class: 'mandatory center',
+		<%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
+		    class: 'mandatory due no-spin-button center',
 		    onClick: "orders.select_text(this);",
 		    onFocus: "orders.select_datetime(this);" %> 時
-		<%= form.text_field :due_min, size: nd, class: 'mandatory center',
+		<!-- minute の type を number にすると，"00" と表示できなくなる．-->
+		<%= form.text_field :due_min, id: :due_minute, type: :text, size: nd,
+		    class: 'mandatory due no-spin-button center',
 		    onClick: "orders.select_text(this);",
 		    onFocus: "orders.select_datetime(this);" %> 分
 		</td>
@@ -217,6 +227,12 @@
 		<td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
 <%= @message %>
 		</td>
+		<td rowspan="<%= num_rows %>" colspan="1" class="phone-panel hidden selector area_code_selector" >
+<%= render 'area_code_selector' %>
+		</td>
+		<td rowspan="<%= num_rows %>" colspan="2" class="phone-panel hidden selector numbers_selector" >
+<%= render 'numbers_selector' %>
+		</td>
 		<td rowspan="<%= num_rows %>" colspan="3" class="datetime-panel hidden selector datetime_selector" >
 <%= render 'datetime_selector' %>
 		</td>
@@ -231,7 +247,7 @@
 		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
 			<div class="selector title_page_selector" >
 			</div>
-			<div class-"selector size_selector" >
+			<div class="selector size_selector" >
 <%= render 'size_selector' %>
 			</div>
 		</td>

@@ -1,6 +1,11 @@
 class Preference < ApplicationRecord
 	validates :name, presence: true
 
+	def self.get_area_codes
+		h = to_hash
+		h['市外局番'].gsub(/ /, '').split(/,/)
+	end
+
 	def self.get_due_datetime
 		datetime = {}
 		h = to_hash

@@ -16,6 +16,9 @@ table.order-form {
 		font-size: x-large;
 		text-align: center;
 	}
+	td.honorific {
+		padding-right: 1.5rem;
+	}
 	td label {
 		display: inline;
 	}
@@ -25,8 +28,20 @@ table.order-form {
 	td .optional {
 		font-size: large;
 	}
+	th {
+		white-space: nowrap;
+	}
+	input {
+		padding: 0.1rem 0.5rem;
+	}
+	input.due {
+		width: 6.0rem;
+	}
 	input#order_address {
 		width: 100%;
+	}
+	input#order_name {
+		width: -moz-available;
 	}
 }
 
@@ -82,6 +97,19 @@ table.order-lineitems {
 		}
 	}
 	tfoot {
+		div.area_code_selector {
+			display: inline-block;
+			text-align: right;
+			margin: 0.0rem 0.5rem;
+			button {
+				display: block;
+				font-size: large;
+				margin-bottom: 0.5rem;
+				padding: 0.5rem 1.0rem;
+				text-align: left;
+				width: 100%;
+			}
+		}
 		div.datetime_selector {
 			display: inline-block;
 			vertical-align: top;
@@ -103,6 +131,17 @@ table.order-lineitems {
 			text-align: center;
 			vertical-align: bottom; // efectless
 			span {
+				text-align: center;
+			}
+		}
+		div.number_selector {
+			#display: inline-block;
+		}
+		div.number_selector_row {
+			button {
+				font-size: large;
+				margin-bottom: 0.5rem;
+				padding: 0.5rem 1.0rem;
 				text-align: center;
 			}
 		}
@@ -149,9 +188,15 @@ table.order-lineitems {
 				white-space: nowrap;
 			}
 		}
+		td.area_code_selector {
+			text-align: right;
+		}
 		td.message {
 			font-size: large;
 			padding-top: 0.5em;
+		}
+		td.numbers_selector {
+			text-align: center;
 		}
 		td.payment {
 			font-size: large;

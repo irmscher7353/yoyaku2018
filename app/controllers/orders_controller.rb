@@ -1,6 +1,13 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+	NUMBERS_LIST = [
+	['1','2','3'],
+	['4','5','6'],
+	['7','8','9'],
+	['-','0','x'],
+	]
+
   # GET /orders
   # GET /orders.json
   def index
@@ -66,6 +73,8 @@ class OrdersController < ApplicationController
 		session[:menu] ||= Menu.latest
     @order = Order.new
 		@message = '新規の注文です'
+		@area_codes = Preference.get_area_codes
+		@numbers_list = NUMBERS_LIST
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
@@ -75,6 +84,8 @@ class OrdersController < ApplicationController
   def edit
 		session[:menu] ||= Menu.latest
 		@message = '既存の注文です'
+		@area_codes = Preference.get_area_codes
+		@numbers_list = NUMBERS_LIST
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases

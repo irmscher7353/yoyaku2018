@@ -29,7 +29,7 @@ class Order < ApplicationRecord
 	end
 
 	def due_wday
-		due.present? ? I18n.l(due.localtime, format: '%a') : ' '
+		due.present? ? I18n.l(due.localtime, format: '%a') : '　'
 	end
 
 	def due_hour

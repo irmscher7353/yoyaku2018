@@ -7,7 +7,7 @@
 	<div class="datetime_selector_column" >
 	<% mm_list.each do |mm| %>
 		<%= button_tag(mm, type: :button, remote: true,
-		    onClick: "orders.select_month(this);" ) %>
+		    onClick: "orders.select_due(this, '#due_month');" ) %>
 	<% end %>
 	</div>
 <% end %>
@@ -20,7 +20,7 @@
 	<div class="datetime_selector_column" >
 	<% dd_list.each do |dd| %>
 		<%= button_tag(dd, type: :button, remote: true,
-		    onClick: "orders.select_day(this);" ) %>
+		    onClick: "orders.select_due(this, '#due_day');" ) %>
 	<% end %>
 	</div>
 <% end %>
@@ -33,7 +33,7 @@
 	<div class="datetime_selector_column" >
 	<% hh_list.each do |hh| %>
 		<%= button_tag(hh, type: :button, remote: true,
-		    onClick: "orders.select_hour(this);" ) %>
+		    onClick: "orders.select_due(this, '#due_hour');" ) %>
 	<% end %>
 	</div>
 <% end %>
@@ -46,7 +46,7 @@
 	<div class="datetime_selector_column" >
 	<% mm_list.each do |mm| %>
 		<%= button_tag('%02d' % mm, type: :button, remote: true,
-		    onClick: "orders.select_minute(this);" ) %>
+		    onClick: "orders.select_due(this, '#due_minute');" ) %>
 	<% end %>
 	</div>
 <% end %>

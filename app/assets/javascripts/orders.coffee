@@ -3,6 +3,39 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @orders =
 
+	phone_update: (element, keycode) ->
+		v = $(element).val()
+		if v.match(/^(0[5-9]0(?:\-\d{4})?|03(?:\-\d{4})?|0[1-9][1-9]\-\d{3}|0[124-9]\d\d\-\d\d)$/)
+			if keycode == 8
+				v = v.replace(/\d$/, '')
+			else
+				v += '-'
+		if v.match(/^0[5-9]0/)
+			n_max = 11
+		else
+			n_max = 10
+		if n_max < v.replace(/\D/g, '').length
+			v = v.replace(/.$/, '')
+		if v != $(element).val()
+			$(element).val(v)
+		if 2 <= v.length and v.slice(-1) != '-' and v.split('-').length <= 2 and not v.match(/^0[5-9]0-\d{1,3}/)
+			$('.number-minus').removeAttr('disabled')
+		else
+			$('.number-minus').attr('disabled', 'disabled')
+		if v.length <= 0
+			$('.area_code_selector button').removeAttr('disabled')
+		else
+			$('.area_code_selector button').attr('disabled', 'disabled')
+
+	select_area_code: (element) ->
+		area_code = $(element).html()
+		val = $('#order_phone').val()
+		if val == ''
+			val = area_code
+		else
+			val = val.replace(/^\d+\-?/, area_code)
+		@phone_update($('#order_phone').val(val).focus())
+
 	select_datetime: (element) ->
 		# 日付／時刻はキーボードからの入力を許容する．
 		#$(element).blur()
@@ -12,11 +45,41 @@
 			$('.current-panel').removeClass('current-panel').addClass('hidden')
 			$('.datetime-panel').addClass('current-panel').removeClass('hidden')
 
+	select_due: (element, target_selector) ->
+		$(target_selector).val($(element).html()).focus().select()
+		mm = $('#due_month').val()
+		dd = $('#due_day').val()
+		if mm.match(/^\d+$/) and dd.match(/^\d+$/)
+			wday = ['日','月','火','水','木','金','土']
+			s = $('#due_year').val() + '-' + mm + '-' + dd
+			i = (new Date(s)).getDay()
+			$('#due_wday').html(wday[i])
+
+	select_number: (element) ->
+		v = $('#order_phone').val()
+		c = $(element).html()
+		switch c
+			when '-'
+				if v.slice(-1) != c
+					v += c
+			when 'x'
+				v = v.replace(/.\-?$/, '')
+			else
+				v += c
+		@phone_update($('#order_phone').val(v).focus())
+
+	select_phone: (element) ->
+		$('.current-row').removeClass('current-row')
+		if 0 < $('.current-panel').length and not $('current-panel').hasClass('phone-panel')
+			$('.phone_selector_header').css('height', $('#order_total_price').parent().css('height'))
+			$('.current-panel').removeClass('current-panel').addClass('hidden')
+			$('.phone-panel').addClass('current-panel').removeClass('hidden')
+			$('.number-char').css('min-width', $('.number-digit').css('width'))
+
 	select_phrase: (element, target_selector) ->
+		$(element).blur()
 		str = $(element).text()
-		console.log str
 		target = $(target_selector)
-		console.log target.val()
 		if target.val().search(str) < 0
 			target.val(target.val() + str + "\n")
 
@@ -102,4 +165,15 @@
 		$('.total_price').each (index) ->
 			order_total_price += Number($(this).val().replace(/,/g, ''))
 		$('#order_total_price').val(order_total_price.toLocaleString())
+
+	onkeyup: (event) ->
+		console.log 'onkeyup'
+
+$ ->
+	$('#order_phone').on 'keyup', (event) =>
+		v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
+		if v.split('-').length == 4
+			v = v.replace(/-$/, '')
+		$(event.target).val(v)
+		orders.phone_update event.target, event.which
 

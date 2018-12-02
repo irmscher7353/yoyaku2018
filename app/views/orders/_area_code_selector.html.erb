@@ -1,0 +1,9 @@
+<div class="phone_selector_header" >
+</div>
+<div class="area_code_selector" >
+<% @area_codes.each do |area_code| %>
+	<%= button_tag('%s-' % area_code, type: :button, remote: true,
+	    style: (area_code == '' ? "visibility: hidden;" : ""),
+	    onClick: "orders.select_area_code(this);" ) %>
+<% end %>
+</div>
