@@ -57,16 +57,33 @@
 
 	select_number: (element) ->
 		v = $('#order_phone').val()
+		i = $('#order_phone').get(0).selectionStart
+		i = -1
 		c = $(element).html()
 		switch c
 			when '-'
-				if v.slice(-1) != c
-					v += c
+				if 0 <= i
+					if not ((0 < i and v.charAt(i-1) == c) or (i < v.length and v.charAt(i) == c))
+						v = v.slice(0,i) + c + v.slice(i)
+						i += 1
+				else
+					#
 			when 'x'
-				v = v.replace(/.\-?$/, '')
+				if 0 <= i
+					v = v.slice(0,i-(if v.charAt(i-1) == '-' then 2 else 1)) + v.slice(i)
+					i -= 1
+				else
+					v = v.replace(/.\-?$/, '')
 			else
-				v += c
+				if 0 <= i
+					v = v.slice(0,i) + c + v.slice(i)
+					i += 1
+				else
+					v += c
 		@phone_update($('#order_phone').val(v).focus())
+		if 0 <= i
+			$('#order_phone').get(0).selectionStart = i
+			$('#order_phone').get(0).selectionEnd = i
 
 	select_phone: (element) ->
 		$('.current-row').removeClass('current-row')
