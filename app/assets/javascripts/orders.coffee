@@ -39,7 +39,6 @@
 	select_datetime: (element) ->
 		# 日付／時刻はキーボードからの入力を許容する．
 		#$(element).blur()
-		$('.current-row').removeClass('current-row')
 		@select_panel 'datetime-panel'
 
 	select_due: (element, target_selector) ->
@@ -95,7 +94,6 @@
 			$('.'+panel).addClass('current-panel').removeClass('hidden')
 
 	select_phone: (element) ->
-		$('.current-row').removeClass('current-row')
 		@select_panel 'phone-panel'
 
 	select_phrase: (element, target_selector) ->
@@ -208,9 +206,7 @@ $ ->
 		#$('.message-panel').addClass('current-panel').removeClass('hidden')
 
 	$('#order_address').on 'focus', (event) =>
-		if 0 < $('.current-panel').length and not $('current-panel').hasClass('address-panel')
-			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.address-panel').removeClass('hidden').addClass('current-panel')
+		orders.select_panel 'address-panel'
 
 	$('#order_note').on 'focus', (event) =>
 		if $('.base-panel').hasClass('hidden')

@@ -284,15 +284,16 @@
 		</td>
 	</tr>
 	<tr class="field base-panel">
+	<% invisible = (order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
 		<th >
-    <%= form.label :balance %>
+    <%= form.label :balance, class: invisible %>
 		</th>
 		<td class="balance" >
-    <%= form.text_field :balance, id: :order_balance,
-		    size: 1, disabled: true, class: 'numeric no-spin-button' %>
+    <%= form.text_field :balance, id: :order_balance, size: 1, disabled: true,
+				class: 'numeric no-spin-button %s' % [invisible] %>
 		</td>
 		<th >
-		円
+		<span class="<%= invisible %>" >円</span>
 		</th>
 	</tr>
 	<tr class="base-panel" >
