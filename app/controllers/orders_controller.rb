@@ -1,6 +1,26 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+	KANA_MATRIX = [
+	['ア','イ','ウ','エ','オ'],
+	['カ','キ','ク','ケ','コ'],
+	['サ','シ','ス','セ','ソ'],
+	['タ','チ','ツ','テ','ト'],
+	['ナ','ニ','ヌ','ネ','ノ'],
+	['ハ','ヒ','フ','ヘ','ホ'],
+	['マ','ミ','ム','メ','モ'],
+	['ヤ','（','ユ','）','ヨ'],
+	['ワ','ー','ヴ','ヲ','ン'],
+	[],
+	['ガ','ギ','グ','ゲ','ゴ'],
+	['ザ','ジ','ズ','ゼ','ゾ'],
+	['ダ','ヂ','ヅ','デ','ド'],
+	['バ','ビ','ブ','ベ','ボ'],
+	['パ','ピ','プ','ペ','ポ'],
+	[],
+	['ァ','ィ','ゥ','ェ','ォ'],
+	['ャ','ッ','ュ','｜','ョ'],
+	]
 	NUMBERS_LIST = [
 	['1','2','3'],
 	['4','5','6'],
@@ -75,6 +95,7 @@ class OrdersController < ApplicationController
 		@message = '新規の注文です'
 		@area_codes = Preference.get_area_codes
 		@numbers_list = NUMBERS_LIST
+		@kana_matrix = KANA_MATRIX
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
@@ -86,6 +107,7 @@ class OrdersController < ApplicationController
 		@message = '既存の注文です'
 		@area_codes = Preference.get_area_codes
 		@numbers_list = NUMBERS_LIST
+		@kana_matrix = KANA_MATRIX
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases

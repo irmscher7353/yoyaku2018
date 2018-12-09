@@ -23,7 +23,7 @@
     <%= form.label :number %>
 		</th>
 		<td class="filed" colspan="<%= colspan %>" >
-    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', readonly: true %>
+    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', disabled: true %>
 		</td>
 	</tr>
 	<tr class="hidden" >
@@ -84,7 +84,8 @@
     <%= form.label :name %>
 		</th>
 		<td class="field">
-    <%= form.text_field :name, id: :order_name, size: 30, class: 'mandatory' %>
+    <%= form.text_field :name, id: :order_name, size: 30, class: 'mandatory',
+		    onFocus: "orders.select_kana(this);" %>
 		</td>
 		<td class="honorific" >
 		様
@@ -160,9 +161,10 @@
 		<th >備考</th>
 	</tr>
 </thead>
+<% num_cols = 7 %>
 <tbody >
 	<tr id="line_note" >
-		<td colspan="6" >
+		<td colspan="<%= num_cols - 1 %>" >
 		</td>
 		<td class="field text_area" rowspan=<%= 1 + n_lines %> >
     <%= form.text_area :note, id: :order_note, size: '20x6' %>
@@ -191,11 +193,11 @@
 		</td>
 		<td >
 		<%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
-		    tabindex: -1, readonly: true %>
+		    tabindex: -1, disabled: true %>
 		</td>
 		<td >
 		<%= item.text_field :total_price_delimited, size: 1, class: 'numeric total_price',
-		    tabindex: -1, readonly: true %>
+		    tabindex: -1, disabled: true %>
 		</td>
 	</tr>
 	<% end %>
@@ -226,6 +228,9 @@
 	<tr id="line_order_total" >
 		<td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
 <%= @message %>
+		</td>
+		<td rowspan="<%= num_rows %>" colspan="3" class="address-panel hidden" >
+住所はキーボードで入力して下さい．
 		</td>
 		<td rowspan="<%= num_rows %>" colspan="1" class="phone-panel hidden selector area_code_selector" >
 <%= render 'area_code_selector' %>
@@ -258,14 +263,17 @@
 <%= render 'quantity_selector' %>
 			</div>
 		</td>
-		<th >
+		<td rowspan="<%= num_rows %>" colspan="6" class="kana-panel hidden" >
+<%= render 'kana_panel' -%>
+		</td>
+		<th class="base-panel" >
     <%= form.label :total_price %>
 		</th>
-		<td class="field" >
+		<td class="field base-panel" >
     <%= form.text_field :total_price, id: :order_total_price,
-		    size: 6, readonly: true, class: 'numeric price no-spin-button' %>
+		    size: 6, disabled: true, class: 'numeric price no-spin-button' %>
 		</td>
-		<th >
+		<th class="base-panel" >
 		円
 		</th>
 		<td rowspan="<%= num_rows %>" class="phrases" >
@@ -275,19 +283,19 @@
 		<% end %>
 		</td>
 	</tr>
-	<tr class="field">
+	<tr class="field base-panel">
 		<th >
     <%= form.label :balance %>
 		</th>
 		<td class="balance" >
     <%= form.text_field :balance, id: :order_balance,
-		    size: 1, readonly: true, class: 'numeric no-spin-button' %>
+		    size: 1, disabled: true, class: 'numeric no-spin-button' %>
 		</td>
 		<th >
 		円
 		</th>
 	</tr>
-	<tr >
+	<tr class="base-panel" >
 		<th class="field">
     <%= form.label :payment %>
 		</th>
@@ -301,7 +309,7 @@
 		<%= s %>
 		</td>
 	</tr>
-	<tr >
+	<tr class="base-panel" >
 		<th class="field">
     <%= form.label :means %>
 		</th>
@@ -315,21 +323,21 @@
 		<%= s %>
 		</td>
 	</tr>
-	<tr >
+	<tr class="base-panel" >
 		<th class="field">
     <%= form.label :state %>
 		</th>
 		<td colspan="2" >
 		</td>
 	</tr>
-	<tr >
+	<tr class="base-panel" >
 		<th >
 		</th>
 		<td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true %>
 		</td>
 	</tr>
-	<tr >
+	<tr class="base-panel" >
 		<th >
 		</th>
 		<td colspan="2" >

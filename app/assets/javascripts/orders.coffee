@@ -40,10 +40,7 @@
 		# 日付／時刻はキーボードからの入力を許容する．
 		#$(element).blur()
 		$('.current-row').removeClass('current-row')
-		if 0 < $('.current-panel').length and not $('current-panel').hasClass('datetime-panel')
-			$('.datetime_selector_header').css('height', $('#order_total_price').parent().css('height'))
-			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.datetime-panel').addClass('current-panel').removeClass('hidden')
+		@select_panel 'datetime-panel'
 
 	select_due: (element, target_selector) ->
 		$(target_selector).val($(element).html()).focus().select()
@@ -54,6 +51,9 @@
 			s = $('#due_year').val() + '-' + mm + '-' + dd
 			i = (new Date(s)).getDay()
 			$('#due_wday').html(wday[i])
+
+	select_kana: (element) ->
+		@select_panel 'kana-panel'
 
 	select_number: (element) ->
 		v = $('#order_phone').val()
@@ -85,13 +85,18 @@
 			$('#order_phone').get(0).selectionStart = i
 			$('#order_phone').get(0).selectionEnd = i
 
+	select_panel: (panel) ->
+		if not $('.current-panel').hasClass(panel)
+			if panel == 'kana-panel'
+				$('.base-panel').addClass('hidden')
+			else
+				$('.base-panel').removeClass('hidden')
+			$('.current-panel').removeClass('current-panel').addClass('hidden')
+			$('.'+panel).addClass('current-panel').removeClass('hidden')
+
 	select_phone: (element) ->
 		$('.current-row').removeClass('current-row')
-		if 0 < $('.current-panel').length and not $('current-panel').hasClass('phone-panel')
-			$('.phone_selector_header').css('height', $('#order_total_price').parent().css('height'))
-			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.phone-panel').addClass('current-panel').removeClass('hidden')
-			$('.number-char').css('min-width', $('.number-digit').css('width'))
+		@select_panel 'phone-panel'
 
 	select_phrase: (element, target_selector) ->
 		$(element).blur()
@@ -135,9 +140,7 @@
 		while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
 			tr = $(tr).prev()
 		if $('.current-row').length == 0
-			$('.title_page_selector').css('height', $('#order_total_price').parent().css('height'))
-			$('.current-panel').removeClass('current-panel').addClass('hidden')
-			$('.item-panel').addClass('current-panel').removeClass('hidden')
+			@select_panel 'item-panel'
 		$('.current-row').removeClass('current-row')
 		$(tr).addClass('current-row').find('.product_id').focus()
 		if $('.current-row .quantity').val() == ''
@@ -187,6 +190,11 @@
 		console.log 'onkeyup'
 
 $ ->
+	$('.datetime_selector_header').css('height', $('#order_total_price').parent().css('height'))
+	$('.phone_selector_header').css('height', $('#order_total_price').parent().css('height'))
+	$('.number-char').css('min-width', $('.number-digit').css('width'))
+	$('.title_page_selector').css('height', $('#order_total_price').parent().css('height'))
+
 	$('#order_phone').on 'keyup', (event) =>
 		v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
 		if v.split('-').length == 4
@@ -194,3 +202,36 @@ $ ->
 		$(event.target).val(v)
 		orders.phone_update event.target, event.which
 
+	$('#order_name').on 'blur', (event) =>
+		#$('.kana-panel').removeClass('current-panel').addClass('hidden')
+		#$('.base-panel').removeClass('hidden')
+		#$('.message-panel').addClass('current-panel').removeClass('hidden')
+
+	$('#order_address').on 'focus', (event) =>
+		if 0 < $('.current-panel').length and not $('current-panel').hasClass('address-panel')
+			$('.current-panel').removeClass('current-panel').addClass('hidden')
+			$('.address-panel').removeClass('hidden').addClass('current-panel')
+
+	$('#order_note').on 'focus', (event) =>
+		if $('.base-panel').hasClass('hidden')
+			orders.select_panel 'message-panel'
+
+	$('button.kana-button').on 'click', (event) =>
+		target = $(event.target)
+		c = target.html()
+		field = $('#order_name')
+		v = field.val()
+		if target.hasClass('delete')
+			if 0 < v.length
+				v = v.slice(0,-1)
+		else if target.hasClass('white-space')
+			v += ' '
+		else
+			v += c
+		field.val(v).focus()
+
+	$('table.order-form').on 'focusin', (event) =>
+		$('.current-row').removeClass('current-row')
+
+	$('table.order-lineitems > thead > tr:first > th' ).each (index,element) ->
+		$(element).css('min-width', $(element).css('width'))

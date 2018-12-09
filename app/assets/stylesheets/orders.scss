@@ -191,6 +191,31 @@ table.order-lineitems {
 		td.area_code_selector {
 			text-align: right;
 		}
+		td.kana-panel {
+			button {
+				font-size: large;
+				margin-bottom: 0.5rem;
+				padding: 0.5rem 0.5rem;
+			}
+			div.kana-column {
+				display: inline-block;
+				button {
+					display: block;
+				}
+			}
+			div.kana-footer {
+				text-align: center;
+				button {
+					margin-right: 4.0rem;
+				}
+				button.delete {
+					width: 8rem;
+				}
+				button.white-space {
+					width: 20rem;
+				}
+			}
+		}
 		td.message {
 			font-size: large;
 			padding-top: 0.5em;

@@ -1,6 +1,9 @@
 .hidden {
 	display: none;
 }
+.invisible {
+	visibility: hidden;
+}
 
 // Chrome, Safari
 input[type="number"].no-spin-button::-webkit-outer-spin-button,
