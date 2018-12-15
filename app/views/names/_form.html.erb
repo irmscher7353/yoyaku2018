@@ -1,0 +1,47 @@
+<%= form_with(model: name, local: true) do |form| %>
+  <% if name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(name.errors.count, "error") %> prohibited this name from being saved:</h2>
+
+      <ul>
+      <% name.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value, id: :name_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_shamei %>
+    <%= form.check_box :is_shamei, id: :name_is_shamei %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_sitenmei %>
+    <%= form.check_box :is_sitenmei, id: :name_is_sitenmei %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_sei %>
+    <%= form.check_box :is_sei, id: :name_is_sei %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_mei %>
+    <%= form.check_box :is_mei, id: :name_is_mei %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_title %>
+    <%= form.check_box :is_title, id: :name_is_title %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @name.value %>
+</p>
+
+<p>
+  <strong>Is shamei:</strong>
+  <%= @name.is_shamei %>
+</p>
+
+<p>
+  <strong>Is sitenmei:</strong>
+  <%= @name.is_sitenmei %>
+</p>
+
+<p>
+  <strong>Is sei:</strong>
+  <%= @name.is_sei %>
+</p>
+
+<p>
+  <strong>Is mei:</strong>
+  <%= @name.is_mei %>
+</p>
+
+<p>
+  <strong>Is title:</strong>
+  <%= @name.is_title %>
+</p>
+
+<%= link_to 'Edit', edit_name_path(@name) %> |
+<%= link_to 'Back', names_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: MyString
+  is_shamei: false
+  is_sitenmei: false
+  is_sei: false
+  is_mei: false
+  is_title: false
+
+two:
+  value: MyString
+  is_shamei: false
+  is_sitenmei: false
+  is_sei: false
+  is_mei: false
+  is_title: false
