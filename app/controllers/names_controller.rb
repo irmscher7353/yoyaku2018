@@ -4,7 +4,7 @@ class NamesController < ApplicationController
   # GET /names
   # GET /names.json
   def index
-    @names = Name.all
+    @names = Name.all.page(params[:page])
   end
 
   # GET /names/1

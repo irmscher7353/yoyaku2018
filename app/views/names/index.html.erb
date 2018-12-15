@@ -24,13 +24,17 @@
         <td><%= name.is_sei %></td>
         <td><%= name.is_mei %></td>
         <td><%= name.is_title %></td>
-        <td><%= link_to 'Show', name %></td>
-        <td><%= link_to 'Edit', edit_name_path(name) %></td>
-        <td><%= link_to 'Destroy', name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), name %></td>
+        <td><%= link_to t('Edit'), edit_name_path(name) %></td>
+        <td><%= link_to t('Destroy'), name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div id="pager" >
+<%= paginate @names %>
+</div>
 
 <br>
 
