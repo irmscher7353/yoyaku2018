@@ -11,6 +11,26 @@
 :disabled {
 	background-color: whitesmoke;
 }
+
+div.order-lineitems {
+	position: relative;
+	table.order-lineitems {
+		position: relative;
+	}
+	div.names-panel {
+		background-color: #fff;
+		border: gray solid 1px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow-y: scroll;
+		padding: 0.3rem;
+		button {
+			margin-bottom: 0.3rem;
+		}
+	}
+}
+
 table.order-form {
 	caption {
 		font-size: x-large;
@@ -135,7 +155,7 @@ table.order-lineitems {
 			}
 		}
 		div.number_selector {
-			#display: inline-block;
+			// display: inline-block;
 		}
 		div.number_selector_row {
 			button {

@@ -3,6 +3,20 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @orders =
 
+	close_names_panel: (element) ->
+		$('.names-panel').addClass('hidden')
+		$('#order_name').focus()
+
+	name_modified: (field) ->
+		$('#name_field').val(v = field.val())
+		$('#names-panel').html('')
+		if v == '' or (w = v.split(' ').slice(-1)[0]) == ''
+			$('.names-panel').addClass('hidden')
+		else
+			#console.log w
+			$('.names-panel').removeClass('hidden')
+			$('#update_names').click()
+
 	phone_update: (element, keycode) ->
 		v = $(element).val()
 		if v.match(/^(0[5-9]0(?:\-\d{4})?|03(?:\-\d{4})?|0[1-9][1-9]\-\d{3}|0[124-9]\d\d\-\d\d)$/)
@@ -176,6 +190,10 @@
 		$(page_selector).addClass(cls).removeClass('hidden')
 		$('.current-title').removeClass('current-title').addClass('hidden')
 
+	set_last_name: (element) ->
+		$('.names-panel').addClass('hidden')
+		$('#order_name').val($('#order_name').val().replace(/\S+$/, $(element).html() + ' ')).focus()
+
 	update_total_price: () ->
 		total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
 		$('.current-row .total_price').val(total_price.toLocaleString())
@@ -187,7 +205,7 @@
 	onkeyup: (event) ->
 		console.log 'onkeyup'
 
-$ ->
+$(document).on 'turbolinks:load', ->
 	$('.datetime_selector_header').css('height', $('#order_total_price').parent().css('height'))
 	$('.phone_selector_header').css('height', $('#order_total_price').parent().css('height'))
 	$('.number-char').css('min-width', $('.number-digit').css('width'))
@@ -225,9 +243,13 @@ $ ->
 		else
 			v += c
 		field.val(v).focus()
+		orders.name_modified(field)
 
 	$('table.order-form').on 'focusin', (event) =>
 		$('.current-row').removeClass('current-row')
 
 	$('table.order-lineitems > thead > tr:first > th' ).each (index,element) ->
 		$(element).css('min-width', $(element).css('width'))
+
+	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
+	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))

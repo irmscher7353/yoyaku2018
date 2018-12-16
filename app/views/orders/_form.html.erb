@@ -147,6 +147,7 @@
 </tbody>
 </table>
 
+<div class="order-lineitems" >
 <% n_lines = Order::N_LINES %>
 <% nd_count = 4 %>
 <table class="order-lineitems" >
@@ -274,7 +275,7 @@
 		    size: 6, disabled: true, class: 'numeric price no-spin-button' %>
 		</td>
 		<th class="base-panel" >
-		円
+		<label >円</label>
 		</th>
 		<td rowspan="<%= num_rows %>" class="phrases" >
 		<% @phrases.each do |phrase| %>
@@ -351,5 +352,14 @@
 	</tr>
 </tfoot>
 </table>
+<div class="names-panel hidden" id="names-panel" >
+お試し
+</div>
+</div>
 
+<% end %>
+
+<%= form_with(url: names_orders_path, method: :get, html: { autocomplete: :off, class: 'hidden', } ) do |form| %>
+<%= form.text_field :name, id: 'name_field' %>
+<%= form.submit '更新', id: :update_names, format: :js %>
 <% end %>

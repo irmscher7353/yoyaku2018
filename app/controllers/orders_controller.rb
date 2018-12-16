@@ -153,6 +153,12 @@ class OrdersController < ApplicationController
     end
   end
 
+	def names
+
+		@names = Name.candidates params[:name]
+
+	end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
