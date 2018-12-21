@@ -251,5 +251,7 @@ $(document).on 'turbolinks:load', ->
 	$('table.order-lineitems > thead > tr:first > th' ).each (index,element) ->
 		$(element).css('min-width', $(element).css('width'))
 
+	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
+
 	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
 	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))

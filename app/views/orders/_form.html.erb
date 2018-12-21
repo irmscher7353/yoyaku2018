@@ -275,7 +275,7 @@
 		    size: 6, disabled: true, class: 'numeric price no-spin-button' %>
 		</td>
 		<th class="base-panel" >
-		<label >円</label>
+		<label class="currency" >円</label>
 		</th>
 		<td rowspan="<%= num_rows %>" class="phrases" >
 		<% @phrases.each do |phrase| %>
@@ -335,7 +335,7 @@
 	<tr class="base-panel" >
 		<th >
 		</th>
-		<td colspan="2" class="actions" >
+		<td colspan="1" class="actions" >
     <%= form.submit id: :submit, disabled: true %>
 		</td>
 	</tr>
@@ -353,7 +353,6 @@
 </tfoot>
 </table>
 <div class="names-panel hidden" id="names-panel" >
-お試し
 </div>
 </div>
 

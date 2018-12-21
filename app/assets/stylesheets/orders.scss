@@ -84,6 +84,10 @@ table.order-index {
 
 table.order-lineitems {
 	position: relative;
+	input#submit {
+		font-size: large;
+		padding: 0.5rem;
+	}
 	th {
 		text-align: center;
 	}
@@ -97,6 +101,7 @@ table.order-lineitems {
 			width: 100%
 		}
 		textarea#order_note {
+			resize: none;
 			width: 100%;
 		}
 		td {
@@ -247,10 +252,11 @@ table.order-lineitems {
 			font-size: large;
 		}
 		td.phrases {
+			padding-top: 0.5rem;
 			button {
 				font-size: large;
 				margin-bottom: 0.5rem;
-				padding: 1.0rem 2.0rem;
+				padding: 0.5rem 2.0rem;
 				text-align: left;
 				width: 100%;
 			}
@@ -270,8 +276,9 @@ table.order-lineitems {
 		th {
 			text-align: center;
 			padding-bottom: 0;
-			label {
+			label.currency {
 				padding-bottom: 0;
+				padding-right: 0.5rem;
 			}
 		}
 	}
