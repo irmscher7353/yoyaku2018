@@ -84,7 +84,7 @@
     <%= form.label :name %>
 		</th>
 		<td class="field">
-    <%= form.text_field :name, id: :order_name, size: 30, class: 'mandatory',
+    <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory',
 		    onFocus: "orders.select_kana(this);" %>
 		</td>
 		<td class="honorific" >
@@ -94,7 +94,7 @@
     <%= form.label :phone %>
 		</th>
 		<td class="field">
-    <%= form.text_field :phone, id: :order_phone, type: :tel,
+    <%= form.text_field :phone, id: :order_phone, size: 16, type: :tel,
 		    class: 'mandatory',
 		    onFocus: "orders.select_phone(this);" %>
 		</td>
@@ -165,7 +165,7 @@
 <% num_cols = 7 %>
 <tbody >
 	<tr id="line_note" >
-		<td colspan="<%= num_cols - 1 %>" >
+		<td class="empty-cell" colspan="<%= num_cols - 1 %>" >
 		</td>
 		<td class="field text_area" rowspan=<%= 1 + n_lines %> >
     <%= form.text_area :note, id: :order_note, size: '20x6' %>
@@ -197,8 +197,11 @@
 		    tabindex: -1, disabled: true %>
 		</td>
 		<td >
-		<%= item.text_field :total_price_delimited, size: 1, class: 'numeric total_price',
+		<%= item.text_field :total_price_delimited, size: 10, class: 'numeric total_price',
 		    tabindex: -1, disabled: true %>
+		</td>
+		<td >
+		<span class="clear-button invisible" >X</span>
 		</td>
 	</tr>
 	<% end %>
@@ -226,7 +229,7 @@
 </tbody>
 <tfoot >
 	<% num_rows = 8 %>
-	<tr id="line_order_total" >
+	<tr class="fixed-height" id="line_order_total" >
 		<td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
 <%= @message %>
 		</td>
@@ -270,9 +273,9 @@
 		<th class="base-panel" >
     <%= form.label :total_price %>
 		</th>
-		<td class="field base-panel" >
+		<td class="field base-panel order_total_price" >
     <%= form.text_field :total_price, id: :order_total_price,
-		    size: 6, disabled: true, class: 'numeric price no-spin-button' %>
+		    size: 1, disabled: true, class: 'numeric order_total_price no-spin-button' %>
 		</td>
 		<th class="base-panel" >
 		<label class="currency" >円</label>
@@ -284,7 +287,7 @@
 		<% end %>
 		</td>
 	</tr>
-	<tr class="field base-panel">
+	<tr class="base-panel fixed-height">
 	<% invisible = (order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
 		<th >
     <%= form.label :balance, class: invisible %>
@@ -297,7 +300,7 @@
 		<span class="<%= invisible %>" >円</span>
 		</th>
 	</tr>
-	<tr class="base-panel" >
+	<tr class="base-panel fixed-height" >
 		<th class="field">
     <%= form.label :payment %>
 		</th>
@@ -311,7 +314,7 @@
 		<%= s %>
 		</td>
 	</tr>
-	<tr class="base-panel" >
+	<tr class="base-panel fixed-height" >
 		<th class="field">
     <%= form.label :means %>
 		</th>
@@ -325,17 +328,17 @@
 		<%= s %>
 		</td>
 	</tr>
-	<tr class="base-panel" >
+	<tr class="base-panel fixed-height" >
 		<th class="field">
     <%= form.label :state %>
 		</th>
 		<td colspan="2" >
 		</td>
 	</tr>
-	<tr class="base-panel" >
+	<tr class="base-panel fixed-height" >
 		<th >
 		</th>
-		<td colspan="1" class="actions" >
+		<td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true %>
 		</td>
 	</tr>
@@ -343,11 +346,6 @@
 		<th >
 		</th>
 		<td colspan="2" >
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
 		</td>
 	</tr>
 </tfoot>

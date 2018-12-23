@@ -16,30 +16,26 @@
 			#console.log w
 			$('.names-panel').removeClass('hidden')
 			$('#update_names').click()
+		@update_button_state()
 
 	phone_update: (element, keycode) ->
 		v = $(element).val()
-		if v.match(/^(0[5-9]0(?:\-\d{4})?|03(?:\-\d{4})?|0[1-9][1-9]\-\d{3}|0[124-9]\d\d\-\d\d)$/)
+		if v.match(/^(0[5-9]0(?:\-\d{4})?|03(?:\-\d{4})?|0[1-9][1-9]\-\d{3}|0[124-9]\d\d\-\d\d|[1-9]\d)$/)
 			if keycode == 8
 				v = v.replace(/\d$/, '')
 			else
 				v += '-'
-		if v.match(/^0[5-9]0/)
-			n_max = 11
-		else
-			n_max = 10
-		if n_max < v.replace(/\D/g, '').length
+		n_max = if v.match(/^0[5-9]0/) then 11 else if v.match(/^0/) then 10 else 6
+		n = v.replace(/\D/g, '').length
+		if n_max < n
 			v = v.replace(/.$/, '')
 		if v != $(element).val()
 			$(element).val(v)
-		if 2 <= v.length and v.slice(-1) != '-' and v.split('-').length <= 2 and not v.match(/^0[5-9]0-\d{1,3}/)
-			$('.number-minus').removeAttr('disabled')
-		else
-			$('.number-minus').attr('disabled', 'disabled')
-		if v.length <= 0
-			$('.area_code_selector button').removeAttr('disabled')
-		else
-			$('.area_code_selector button').attr('disabled', 'disabled')
+		$('.number-minus').attr('disabled', (v.length < 2 or v.slice(-1) == '-' or 2 < v.split('-').length or v.match(/^(0[5-9]0-\d{1,3}|[1-9]\d-)/)))
+		$('.area_code_selector button').attr('disabled', (0 < v.length))
+		@update_button_state()
+		if n_max <= n
+			$('#due_month').focus().select()
 
 	select_area_code: (element) ->
 		area_code = $(element).html()
@@ -64,6 +60,7 @@
 			s = $('#due_year').val() + '-' + mm + '-' + dd
 			i = (new Date(s)).getDay()
 			$('#due_wday').html(wday[i])
+		@update_button_state()
 
 	select_kana: (element) ->
 		@select_panel 'kana-panel'
@@ -80,7 +77,8 @@
 						v = v.slice(0,i) + c + v.slice(i)
 						i += 1
 				else
-					#
+					if 0 < v.length and v.charAt(v.length - 1) != c
+						v += c
 			when 'x'
 				if 0 <= i
 					v = v.slice(0,i-(if v.charAt(i-1) == '-' then 2 else 1)) + v.slice(i)
@@ -153,12 +151,11 @@
 			tr = $(tr).prev()
 		if $('.current-row').length == 0
 			@select_panel 'item-panel'
+		$('.current-row .clear-button').addClass('invisible')
 		$('.current-row').removeClass('current-row')
 		$(tr).addClass('current-row').find('.product_id').focus()
-		if $('.current-row .quantity').val() == ''
-			$('.quantity_selector button').attr('disabled','disabled')
-		else
-			$('.quantity_selector button').removeAttr('disabled')
+		$('.current-row .clear-button').removeClass('invisible')
+		$('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
 
 	select_title: (element, title_selector, product_id) ->
 		field = $('.current-row .product_name')
@@ -177,6 +174,7 @@
 				$('.current-row .product_price').val('')
 				$('.current-row .product_size').val('')
 				$('.quantity_selector button').attr('disabled', 'disabled')
+			@update_button_state()
 
 	select_text: (element) ->
 		$(element).select()
@@ -193,6 +191,29 @@
 	set_last_name: (element) ->
 		$('.names-panel').addClass('hidden')
 		$('#order_name').val($('#order_name').val().replace(/\S+$/, $(element).html() + ' ')).focus()
+		@update_button_state()
+
+	update_button_state: () ->
+		$('#submit').attr 'disabled', do () ->
+			if $('#order_name').val() == '' or $('#order_phone').val() == ''
+				return true
+			v = $('#due_month').val()
+			if v == '' or not v.match(/^\d+$/) or v < 1 or 12 < v
+				return true
+			v = $('#due_day').val()
+			if v == '' or not v.match(/^\d+$/) or v < 1 or 31 < v
+				return true
+			v = $('#due_hour').val()
+			if v == '' or not v.match(/^\d+$/) or v < 0 or 23 < v
+				return true
+			v = $('#due_minute').val()
+			if v == '' or not v.match(/^\d+$/) or v < 0 or 59 < v
+				return true
+			v = $('#order_total_price').val()
+			if v == '' or v == '0'
+				return true
+			return false
+			
 
 	update_total_price: () ->
 		total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
@@ -201,6 +222,7 @@
 		$('.total_price').each (index) ->
 			order_total_price += Number($(this).val().replace(/,/g, ''))
 		$('#order_total_price').val(order_total_price.toLocaleString())
+		@update_button_state()
 
 	onkeyup: (event) ->
 		console.log 'onkeyup'
@@ -246,10 +268,16 @@ $(document).on 'turbolinks:load', ->
 		orders.name_modified(field)
 
 	$('table.order-form').on 'focusin', (event) =>
+		$('.current-row .clear-button').addClass('invisible')
 		$('.current-row').removeClass('current-row')
 
-	$('table.order-lineitems > thead > tr:first > th' ).each (index,element) ->
+	# lineitems の列幅を固定する．
+	$('table.order-lineitems > thead > tr:first > th').each (index,element) ->
 		$(element).css('min-width', $(element).css('width'))
+
+	# lineitems のフッタの行高さを固定する．
+	$('table.order-lineitems > tfoot > tr.fixed-height').each (index,element) ->
+		$(element).css('height', $(element).css('height'))
 
 	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
 
