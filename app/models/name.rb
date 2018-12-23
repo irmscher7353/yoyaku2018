@@ -14,7 +14,7 @@ class Name < ApplicationRecord
 					if prev
 						if prev.is_sei
 							filters << 'is_mei' << 'is_title'
-						elsif pref.is_shamei
+						elsif prev.is_shamei
 							filters << 'is_sitenmei' << 'is_sei'
 						else
 							filters << 'is_sitenmei' << 'is_sei' << 'is_mei' << 'is_title'
