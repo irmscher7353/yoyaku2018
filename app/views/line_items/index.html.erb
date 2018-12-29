@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= t '.number' %></th>
+      <th><%= t '.name' %></th>
       <th><%= t '.revision' %></th>
       <th><%= t '.title' %></th>
       <th><%= t '.size' %></th>
@@ -19,11 +20,12 @@
     <% @line_items.each do |line_item| %>
       <tr>
         <td class="center" ><%= line_item.order.number %></td>
+        <td ><%= line_item.order.name %></td>
         <td class="numeric" ><%= line_item.revision %></td>
         <td><%= line_item.product.title.name %></td>
         <td class="center" ><%= line_item.product.size %></td>
         <td class="numeric" ><%= line_item.quantity %></td>
-        <td class="numeric" ><%= number_with_delimiter(line_item.total_price, delimiter: ',' ) %></td>
+        <td class="numeric" ><%= line_item.total_price_delimited %></td>
         <td><%= link_to t('Show'), line_item %></td>
         <td><%= link_to t('Edit'), edit_line_item_path(line_item) %></td>
         <td><%= link_to t('Destroy'), line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
