@@ -3,10 +3,9 @@
 <div class="number_selector" >
 <% @numbers_list.each do |numbers| %>
 	<div class="number_selector_row" >
-	<% numbers.each do |number| %>
+	<% numbers.each do |number, klasses| %>
 	  <%= button_tag(number, type: :button, remote: true,
-		    class: "number-%s" % (number.match(/\d/) ? 'digit' : number == '-' ? 'char number-minus' : 'char'),
-				disabled: (number == '-'),
+		    class: '%s' % klasses, disabled: (number == '-'),
 		    onClick: "orders.select_number(this);" ) %>
 	<% end %>
 	</div>

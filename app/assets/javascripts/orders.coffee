@@ -107,6 +107,7 @@
 
 	select_phone: (element) ->
 		@select_panel 'phone-panel'
+		$('.number-button').css('width', $('.number-zero').css('height'))
 
 	select_phrase: (element, target_selector) ->
 		$(element).blur()
@@ -128,7 +129,7 @@
 		quantity = $('.current-row .quantity')
 		old_val = quantity.val()
 		new_val = $(button).html()
-		console.log new_val
+		#console.log new_val
 		if new_val == "+"
 			if old_val.match(/^\d+$/)
 				new_val = Number(old_val) + 1
@@ -212,8 +213,11 @@
 			v = $('#order_total_price').val()
 			if v == '' or v == '0'
 				return true
+			if $('[name="order[payment]"]:checked').length <= 0
+				return true
+			if $('[name="order[means]"]:checked').length <= 0
+				return true
 			return false
-			
 
 	update_total_price: () ->
 		total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
@@ -221,17 +225,32 @@
 		order_total_price = 0
 		$('.total_price').each (index) ->
 			order_total_price += Number($(this).val().replace(/,/g, ''))
-		$('#order_total_price').val(order_total_price.toLocaleString())
+		$('[name="order[total_price]"]').val(order_total_price.toLocaleString())
+		$('#order_total_price').val(order_total_price)
 		@update_button_state()
 
 	onkeyup: (event) ->
 		console.log 'onkeyup'
 
 $(document).on 'turbolinks:load', ->
-	$('.datetime_selector_header').css('height', $('#order_total_price').parent().css('height'))
-	$('.phone_selector_header').css('height', $('#order_total_price').parent().css('height'))
-	$('.number-char').css('min-width', $('.number-digit').css('width'))
-	$('.title_page_selector').css('height', $('#order_total_price').parent().css('height'))
+	# サブパネルのボタン上辺を揃える．
+	h = $('.order_total_price').parent().css('height')
+	$('.datetime_selector_header').css('height', h)
+	$('.phone_selector_header').css('height', h)
+	$('.title_page_selector').css('height', h)
+
+	# lineitems の列幅を固定する．
+	$('table.order-lineitems > thead > tr:first > th').each (index,element) ->
+		$(element).css('min-width', $(element).css('width'))
+
+	# lineitems のフッタの行高さを固定する．
+	$('table.order-lineitems > tfoot > tr.fixed-height').each (index,element) ->
+		$(element).css('height', $(element).css('height'))
+
+	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
+
+	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
+	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
 
 	$('#order_phone').on 'keyup', (event) =>
 		v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
@@ -271,15 +290,8 @@ $(document).on 'turbolinks:load', ->
 		$('.current-row .clear-button').addClass('invisible')
 		$('.current-row').removeClass('current-row')
 
-	# lineitems の列幅を固定する．
-	$('table.order-lineitems > thead > tr:first > th').each (index,element) ->
-		$(element).css('min-width', $(element).css('width'))
+	$('[name="order[payment]"]').on 'click', () =>
+		orders.update_button_state()
 
-	# lineitems のフッタの行高さを固定する．
-	$('table.order-lineitems > tfoot > tr.fixed-height').each (index,element) ->
-		$(element).css('height', $(element).css('height'))
-
-	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
-
-	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
-	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
+	$('[name="order[means]"]').on 'click', () =>
+		orders.update_button_state()

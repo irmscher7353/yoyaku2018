@@ -91,10 +91,10 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
 		session[:menu] ||= Menu.latest
-    @order = Order.new
+    @order = Order.new menu_id: session[:menu]['id']
 		@message = '新規の注文です'
 		@area_codes = Preference.get_area_codes
-		@numbers_list = NUMBERS_LIST
+		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
 		session[:menu] ||= Menu.latest
 		@message = '既存の注文です'
 		@area_codes = Preference.get_area_codes
-		@numbers_list = NUMBERS_LIST
+		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
 		@products = Product.by_title(menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
@@ -116,7 +116,49 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+		params[:order][:number] = Order.new_number
+		params[:order][:revision] = Time.zone.now.to_i
+		params[:order][:name].gsub!(/\s+$/, '')
+		params[:order][:due] = Time.zone.local(params[:order][:due_year].to_i,
+		params[:order][:due_month].to_i, params[:order][:due_day].to_i,
+		params[:order][:due_hour].to_i, params[:order][:due_min].to_i, )
+		params[:order][:due_datenum] = params[:order][:due].strftime('%Y%m%d')
+		params[:order][:buyer_id] = Buyer.unknown.id
+		params[:order][:total_price].gsub!(/\D/, '')
+		params[:order][:total_price] = params[:order][:total_price].to_i
+		if params[:order][:payment] == "済"
+			params[:order][:amount_paid] = params[:order][:total_price]
+		end
+		params[:order][:balance] = params[:order][:total_price] - params[:order][:amount_paid]
+		params[:order][:line_items_attributes].keys.each do |index|
+			if params[:order][:line_items_attributes][index][:product_id].blank?
+				params[:order][:line_items_attributes].delete index
+				next
+			end
+			if params[:order][:line_items_attributes][index][:product_price].blank?
+				params[:order][:line_items_attributes].delete index
+				next
+			end
+			if params[:order][:line_items_attributes][index][:quantity].blank?
+				params[:order][:line_items_attributes].delete index
+				next
+			end
+			params[:order][:line_items_attributes][index][:total_price] =
+			params[:order][:line_items_attributes][index][:product_price].to_i *
+			params[:order][:line_items_attributes][index][:quantity].to_i
+		end
+		params[:order][:line_items_attributes].each do |index, h|
+			h[:revision] = params[:order][:revision]
+		end
+
     @order = Order.new(order_params)
+		@message = '既存の注文です'
+		@area_codes = Preference.get_area_codes
+		@numbers_list = numbers_list
+		@kana_matrix = KANA_MATRIX
+		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@datetime = Preference.get_due_datetime
+		@phrases = Preference.get_phrases
 
     respond_to do |format|
       if @order.save
@@ -167,8 +209,29 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note)
+      params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:revision, :product_id, :quantity, :total_price])
     end
+
+		def numbers_list
+			result = []
+			NUMBERS_LIST.each do |numbers|
+				res = []
+				numbers.each do |number|
+					klasses = ['number-button']
+					case number
+						when '-'
+							klasses << 'number-minus'
+						when '0'
+							klasses << 'number-zero'
+						when 'x'
+							klasses << 'number-char'
+					end
+					res << [number, klasses.join(' ')]
+				end
+				result << res
+			end
+			result
+		end
 
 		def session_order(order)
 			session[:order] = {

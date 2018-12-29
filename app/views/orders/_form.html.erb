@@ -52,6 +52,14 @@
 	</tr>
 	<tr class="hidden" >
 		<th >
+    <%= form.label :total_price %>
+		</th>
+		<td >
+    <%= form.number_field :total_price, id: :order_total_price %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<th >
     <%= form.label :amount_paid %>
 		</th>
 		<td >
@@ -274,7 +282,7 @@
     <%= form.label :total_price %>
 		</th>
 		<td class="field base-panel order_total_price" >
-    <%= form.text_field :total_price, id: :order_total_price,
+    <%= form.text_field :total_price,
 		    size: 1, disabled: true, class: 'numeric order_total_price no-spin-button' %>
 		</td>
 		<th class="base-panel" >
@@ -318,7 +326,7 @@
 		<th class="field">
     <%= form.label :means %>
 		</th>
-		<td colspan="2" >
+		<td colspan="2" class="means" >
 		<% s = '電話' %>
 		<%= form.radio_button :means, s, checked: (order.means == s) %>
 		<%= s %>

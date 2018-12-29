@@ -166,8 +166,10 @@ table.order-lineitems {
 			button {
 				font-size: large;
 				margin-bottom: 0.5rem;
-				padding: 0.5rem 1.0rem;
 				text-align: center;
+			}
+			button.number-button {
+				padding: 0.5rem 0.0rem;
 			}
 		}
 		div.selector {
@@ -200,10 +202,6 @@ table.order-lineitems {
 				margin-bottom: 0.0rem;
 				padding: 0.0rem 1.0rem;
 			}
-		}
-		input#order_total_price {
-			font-size: large;
-			width: 100%;
 		}
 		input#submit {
 			width: 100%;
@@ -242,6 +240,10 @@ table.order-lineitems {
 				}
 			}
 		}
+		td.means {
+			vertical-align: bottom;
+			padding: 0px 3px 3px;
+		}
 		td.message {
 			font-size: large;
 			padding-top: 0.5em;
@@ -272,6 +274,10 @@ table.order-lineitems {
 		}
 		td.order_total_price {
 			padding: 3px;
+			input {
+				font-size: large;
+				width: 100%;
+			}
 		}
 		th {
 			text-align: center;
