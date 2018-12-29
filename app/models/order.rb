@@ -1,12 +1,18 @@
 class Order < ApplicationRecord
   belongs_to :menu
   belongs_to :buyer
-	has_many :line_items
+	has_many :line_items, dependent: :destroy
 	accepts_nested_attributes_for :line_items, allow_destroy: true
 
 	paginates_per 15
 
+	MAX_NUMBER_PER_YEAR = 10000
 	N_LINES = 5
+
+	def self.new_number
+		min_number = (Time.zone.now.year % 100) * MAX_NUMBER_PER_YEAR + 0
+		new_number = [min_number, maximum(:number) || 0].max + 1
+	end
 
 	def current_line_items
 		items = line_items.where(revision: revision).to_a
