@@ -23,6 +23,8 @@ ja:
   line_items:
     index:
       number: 予約番号
+      name: お名前
+      revision: 改訂番号
       title: 商品名
       size: サイズ
       quantity: 数量
