@@ -67,7 +67,6 @@ class TitlesController < ApplicationController
 
 	# GET  /title/update_index.js
 	def update_index
-		logger.info 'params = %s' % [params]
 		@titles = Title.order('id DESC')
 	end
 
