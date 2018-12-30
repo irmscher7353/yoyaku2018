@@ -45,4 +45,8 @@ class Order < ApplicationRecord
 	def due_min
 		'%02d' % [due.present? ? due.localtime.min : 0 ]
 	end
+
+	def total_price_delimited
+		total_price.present? ? total_price.to_s(:delimited) : ''
+	end
 end
