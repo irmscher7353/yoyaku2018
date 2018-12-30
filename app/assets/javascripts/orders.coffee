@@ -117,6 +117,7 @@
 			target.val(target.val() + str + "\n")
 
 	select_product: (element, product_id, product_price, product_remain) ->
+		$(element).blur()
 		$('.current-row .product_id').val(product_id)
 		$('.current-row .product_size').val($(element).html())
 		$('.current-row .product_price').val(product_price)
@@ -126,6 +127,7 @@
 			@update_total_price()
 
 	select_quantity: (button) ->
+		$(button).blur()
 		quantity = $('.current-row .quantity')
 		old_val = quantity.val()
 		new_val = $(button).html()
@@ -159,6 +161,7 @@
 		$('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
 
 	select_title: (element, title_selector, product_id) ->
+		$(element).blur()
 		field = $('.current-row .product_name')
 		$('.current-title').removeClass('current-title').addClass('hidden')
 		$(title_selector).addClass('current-title').removeClass('hidden')
@@ -220,17 +223,16 @@
 			return false
 
 	update_total_price: () ->
-		total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
-		$('.current-row .total_price').val(total_price.toLocaleString())
+		if 0 < $('.current-row').length
+			total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
+			$('.current-row .total_price').val(total_price)
+			$('.current-row .total_price_delimited').val(total_price.toLocaleString())
 		order_total_price = 0
 		$('.total_price').each (index) ->
-			order_total_price += Number($(this).val().replace(/,/g, ''))
-		$('[name="order[total_price]"]').val(order_total_price.toLocaleString())
+			order_total_price += Number($(this).val())
 		$('#order_total_price').val(order_total_price)
+		$('#order_total_price_delimited').val(order_total_price.toLocaleString())
 		@update_button_state()
-
-	onkeyup: (event) ->
-		console.log 'onkeyup'
 
 $(document).on 'turbolinks:load', ->
 	# サブパネルのボタン上辺を揃える．
@@ -290,8 +292,25 @@ $(document).on 'turbolinks:load', ->
 		$('.current-row .clear-button').addClass('invisible')
 		$('.current-row').removeClass('current-row')
 
-	$('[name="order[payment]"]').on 'click', () =>
+	$('.order_payment').on 'click', () =>
 		orders.update_button_state()
 
-	$('[name="order[means]"]').on 'click', () =>
+	$('.order_means').on 'click', () =>
 		orders.update_button_state()
+
+	$('span.order_payment_yet').on 'click', () =>
+		$('input.order_payment_yet').click()
+		orders.update_button_state()
+
+	$('span.order_payment_done').on 'click', () =>
+		$('input.order_payment_done').click()
+		orders.update_button_state()
+
+	$('span.order_means_phone').on 'click', () =>
+		$('input.order_means_phone').click()
+		orders.update_button_state()
+
+	$('span.order_means_store').on 'click', () =>
+		$('input.order_means_store').click()
+		orders.update_button_state()
+

@@ -206,6 +206,9 @@ table.order-lineitems {
 		input#submit {
 			width: 100%;
 		}
+		span.order_payment, span.order_means {
+			cursor: default;
+		}
 		td {
 			vertical-align: top;
 			button {

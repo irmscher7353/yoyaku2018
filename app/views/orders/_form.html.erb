@@ -1,6 +1,3 @@
-<% if order.total_price.present? %>
-<%   order.total_price = number_with_delimiter(order.total_price) %>
-<% end %>
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -205,8 +202,9 @@
 		    tabindex: -1, disabled: true %>
 		</td>
 		<td >
-		<%= item.text_field :total_price_delimited, size: 10, class: 'numeric total_price',
-		    tabindex: -1, disabled: true %>
+		<%= item.text_field :total_price, class: 'hidden numeric total_price' %>
+		<%= item.text_field :total_price_delimited, size: 10,
+		    class: 'numeric total_price_delimited', tabindex: -1, disabled: true %>
 		</td>
 		<td >
 		<span class="clear-button invisible" >X</span>
@@ -282,8 +280,8 @@
     <%= form.label :total_price %>
 		</th>
 		<td class="field base-panel order_total_price" >
-    <%= form.text_field :total_price,
-		    size: 1, disabled: true, class: 'numeric order_total_price no-spin-button' %>
+    <%= form.text_field :total_price_delimited, id: :order_total_price_delimited,
+		    size: 1, disabled: true, class: 'numeric order_total_price' %>
 		</td>
 		<th class="base-panel" >
 		<label class="currency" >円</label>
@@ -314,12 +312,14 @@
 		</th>
 		<td colspan="2" class="payment" >
 		<% s = '未' %>
-		<%= form.radio_button :payment, s, checked: (order.payment == s) %>
-		<%= s %>
+		<%= form.radio_button :payment, s, checked: (order.payment == s),
+		    class: 'order_payment order_payment_yet' %>
+		<span class='order_payment order_payment_yet' ><%= s %></span>
 		・
 		<% s = '済' %>
-		<%= form.radio_button :payment, s, checked: (order.payment == s) %>
-		<%= s %>
+		<%= form.radio_button :payment, s, checked: (order.payment == s),
+		    class: 'order_payment order_payment_done' %>
+		<span class='order_payment order_payment_done' ><%= s %></span>
 		</td>
 	</tr>
 	<tr class="base-panel fixed-height" >
@@ -328,12 +328,14 @@
 		</th>
 		<td colspan="2" class="means" >
 		<% s = '電話' %>
-		<%= form.radio_button :means, s, checked: (order.means == s) %>
-		<%= s %>
+		<%= form.radio_button :means, s, checked: (order.means == s),
+		    class: "order_means order_means_phone" %>
+		<span class="order_means order_means_phone" ><%= s %></span>
 		・
 		<% s = '来店' %>
-		<%= form.radio_button :means, s, checked: (order.means == s) %>
-		<%= s %>
+		<%= form.radio_button :means, s, checked: (order.means == s),
+		    class: "order_means order_means_store" %>
+		<span class="order_means order_means_stroe" ><%= s %></span>
 		</td>
 	</tr>
 	<tr class="base-panel fixed-height" >
