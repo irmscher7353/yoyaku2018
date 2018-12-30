@@ -15,7 +15,6 @@ class Preference < ApplicationRecord
 		hh1, mm1 = h['引渡し終了時間'].split(':')
 		datetime[:hours] = (hh0.to_i .. hh1.to_i).map{|hh| hh}
 		datetime[:minutes] = [0, 30]
-		logger.info datetime
 		datetime
 	end
 
