@@ -117,6 +117,8 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
 		params[:order][:number] = Order.new_number
+		params[:order][:revision] = Time.zone.now.to_i
+		normalize_line_items
 		normalize_params
 
     @order = Order.new(order_params)
@@ -142,6 +144,10 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+		normalize_line_items
+		if line_items_modified?(@order.current_line_items, params[:order][:line_items_attributes])
+			params[:order][:revision] = Time.zone.now.to_i
+		end
 		normalize_params
 
 		@area_codes = Preference.get_area_codes
@@ -186,25 +192,33 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:revision, :product_id, :quantity, :total_price])
+      params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:id, :revision, :product_id, :quantity, :total_price])
     end
 
-		def normalize_params
-			params[:order][:revision] = revision = Time.zone.now.to_i
-			params[:order][:name].gsub!(/\s+$/, '')
-			params[:order][:due] = Time.zone.local(params[:order][:due_year].to_i,
-			params[:order][:due_month].to_i, params[:order][:due_day].to_i,
-			params[:order][:due_hour].to_i, params[:order][:due_min].to_i, )
-			params[:order][:due_datenum] = params[:order][:due].strftime('%Y%m%d')
-			params[:order][:buyer_id] = Buyer.unknown.id
-			params[:order][:total_price] = params[:order][:total_price].to_i
-			if params[:order][:payment] == "済"
-				params[:order][:amount_paid] = params[:order][:total_price]
-			else
-				params[:order][:amount_paid] ||= 0
+		def line_items_modified?(line_items, attributes)
+			logger.info 'line_items.count = ' + line_items.count.to_s
+			logger.info 'attributes.keys.length = ' + attributes.keys.length.to_s
+			modified = (attributes.keys.length != line_items.count)
+			if not modified
+				attributes.each do |index,h|
+					line_item = line_items[index.to_i]
+					logger.info line_item.product_id.to_s + ' x ' + line_item.quantity.to_s
+					logger.info h[:product_id] + ' x ' + h[:quantity]
+					if h[:product_id].to_i != line_item.product_id
+						modified = true
+						break
+					end
+					if h[:quantity].to_i != line_item.quantity
+						modified = true
+						break
+					end
+				end
 			end
-			params[:order][:balance] = params[:order][:total_price] - params[:order][:amount_paid]
+			logger.info 'modified = ' + modified.to_s
+			modified
+		end
 
+		def normalize_line_items
 			params[:order][:line_items_attributes].keys.each do |index|
 				if params[:order][:line_items_attributes][index][:product_id].blank?
 					params[:order][:line_items_attributes].delete index
@@ -219,8 +233,30 @@ class OrdersController < ApplicationController
 					next
 				end
 			end
+		end
+
+		def normalize_params
+			params[:order][:name].gsub!(/\s+$/, '')
+			params[:order][:due] = Time.zone.local(params[:order][:due_year].to_i,
+			params[:order][:due_month].to_i, params[:order][:due_day].to_i,
+			params[:order][:due_hour].to_i, params[:order][:due_min].to_i, )
+			params[:order][:due_datenum] = params[:order][:due].strftime('%Y%m%d')
+			params[:order][:buyer_id] = Buyer.unknown.id
+			params[:order][:total_price] = params[:order][:total_price].to_i
+			if params[:order][:payment] == "済"
+				params[:order][:amount_paid] = params[:order][:total_price]
+			else
+				params[:order][:amount_paid] ||= 0
+			end
+			params[:order][:balance] = params[:order][:total_price] - params[:order][:amount_paid]
+
 			params[:order][:line_items_attributes].each do |index, h|
-				h[:revision] = revision
+				logger.info 'h[:revision] = "' + h[:revision] + '"'
+				logger.info 'params[:order][:revision] = "' + params[:order][:revision].to_s + '"'
+				if h[:revision] != params[:order][:revision]
+					h[:id] = ''
+					h[:revision] = params[:order][:revision]
+				end
 				h[:total_price] = h[:product_price].to_i * h[:quantity].to_i
 			end
 		end

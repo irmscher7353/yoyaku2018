@@ -157,7 +157,7 @@
 		$('.current-row .clear-button').addClass('invisible')
 		$('.current-row').removeClass('current-row')
 		$(tr).addClass('current-row').find('.product_id').focus()
-		$('.current-row .clear-button').removeClass('invisible')
+		$('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
 		$('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
 
 	select_title: (element, title_selector, product_id) ->
@@ -171,6 +171,9 @@
 			$('.current-row .quantity').val('')
 			$('.current-row .product_remain').val('')
 			$('.current-row .total_price').val('')
+			$('.current-row .total_price_delimited').val('')
+			#$('#order_total_price').val('')
+			#$('#order_total_price_delimited').val('')
 			if 0 < product_id
 				$('#product-button-'+product_id).click()
 			else
@@ -178,6 +181,7 @@
 				$('.current-row .product_price').val('')
 				$('.current-row .product_size').val('')
 				$('.quantity_selector button').attr('disabled', 'disabled')
+			@update_total_price()
 			@update_button_state()
 
 	select_text: (element) ->
@@ -225,6 +229,8 @@
 	update_total_price: () ->
 		if 0 < $('.current-row').length
 			total_price = Number($('.current-row .product_price').val()) * Number($('.current-row .quantity').val())
+			if total_price <= 0
+				total_price = ''
 			$('.current-row .total_price').val(total_price)
 			$('.current-row .total_price_delimited').val(total_price.toLocaleString())
 		order_total_price = 0
@@ -249,10 +255,19 @@ $(document).on 'turbolinks:load', ->
 	$('table.order-lineitems > tfoot > tr.fixed-height').each (index,element) ->
 		$(element).css('height', $(element).css('height'))
 
+	# order_note の高さを tbody と同じにする．
 	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
 
-	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
-	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
+	# 名前候補表示用 div の幅と高さを調整する．
+	$('div#names-panel').css('width', 0 + Number($('table.order-lineitems').css('width')) - Number($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
+	$('div#names-panel').css('height', 0 + Number($('table.order-lineitems thead').css('height')) + Number($('table.order-lineitems tbody').css('height')))
+
+	# 各種イベントハンドラの登録．
+
+	$('#order_name').on 'blur', (event) =>
+		#$('.kana-panel').removeClass('current-panel').addClass('hidden')
+		#$('.base-panel').removeClass('hidden')
+		#$('.message-panel').addClass('current-panel').removeClass('hidden')
 
 	$('#order_phone').on 'keyup', (event) =>
 		v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
@@ -261,17 +276,23 @@ $(document).on 'turbolinks:load', ->
 		$(event.target).val(v)
 		orders.phone_update event.target, event.which
 
-	$('#order_name').on 'blur', (event) =>
-		#$('.kana-panel').removeClass('current-panel').addClass('hidden')
-		#$('.base-panel').removeClass('hidden')
-		#$('.message-panel').addClass('current-panel').removeClass('hidden')
-
 	$('#order_address').on 'focus', (event) =>
 		orders.select_panel 'address-panel'
 
 	$('#order_note').on 'focus', (event) =>
 		if $('.base-panel').hasClass('hidden')
 			orders.select_panel 'message-panel'
+
+	$('.clear-button').on 'click', (event) =>
+		$('.current-row .product_id').val('')
+		$('.current-row .product_price').val('')
+		$('.current-row .product_name').val('')
+		$('.current-row .product_size').val('')
+		$('.current-row .quantity').val('')
+		$('.current-row .product_remain').val('')
+		$('.current-row .total_price').val('')
+		$('.current-row .total_price_delimited').val('')
+		orders.update_total_price()
 
 	$('button.kana-button').on 'click', (event) =>
 		target = $(event.target)

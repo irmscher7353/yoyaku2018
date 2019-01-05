@@ -33,6 +33,14 @@
 	</tr>
 	<tr class="hidden" >
 		<th >
+    <%= form.label :revision %>
+		</th>
+		<td class="field" >
+    <%= form.text_field :revision, id: :order_revision %>
+		</td>
+	</tr>
+	<tr class="hidden" >
+		<th >
     <%= form.label :buyer_id %>
 		</th>
 		<td >
@@ -177,11 +185,12 @@
 		</td>
 	</tr>
 	<% i = -1 %>
-	<%= form.fields_for :line_items, order.current_line_items do |item| %>
+	<%= form.fields_for :line_items, order.current_line_items(n_lines) do |item| %>
 		<% i += 1 %>
 	<tr id="line_<%= i %>" index="<%= i %>" >
 		<td >
 		<%= item.hidden_field :id %>
+		<%= item.hidden_field :revision %>
 		<%= item.hidden_field :product_id, class: 'product_id' %>
 		<%= item.hidden_field :product_price, class: 'product_price' %>
 		<%= item.text_field :product_name, class: 'product_name',
@@ -311,15 +320,15 @@
     <%= form.label :payment %>
 		</th>
 		<td colspan="2" class="payment" >
-		<% s = '未' %>
+		<% s = Order::PAYMENT_YET %>
 		<%= form.radio_button :payment, s, checked: (order.payment == s),
-		    class: 'order_payment order_payment_yet' %>
-		<span class='order_payment order_payment_yet' ><%= s %></span>
+		    class: 'order_payment order_payment_yet'
+		%><span class='order_payment order_payment_yet' > <%= s %></span>
 		・
-		<% s = '済' %>
+		<% s = Order::PAYMENT_DONE %>
 		<%= form.radio_button :payment, s, checked: (order.payment == s),
-		    class: 'order_payment order_payment_done' %>
-		<span class='order_payment order_payment_done' ><%= s %></span>
+		    class: 'order_payment order_payment_done'
+		%><span class='order_payment order_payment_done' > <%= s %></span>
 		</td>
 	</tr>
 	<tr class="base-panel fixed-height" >
@@ -327,15 +336,15 @@
     <%= form.label :means %>
 		</th>
 		<td colspan="2" class="means" >
-		<% s = '電話' %>
+		<% s = Order::MEANS_PHONE %>
 		<%= form.radio_button :means, s, checked: (order.means == s),
-		    class: "order_means order_means_phone" %>
-		<span class="order_means order_means_phone" ><%= s %></span>
+		    class: "order_means order_means_phone"
+		%><span class="order_means order_means_phone" > <%= s %></span>
 		・
-		<% s = '来店' %>
+		<% s = Order::MEANS_STORE %>
 		<%= form.radio_button :means, s, checked: (order.means == s),
-		    class: "order_means order_means_store" %>
-		<span class="order_means order_means_stroe" ><%= s %></span>
+		    class: "order_means order_means_store"
+		%><span class="order_means order_means_stroe" > <%= s %></span>
 		</td>
 	</tr>
 	<tr class="base-panel fixed-height" >
