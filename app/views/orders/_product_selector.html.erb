@@ -1,23 +1,15 @@
-<%
-n, i = 6, 0
-lines = []
-@products.each do |title, products|
-	if (i % n) == 0
-		if 0 < i
-			lines << '</div>'
-		end
-		ip = i.div(n) + 1
-		id = "title-page-#{ip}"
-		cls = ip == 1 ? 'current-title-page' : 'hidden'
-		lines << '<div id="%s" class="%s" >' % [id, cls, ]
-	end
-	product_id = products.size == 1 ? products[0].id : 0
-	lines << button_tag(title.name, id: 'title-button-%d' % [title.id],
-	type: :button, remote: true, class: 'title',
-	onClick: "orders.select_title(this, '#title-#{title.id}', #{product_id});"
-	) + '<br/>'.html_safe
-	i += 1
-end
-lines << '</div>'
-%>
-<%= lines.join("\n").html_safe %>
+<% ip = 0 %>
+<% @products_list.each do |title_list| %>
+<div id="title-page-<%= ip += 1 %>" class="<%= ip == 1 ? 'current-title-page' : 'hidden' %>" >
+	<% title_list.each do |title, products| %>
+	<div class="title-buttons" >
+	<%  product_id = products.size == 1 ? products[0].id : 0 %>
+	<%  sold_out = products.size == 1 && products[0].remain == 0 %>
+	<%= button_tag(title.name, id: 'title-button-%d' % [title.id], type: :button,
+	    remote: true, class: 'title', disabled: sold_out,
+			onClick: "orders.select_title(this,'#title-%d',%d);" % [title.id, product_id] ) %>
+		<span class="sold-out" ><%= sold_out ? "SOLD OUT" : "" %></span>
+	</div>
+	<% end %>
+</div>
+<% end %>

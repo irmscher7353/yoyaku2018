@@ -96,7 +96,7 @@ class OrdersController < ApplicationController
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
-		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@products_list = Product.by_page(6, menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
   end
@@ -108,7 +108,7 @@ class OrdersController < ApplicationController
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
-		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@products_list = Product.by_page(6, menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
   end
@@ -126,7 +126,7 @@ class OrdersController < ApplicationController
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
-		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@products_list = Product.by_page(6, menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
 
@@ -153,7 +153,7 @@ class OrdersController < ApplicationController
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
-		@products = Product.by_title(menu_id: session[:menu]['id'])
+		@products_list = Product.by_page(6, menu_id: session[:menu]['id'])
 		@datetime = Preference.get_due_datetime
 		@phrases = Preference.get_phrases
 

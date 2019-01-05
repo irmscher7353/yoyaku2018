@@ -241,6 +241,8 @@
 		@update_button_state()
 
 $(document).on 'turbolinks:load', ->
+	history.pushState(null, null, null)
+
 	# サブパネルのボタン上辺を揃える．
 	h = $('.order_total_price').parent().css('height')
 	$('.datetime_selector_header').css('height', h)
@@ -256,11 +258,15 @@ $(document).on 'turbolinks:load', ->
 		$(element).css('height', $(element).css('height'))
 
 	# order_note の高さを tbody と同じにする．
-	$('textarea#order_note').css('height',$('table.order-lineitems > tbody').css('height'))
+	o = $('textarea#order_note')
+	h  = parseInt($('table.order-lineitems > tbody').css('height'))
+	h -= parseInt(o.parent().css('padding-top'))
+	h -= parseInt(o.parent().css('padding-bottom'))
+	o.css('height', (h - 1) + 'px')
 
 	# 名前候補表示用 div の幅と高さを調整する．
-	$('div#names-panel').css('width', 0 + Number($('table.order-lineitems').css('width')) - Number($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
-	$('div#names-panel').css('height', 0 + Number($('table.order-lineitems thead').css('height')) + Number($('table.order-lineitems tbody').css('height')))
+	$('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
+	$('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
 
 	# 各種イベントハンドラの登録．
 

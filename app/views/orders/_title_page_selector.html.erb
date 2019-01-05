@@ -1,13 +1,7 @@
-<%
-n = 5
-m = (@products.size - 1).div(n) + 1
-lines = []
-(1..m).each do |ii|
-	title_page_id = "title-page-#{ii}"
-	lines << button_tag(ii, name: 'title-page-button-%d' % [ii, ],
-	type: :button, remote: true, disabled: (ii == 1),
-	class: (ii == 1 ? 'current-title-page-button' : ''),
-	onClick: "orders.select_title_page(this, '##{title_page_id}');")
-end
-%>
-<%= lines.join("\n").html_safe %>
+<% @products_list.each_index do |i| %>
+<% ii = i + 1 %>
+<%= button_tag(ii, name: 'title-page-button-%d' % [ii], type: :button,
+    remote: true, disabled: (i == 0),
+		class: (i == 0 ? 'current-title-page-button' : ''),
+		onClick: "orders.select_title_page(this,'#title-page-%d');" % [ii] ) %>
+<% end %>

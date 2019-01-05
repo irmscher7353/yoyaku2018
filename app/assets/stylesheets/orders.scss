@@ -39,6 +39,9 @@ table.order-form {
 	td.honorific {
 		padding-right: 1.5rem;
 	}
+	td.order_phone {
+		text-align: right;
+	}
 	td label {
 		display: inline;
 	}
@@ -179,6 +182,9 @@ table.order-lineitems {
 				margin-bottom: 0.5rem;
 				padding: 0.5rem 0.0rem;
 			}
+			button:disabled {
+				color: #777;
+			}
 		}
 		div.product_selector {
 			button {
@@ -196,6 +202,16 @@ table.order-lineitems {
 				width: 90%;
 			}
 		}
+		div.title-buttons {
+			position: relative;
+			span.sold-out {
+				color: red;
+				font-weight: bold;
+				position: absolute;
+				bottom: 5px;
+				right: 16px;
+			}
+		}
 		div.title_page_selector {
 			vertical-align: bottom;
 			button {
@@ -206,7 +222,10 @@ table.order-lineitems {
 		input#submit {
 			width: 100%;
 		}
-		span.order_payment, span.order_means {
+		input.order_means {
+			vertical-align: text-bottom;
+		}
+		span.sold-out, span.order_payment, span.order_means {
 			cursor: default;
 		}
 		td {
@@ -256,6 +275,7 @@ table.order-lineitems {
 		}
 		td.payment {
 			font-size: large;
+			font-weight: bold;
 		}
 		td.phrases {
 			padding-top: 0.5rem;
@@ -279,6 +299,7 @@ table.order-lineitems {
 			padding: 3px;
 			input {
 				font-size: large;
+				font-weight: bold;
 				width: 100%;
 			}
 		}

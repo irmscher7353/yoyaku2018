@@ -1,17 +1,16 @@
-<%
-n = 5
-lines = []
-i = 0
-@products.each do |title, products|
-	lines << '<div id="title-%d" class="%s" >' % [title.id, 'selector size_selector hidden', ]
-	products.each do |product|
-		lines << button_tag(product.size, id: 'product-button-%d' % [product.id],
-		type: :button, remote: true, disabled: (products.size == 1),
-		class: 'size' + (product.size.blank? ? ' hidden' : ''),
-		onClick: "orders.select_product(this, #{product.id}, #{product.price}, #{product.remain});"
-		) + '<br/>'.html_safe
-	end
-	lines << '</div>'
-end
-%>
-<%= lines.join("\n").html_safe %>
+<% @products_list.each do |title_list| %>
+	<% title_list.each do |title, products| %>
+	<div id="title-<%= title.id %>" class="selector size_selector hidden" >
+		<% products.each do |product| %>
+		<div class="title-buttons<%= product.size.blank? ? ' hidden' : '' %>" >
+		<% remain = (0 <= product.remain ? product.remain : '') %>
+		<%= button_tag(product.size, id: 'product-button-%d' % [product.id],
+		    type: :button, remote: true, disabled: (products.size == 1 or product.remain == 0),
+				class: 'size',
+				onClick: "orders.select_product(this,#{product.id},#{product.price},#{remain});") %>
+		<span class="sold-out" ><%= product.remain == 0 ? "SOLD OUT" : "" %></span>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+<% end %>
