@@ -36,12 +36,27 @@ class Product < ApplicationRecord
 		product.remain ||= -1
 	end
 
-	def self.by_title(*args)
-		@result = Hash.new {|h,k| h[k] = Array.new }
-		ordered(*args).each do |product|
-			@result[product.title] << product
+	def self.by_page(numrows, *args)
+		result = Array.new
+		r = nil
+		i = -1
+		by_title(*args).each do |title, products|
+			i += 1
+			if (i % numrows) == 0
+				r = Array.new
+				result << r
+			end
+			r << [title, products]
 		end
-		@result
+		result
+	end
+
+	def self.by_title(*args)
+		result = Hash.new {|h,k| h[k] = Array.new }
+		ordered(*args).each do |product|
+			result[product.title] << product
+		end
+		result
 	end
 
 	def self.ordered(*args)
