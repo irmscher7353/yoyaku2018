@@ -5,7 +5,7 @@ class LineItem < ApplicationRecord
 	paginates_per 15
 
 	def product_remain
-		product.present? ? product.remain : ''
+		product.present? && 0 <= product.remain ? product.remain : ''
 	end
 
 	def product_name
