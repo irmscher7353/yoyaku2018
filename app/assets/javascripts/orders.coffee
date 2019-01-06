@@ -144,6 +144,13 @@
 				new_val = old_val
 		if new_val <= 0
 			new_val = 1
+		remain = $('.current-row .product_remain')
+		if remain.val().match(/^\d+$/)
+			reserved = Number($('.current-row .reserved').val())
+			max_val = reserved + Number(remain.val())
+			if max_val < new_val
+				new_val = max_val
+		$('.quantity-incr').attr('disabled',(max_val <= new_val))
 		quantity.val(new_val)
 		@update_total_price()
 

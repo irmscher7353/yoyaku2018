@@ -20,6 +20,10 @@ class LineItem < ApplicationRecord
 		product.present? ? product.size : ''
 	end
 
+	def reserved
+		quantity || 0
+	end
+
 	def total_price_delimited
 		total_price.present? ? total_price.to_s(:delimited) : ''
 	end
