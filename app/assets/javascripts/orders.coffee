@@ -241,8 +241,6 @@
 		@update_button_state()
 
 $(document).on 'turbolinks:load', ->
-	history.pushState(null, null, null)
-
 	# サブパネルのボタン上辺を揃える．
 	h = $('.order_total_price').parent().css('height')
 	$('.datetime_selector_header').css('height', h)
