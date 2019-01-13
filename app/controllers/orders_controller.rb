@@ -116,13 +116,27 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-		params[:order][:number] = Order.new_number
 		params[:order][:revision] = Time.zone.now.to_i
 		normalize_line_items
 		normalize_params
 
-    @order = Order.new(order_params)
-		@message = '既存の注文です'
+		# 引き当て準備
+		d = deltas([], params[:order][:line_items_attributes])
+		logger.info d.to_s
+
+    success = true
+		begin
+		  # 引き当て処理
+			Product.draw d
+		  params[:order][:number] = Order.new_number
+      @order = Order.new(order_params)
+			@message = '既存の注文です'
+		rescue => e
+      success = false
+      @order = Order.new(order_params)
+      @message = e.to_s.split(/:/)[1]
+		end
+
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
@@ -131,7 +145,7 @@ class OrdersController < ApplicationController
 		@phrases = Preference.get_phrases
 
     respond_to do |format|
-      if @order.save
+      if success and @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -150,6 +164,18 @@ class OrdersController < ApplicationController
 		end
 		normalize_params
 
+		# 引き当て準備
+		d = deltas(@order.current_line_items, params[:order][:line_items_attributes])
+		logger.info d.to_s
+
+		success = true
+		begin
+		  Product.draw d
+		rescue -> e
+			succuess = false
+			@message = e.to_s.split(/:/)[1]
+		end
+
 		@area_codes = Preference.get_area_codes
 		@numbers_list = numbers_list
 		@kana_matrix = KANA_MATRIX
@@ -158,7 +184,7 @@ class OrdersController < ApplicationController
 		@phrases = Preference.get_phrases
 
     respond_to do |format|
-      if @order.update(order_params)
+      if success and @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
@@ -194,6 +220,17 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:id, :revision, :product_id, :quantity, :total_price])
     end
+
+		def deltas(line_items, attributes)
+			d = Hash.new{|h,k| h[k] = 0 }
+			attributes.each do |index,h|
+				d[h[:product_id].to_i] += h[:quantity].to_i
+			end
+			line_items.each do |line_item|
+				d[line_item.product_id] -= line_item.quantity
+			end
+			d
+		end
 
 		def line_items_modified?(line_items, attributes)
 			logger.info 'line_items.count = ' + line_items.count.to_s
@@ -246,7 +283,11 @@ class OrdersController < ApplicationController
 			if params[:order][:payment] == "済"
 				params[:order][:amount_paid] = params[:order][:total_price]
 			else
-				params[:order][:amount_paid] ||= 0
+				if params[:order][:amount_paid].blank?
+					params[:order][:amount_paid] = 0
+				else
+					params[:order][:amount_paid] = params[:order][:amount_paid].to_i
+				end
 			end
 			params[:order][:balance] = params[:order][:total_price] - params[:order][:amount_paid]
 

@@ -15,6 +15,7 @@ class Product < ApplicationRecord
 	validates :remain, numericality: {
 		only_integer: true, greater_than_or_euqal_to: -1,
 	}
+	validate :limited
 	after_initialize do |product|
 		product.menu ||= Menu.latest
 		if product.title.present?
@@ -59,8 +60,41 @@ class Product < ApplicationRecord
 		result
 	end
 
+	def self.draw(d)
+		Product.transaction do
+			where(['id IN (?)', d.keys]).each do |product|
+				product.draw d[product.id]
+			end
+		end
+	end
+
 	def self.ordered(*args)
 		where(*args).order("priority")
+	end
+
+	def self.to_h(*args)
+		h = {}
+		where(*args).each do |product|
+			h[product.id] = product
+		end
+		h
+	end
+
+	def draw(delta)
+		# 「限定無し」は -1 である．
+		if 0 <= limit
+			reload lock: true
+			self.remain -= delta
+			save!
+		end
+	end
+
+	def name
+		name = title.name
+		if size != ''
+			name += '(%s)' % [size]
+		end
+		name
 	end
 
 	private
@@ -70,5 +104,13 @@ class Product < ApplicationRecord
 		p_min, p_max = p_base + 1, p_base + 99
 	end
 
+	def limited
+		logger.info 'limit, remain = %d, %d' % [limit, remain]
+		if 0 <= limit and remain < 0
+			errors[:base] <<
+			"「%s」が限定数を超えるので予約できません（%d 個不足）．" % [name, -remain]
+			logger.info 'failed'
+		end
+	end
 
 end

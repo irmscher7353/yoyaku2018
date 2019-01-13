@@ -22,7 +22,7 @@
   <div class="field">
     <%= form.label :priority %>
     <%= form.number_field :priority, id: :product_priority,
-			min: 11, max: 99, class: 'numeric no-spin-button' %>
+			min: 101, max: 999, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
@@ -52,7 +52,7 @@
   <div class="field">
     <%= form.label :remain %>
     <%= form.number_field :remain, id: :product_remain,
-			min: -1, class: 'numeric no-spin-button', disabled: true %>
+			min: -1, class: 'numeric no-spin-button', disabled: false %>
   </div>
 
   <div class="actions">
