@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20181215114740) do
     t.datetime "updated_at", null: false
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["menu_id"], name: "index_orders_on_menu_id"
+    t.index ["number"], name: "index_orders_on_number", unique: true
   end
 
   create_table "preferences", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
