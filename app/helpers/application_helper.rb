@@ -6,7 +6,6 @@ class Array
 		result = Array.new
 		r = nil
 		self.each_index do |i|
-			p i
 			if (i % n) == 0
 				r = Array.new
 				result << r

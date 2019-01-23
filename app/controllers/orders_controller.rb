@@ -171,7 +171,7 @@ class OrdersController < ApplicationController
 		success = true
 		begin
 		  Product.draw d
-		rescue -> e
+		rescue => e
 			succuess = false
 			@message = e.to_s.split(/:/)[1]
 		end
