@@ -117,7 +117,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
 		params[:order][:revision] = Time.zone.now.to_i
-		normalize_line_items
+		normalize_line_items_attributes
 		normalize_params
 
 		# 引き当て準備
@@ -158,7 +158,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-		normalize_line_items
+		normalize_line_items_attributes
 		if line_items_modified?(@order.current_line_items, params[:order][:line_items_attributes])
 			params[:order][:revision] = Time.zone.now.to_i
 		end
@@ -255,16 +255,14 @@ class OrdersController < ApplicationController
 			modified
 		end
 
-		def normalize_line_items
+		def normalize_line_items_attributes
 			params[:order][:line_items_attributes].keys.each do |index|
+				# product_id がブランクの行を削除する．
 				if params[:order][:line_items_attributes][index][:product_id].blank?
 					params[:order][:line_items_attributes].delete index
 					next
 				end
-				if params[:order][:line_items_attributes][index][:product_price].blank?
-					params[:order][:line_items_attributes].delete index
-					next
-				end
+				# quantity がブランクの行を削除する．
 				if params[:order][:line_items_attributes][index][:quantity].blank?
 					params[:order][:line_items_attributes].delete index
 					next
