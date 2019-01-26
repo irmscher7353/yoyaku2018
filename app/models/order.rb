@@ -50,6 +50,27 @@ class Order < ApplicationRecord
 		'%02d' % [due.present? ? due.localtime.min : 0 ]
 	end
 
+	def line_items_modified?(line_items_attributes)
+		# current_line_items と line_items_attributes に相違があるかどうか．
+		line_items = current_line_items
+		# ActionController::Parameters には count, length, size が無い．
+		modified = (line_items_attributes.keys.count != line_items.count)
+		if not modified
+			line_items_attributes.each do |index, h|
+				line_item = line_items[index.to_i]
+				if h[:product_id].to_i != line_item.product_id
+					modified = true
+					break
+				end
+				if h[:quantity].to_i != line_item.quantity
+					modified = true
+					break
+				end
+			end
+		end
+		modified
+	end
+
 	def total_price_delimited
 		total_price.present? ? total_price.to_s(:delimited) : ''
 	end

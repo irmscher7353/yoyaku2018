@@ -159,7 +159,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
 		normalize_line_items_attributes
-		if line_items_modified?(@order.current_line_items, params[:order][:line_items_attributes])
+		if @order.line_items_modified?(params[:order][:line_items_attributes])
 			params[:order][:revision] = Time.zone.now.to_i
 		end
 		normalize_params
@@ -230,29 +230,6 @@ class OrdersController < ApplicationController
 				d[line_item.product_id] -= line_item.quantity
 			end
 			d
-		end
-
-		def line_items_modified?(line_items, attributes)
-			logger.info 'line_items.count = ' + line_items.count.to_s
-			logger.info 'attributes.keys.length = ' + attributes.keys.length.to_s
-			modified = (attributes.keys.length != line_items.count)
-			if not modified
-				attributes.each do |index,h|
-					line_item = line_items[index.to_i]
-					logger.info line_item.product_id.to_s + ' x ' + line_item.quantity.to_s
-					logger.info h[:product_id] + ' x ' + h[:quantity]
-					if h[:product_id].to_i != line_item.product_id
-						modified = true
-						break
-					end
-					if h[:quantity].to_i != line_item.quantity
-						modified = true
-						break
-					end
-				end
-			end
-			logger.info 'modified = ' + modified.to_s
-			modified
 		end
 
 		def normalize_line_items_attributes
