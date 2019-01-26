@@ -9,15 +9,15 @@
       <th>Name</th>
       <th colspan="3"></th>
     </tr>
-		<tr >
-			<td >
-				<%= form.text_field :name, id: :menu_name,
-					onInput: "menus.updateSubmitButtonStatus(this, 'submit');" %>
-			</td>
-			<td colspan="3" >
-				<%= form.submit disabled: @menu.name.blank?, id: :submit %>
-			</td>
-		</tr>
+    <tr >
+      <td >
+        <%= form.text_field :name, id: :menu_name,
+          onInput: "menus.updateSubmitButtonStatus(this, 'submit');" %>
+      </td>
+      <td colspan="3" >
+        <%= form.submit disabled: @menu.name.blank?, id: :submit %>
+      </td>
+    </tr>
   </thead>
 
   <tbody>

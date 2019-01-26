@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-		<meta name="turbolinks-cache-control" content="no-cache">
+    <meta name="turbolinks-cache-control" content="no-cache">
     <title>Yoyaku2018</title>
     <%= csrf_meta_tags %>
 
@@ -10,36 +10,36 @@
   </head>
 
   <body>
-		<div class="container-fluid" >
-			<div class="row" >
-				<div class="col-md-2 d-none d-md-block bg-light sidebar" >
-					<div class="sidebar-sticky" >
-						<ul class="nav flex-column" >
-							<li class="nav-item" ><%= link_to "Menus", menus_path -%></li>
-							<li class="nav-item" ><%= link_to "Titles", titles_path -%></li>
-							<li class="nav-item" ><%= link_to "Products", products_path -%></li>
-							<li class="nav-item" ><%= link_to "Orders", orders_path -%></li>
-							<li class="nav-item" ><%= link_to "LineItems", line_items_path -%></li>
-							<li class="nav-item" ><%= link_to "Names", names_path -%></li>
-							<li class="nav-item" ><%= link_to "Buyers", buyers_path -%></li>
-							<li class="nav-item" ><%= link_to "Customers", customers_path -%></li>
-							<li class="nav-item" ><%= link_to "Preferences", preferences_path -%></li>
-						</ul>
-						<div id="menu_selector" >
-							<%= form_tag(set_current_menus_path, method: :get, ) do |form| %>
-								<%= select_tag :menu_id, options_from_collection_for_select(
-									Menu.ordered, :id, :name,
-									session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
-									include_blank: true, onchange: 'this.form.submit()'
-								%>
-							<% end %>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" >
+    <div class="container-fluid" >
+      <div class="row" >
+        <div class="col-md-2 d-none d-md-block bg-light sidebar" >
+          <div class="sidebar-sticky" >
+            <ul class="nav flex-column" >
+              <li class="nav-item" ><%= link_to "Menus", menus_path -%></li>
+              <li class="nav-item" ><%= link_to "Titles", titles_path -%></li>
+              <li class="nav-item" ><%= link_to "Products", products_path -%></li>
+              <li class="nav-item" ><%= link_to "Orders", orders_path -%></li>
+              <li class="nav-item" ><%= link_to "LineItems", line_items_path -%></li>
+              <li class="nav-item" ><%= link_to "Names", names_path -%></li>
+              <li class="nav-item" ><%= link_to "Buyers", buyers_path -%></li>
+              <li class="nav-item" ><%= link_to "Customers", customers_path -%></li>
+              <li class="nav-item" ><%= link_to "Preferences", preferences_path -%></li>
+            </ul>
+            <div id="menu_selector" >
+              <%= form_tag(set_current_menus_path, method: :get, ) do |form| %>
+                <%= select_tag :menu_id, options_from_collection_for_select(
+                  Menu.ordered, :id, :name,
+                  session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
+                  include_blank: true, onchange: 'this.form.submit()'
+                %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" >
     <%= yield %>
-				</div>
-			</div>
-		</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -5,12 +5,12 @@ class MenusController < ApplicationController
   # GET /menus.json
   def index
     @menus = Menu.all.order('updated_at DESC')
-		current = Date.today.strftime('%Y-%m')
-		if Menu.where(name: current).blank?
-			@menu = Menu.new(name: current)
-		else
-			@menu = Menu.new
-		end
+    current = Date.today.strftime('%Y-%m')
+    if Menu.where(name: current).blank?
+      @menu = Menu.new(name: current)
+    else
+      @menu = Menu.new
+    end
   end
 
   # GET /menus/1
@@ -67,15 +67,15 @@ class MenusController < ApplicationController
     end
   end
 
-	# GET /menus/set_current
-	def set_current
-		session[:menu] = Menu.where(id: params[:menu_id]).first
-		path = Rails.application.routes.recognize_path(request.referer)
-		# params までは再現できない？しても意味が無い？
-		respond_to do |format|
-			format.html { redirect_to path }
-		end
-	end
+  # GET /menus/set_current
+  def set_current
+    session[:menu] = Menu.where(id: params[:menu_id]).first
+    path = Rails.application.routes.recognize_path(request.referer)
+    # params までは再現できない？しても意味が無い？
+    respond_to do |format|
+      format.html { redirect_to path }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -20,39 +20,39 @@
 <%= render 'index_lines', orders: @orders %>
   </tbody>
 
-	<tfoot >
-		<tr >
-			<td >
-				<%= form.text_field :number, id: :order_number, size: 6, class: 'numeric' %>
-			</td>
-			<td >
-				<%= form.text_field :name, id: :order_name, size: 18 %>
-			</td>
-			<td >
-				<%= form.text_field :phone, id: :order_phone, size: 12 %>
-			</td>
-			<td >
-				<%= select_tag :due_datenum, options_for_select(@due_dates),
-					id: :order_due_datenum, include_blank: true %>
-			</td>
-			<td >
-				<%= select_tag :means, options_for_select(['電話', '来店'], '電話'),
-					id: :order_means, include_blank: true %>
-			</td>
-			<td >
-				<%= select_tag :state, options_for_select(['引渡し済み', 'キャンセル']),
-					id: :order_state, include_blank: true %>
-			</td>
-			<td colspan=3 >
-				<%= form.submit '検索する', id: :search, format: :js %>
-			</td>
-		</tr>
-		<tr >
-			<td colspan=3 >
-			予約番号を指定すると，他の検索条件は無視されます．
-			</td>
-		</tr>
-	</tfoot>
+  <tfoot >
+    <tr >
+      <td >
+        <%= form.text_field :number, id: :order_number, size: 6, class: 'numeric' %>
+      </td>
+      <td >
+        <%= form.text_field :name, id: :order_name, size: 18 %>
+      </td>
+      <td >
+        <%= form.text_field :phone, id: :order_phone, size: 12 %>
+      </td>
+      <td >
+        <%= select_tag :due_datenum, options_for_select(@due_dates),
+          id: :order_due_datenum, include_blank: true %>
+      </td>
+      <td >
+        <%= select_tag :means, options_for_select(['電話', '来店'], '電話'),
+          id: :order_means, include_blank: true %>
+      </td>
+      <td >
+        <%= select_tag :state, options_for_select(['引渡し済み', 'キャンセル']),
+          id: :order_state, include_blank: true %>
+      </td>
+      <td colspan=3 >
+        <%= form.submit '検索する', id: :search, format: :js %>
+      </td>
+    </tr>
+    <tr >
+      <td colspan=3 >
+      予約番号を指定すると，他の検索条件は無視されます．
+      </td>
+    </tr>
+  </tfoot>
 </table>
 <% end %>
 

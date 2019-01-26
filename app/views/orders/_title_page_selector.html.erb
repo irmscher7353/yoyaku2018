@@ -2,6 +2,6 @@
 <% ii = i + 1 %>
 <%= button_tag(ii, name: 'title-page-button-%d' % [ii], type: :button,
     remote: true, disabled: (i == 0),
-		class: (i == 0 ? 'current-title-page-button' : ''),
-		onClick: "orders.select_title_page(this,'#title-page-%d');" % [ii] ) %>
+    class: (i == 0 ? 'current-title-page-button' : ''),
+    onClick: "orders.select_title_page(this,'#title-page-%d');" % [ii] ) %>
 <% end %>

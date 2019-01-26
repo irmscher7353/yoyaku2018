@@ -4,29 +4,29 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-		#logger.debug 'start: ' + session[:product].to_s
-		#logger.debug params
-		session[:menu] ||= Menu.latest
-		if session[:product].present?
-			if session[:product]['menu_id'] != session[:menu]['id']
-				session[:product] = nil
-			end
-		end
-		params[:product] ||= session[:product] || { menu_id: session[:menu]['id'] }
+    #logger.debug 'start: ' + session[:product].to_s
+    #logger.debug params
+    session[:menu] ||= Menu.latest
+    if session[:product].present?
+      if session[:product]['menu_id'] != session[:menu]['id']
+        session[:product] = nil
+      end
+    end
+    params[:product] ||= session[:product] || { menu_id: session[:menu]['id'] }
 
-		@menus = Menu.ordered
-		@titles = Title.order(:name)
+    @menus = Menu.ordered
+    @titles = Title.order(:name)
 
-		@product = Product.new(product_params)
-		@p_min, @p_max = Product.priority_range(@product.priority)
+    @product = Product.new(product_params)
+    @p_min, @p_max = Product.priority_range(@product.priority)
 
-		@products = Product.ordered(menu_id: @product.menu_id)
-		if @product.title_id.present?
-			@products = @products.where(title_id: @product.title_id)
-		end
+    @products = Product.ordered(menu_id: @product.menu_id)
+    if @product.title_id.present?
+      @products = @products.where(title_id: @product.title_id)
+    end
 
-		product_session @product
-		#logger.debug 'final: ' + session[:product].to_s
+    product_session @product
+    #logger.debug 'final: ' + session[:product].to_s
   end
 
   # GET /products/1
@@ -36,35 +36,35 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-		params[:product] ||= session[:product] || {menu_id: Menu.latest.id}
+    params[:product] ||= session[:product] || {menu_id: Menu.latest.id}
 
-		@menus = Menu.ordered
-		@titles = Title.order(:name)
+    @menus = Menu.ordered
+    @titles = Title.order(:name)
 
     @product = Product.new(product_params)
-		@p_min, @p_max = Product.priority_range(@product.priority)
+    @p_min, @p_max = Product.priority_range(@product.priority)
   end
 
   # GET /products/1/edit
   def edit
-		@menus = Menu.ordered
-		@titles = Title.order(:name)
+    @menus = Menu.ordered
+    @titles = Title.order(:name)
 
-		@p_min, @p_max = Product.priority_range(@product.priority)
+    @p_min, @p_max = Product.priority_range(@product.priority)
   end
 
   # POST /products
   # POST /products.json
   def create
-		@menus = Menu.ordered
-		@titles = Title.order(:name)
+    @menus = Menu.ordered
+    @titles = Title.order(:name)
 
     @product = Product.new(product_params)
-		@p_min, @p_max = Product.priority_range(@product.priority)
+    @p_min, @p_max = Product.priority_range(@product.priority)
 
     respond_to do |format|
       if @product.save
-				product_session @product
+        product_session @product
         format.html { redirect_to products_url, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -106,17 +106,17 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-			if params[:product].present? and params[:product][:price].present?
-				params[:product][:price] = params[:product][:price].to_s.gsub(/,/, "").to_i
-			end
+      if params[:product].present? and params[:product][:price].present?
+        params[:product][:price] = params[:product][:price].to_s.gsub(/,/, "").to_i
+      end
       params.require(:product).permit(:menu_id, :title_id, :size, :priority, :price, :limit, :remain)
     end
 
-		def product_session(product)
-			session[:product] = {
-				menu_id: product.menu_id, title_id: product.title_id,
-				size: product.size, priority: product.priority, price: product.price,
-				limit: product.limit, remain: product.remain,
-			}
-		end
+    def product_session(product)
+      session[:product] = {
+        menu_id: product.menu_id, title_id: product.title_id,
+        size: product.size, priority: product.priority, price: product.price,
+        limit: product.limit, remain: product.remain,
+      }
+    end
 end

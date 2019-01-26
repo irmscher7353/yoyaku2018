@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Value</th>
-			<th >更新日</th>
+      <th >更新日</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= preference.name %></td>
         <td><%= preference.value %></td>
-				<td ><%= preference.updated_at.strftime('%Y-%m-%d') %></td>
+        <td ><%= preference.updated_at.strftime('%Y-%m-%d') %></td>
         <td><%= link_to t('Show'), preference %></td>
         <td><%= link_to t('Edit'), edit_preference_path(preference) %></td>
         <td><%= link_to t('Destroy'), preference, method: :delete, data: { confirm: 'Are you sure?' } %></td>

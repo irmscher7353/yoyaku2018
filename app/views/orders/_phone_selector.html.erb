@@ -1,17 +1,17 @@
 <div class="area_code_selector" >
 <% @area_codes.each do |area_code| %>
-	<%= button_tag('%s-' % area_code, type: :button, remote: true,
-	    style: (area_code == '' ? "visibility: hidden;" : ""),
-	    onClick: "orders.select_area_code(this);" ) %>
+  <%= button_tag('%s-' % area_code, type: :button, remote: true,
+      style: (area_code == '' ? "visibility: hidden;" : ""),
+      onClick: "orders.select_area_code(this);" ) %>
 <% end %>
 </div>
 <div class="number_selector" >
 <% @numbers_list.each do |numbers| %>
-	<div class="number_selector_row" >
-	<% numbers.each do |number| %>
-	  <%= button_tag(number, type: :button, remote: true,
-		    onClick: "orders.select_number(this);" ) %>
-	<% end %>
-	</div>
+  <div class="number_selector_row" >
+  <% numbers.each do |number| %>
+    <%= button_tag(number, type: :button, remote: true,
+        onClick: "orders.select_number(this);" ) %>
+  <% end %>
+  </div>
 <% end %>
 </div>

@@ -13,150 +13,150 @@
 
 <% colspan = 4 %>
 <table class="order-form" >
-	<caption >ご予約伝票</caption>
+  <caption >ご予約伝票</caption>
 <tbody >
-	<tr >
-		<th class="field">
+  <tr >
+    <th class="field">
     <%= form.label :number %>
-		</th>
-		<td class="filed" colspan="<%= colspan %>" >
+    </th>
+    <td class="filed" colspan="<%= colspan %>" >
     <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', disabled: true %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :menu_id %>
-		</th>
-		<td class="field" >
+    </th>
+    <td class="field" >
     <%= form.text_field :menu_id, id: :order_menu_id %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :revision %>
-		</th>
-		<td class="field" >
+    </th>
+    <td class="field" >
     <%= form.text_field :revision, id: :order_revision %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :buyer_id %>
-		</th>
-		<td >
+    </th>
+    <td >
     <%= form.text_field :buyer_id, id: :order_buyer_id %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :due_datenum %>
-		</th>
-		<td >
+    </th>
+    <td >
     <%= form.number_field :due_datenum, id: :order_due_datenum %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :total_price %>
-		</th>
-		<td >
+    </th>
+    <td >
     <%= form.number_field :total_price, id: :order_total_price %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
     <%= form.label :amount_paid %>
-		</th>
-		<td >
+    </th>
+    <td >
     <%= form.number_field :amount_paid, id: :order_amount_paid %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
-		</th>
-		<td >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
+    </th>
+    <td >
     <%= form.text_field :payment, id: :order_payment %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
-		</th>
-		<td >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
+    </th>
+    <td >
     <%= form.text_field :means, id: :order_means %>
-		</td>
-	</tr>
-	<tr class="hidden" >
-		<th >
-		</th>
-		<td >
+    </td>
+  </tr>
+  <tr class="hidden" >
+    <th >
+    </th>
+    <td >
     <%= form.text_field :state, id: :order_state %>
-		</td>
-	</tr>
-	<tr >
-		<th class="field">
+    </td>
+  </tr>
+  <tr >
+    <th class="field">
     <%= form.label :name %>
-		</th>
-		<td class="field">
+    </th>
+    <td class="field">
     <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory',
-		    onFocus: "orders.select_kana(this);" %>
-		</td>
-		<td class="honorific" >
-		様
-		</td>
-		<th class="field">
+        onFocus: "orders.select_kana(this);" %>
+    </td>
+    <td class="honorific" >
+    様
+    </td>
+    <th class="field">
     <%= form.label :phone %>
-		</th>
-		<td class="field order_phone">
+    </th>
+    <td class="field order_phone">
     <%= form.text_field :phone, id: :order_phone, size: 16, type: :tel,
-		    class: 'mandatory',
-		    onFocus: "orders.select_phone(this);" %>
-		</td>
-	</tr>
-	<tr >
-		<th class="field">
+        class: 'mandatory',
+        onFocus: "orders.select_phone(this);" %>
+    </td>
+  </tr>
+  <tr >
+    <th class="field">
     <%= form.label :address %>
-		</th>
-		<td class="field" colspan="<%= colspan %>" >
+    </th>
+    <td class="field" colspan="<%= colspan %>" >
     <%= form.text_field :address, id: :order_address, class: 'optional' %>
-		</td>
-	</tr>
-	<tr >
-		<th class="field">
+    </td>
+  </tr>
+  <tr >
+    <th class="field">
     <%= form.label :due %>
-		</th>
-		<td class="field" colspan=<%= colspan - 1 %> >
-		<!-- input の type を指定すれば，ime-mode は自動調整されるが，size は
-		     効かなくなり，css の width で指定する必要が出て来る． -->
-		<% nd = 4 %>
-		<%= form.text_field :due_year, id: :due_year, type: :number, size: nd,
-		    class: 'mandatory due no-spin-button center hidden',
-		    onClick: "orders.select_text(this);",
-		    onFocus: "orders.select_datetime(this);" %><!-- 年 -->
-		<%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
-		    class: 'mandatory due no-spin-button center',
-		    onClick: "orders.select_text(this);",
-		    onFocus: "orders.select_datetime(this);" %> 月
-		<%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
-		    class: 'mandatory due no-spin-button center',
-		    onClick: "orders.select_text(this);",
-		    onFocus: "orders.select_datetime(this);" %> 日
-		（ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
-		<%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
-		    class: 'mandatory due no-spin-button center',
-		    onClick: "orders.select_text(this);",
-		    onFocus: "orders.select_datetime(this);" %> 時
-		<!-- minute の type を number にすると，"00" と表示できなくなる．-->
-		<%= form.text_field :due_min, id: :due_minute, type: :text, size: nd,
-		    class: 'mandatory due no-spin-button center',
-		    onClick: "orders.select_text(this);",
-		    onFocus: "orders.select_datetime(this);" %> 分
-		</td>
-		<td class="numeric" >
-		<% if order.created_at.present? %>
-		受付日時：<%= order.created_at.localtime.strftime('%Y-%m-%d %H:%M') %>
-		<% end %>
-		</td>
-	</tr>
+    </th>
+    <td class="field" colspan=<%= colspan - 1 %> >
+    <!-- input の type を指定すれば，ime-mode は自動調整されるが，size は
+         効かなくなり，css の width で指定する必要が出て来る． -->
+    <% nd = 4 %>
+    <%= form.text_field :due_year, id: :due_year, type: :number, size: nd,
+        class: 'mandatory due no-spin-button center hidden',
+        onClick: "orders.select_text(this);",
+        onFocus: "orders.select_datetime(this);" %><!-- 年 -->
+    <%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
+        class: 'mandatory due no-spin-button center',
+        onClick: "orders.select_text(this);",
+        onFocus: "orders.select_datetime(this);" %> 月
+    <%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
+        class: 'mandatory due no-spin-button center',
+        onClick: "orders.select_text(this);",
+        onFocus: "orders.select_datetime(this);" %> 日
+    （ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
+    <%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
+        class: 'mandatory due no-spin-button center',
+        onClick: "orders.select_text(this);",
+        onFocus: "orders.select_datetime(this);" %> 時
+    <!-- minute の type を number にすると，"00" と表示できなくなる．-->
+    <%= form.text_field :due_min, id: :due_minute, type: :text, size: nd,
+        class: 'mandatory due no-spin-button center',
+        onClick: "orders.select_text(this);",
+        onFocus: "orders.select_datetime(this);" %> 分
+    </td>
+    <td class="numeric" >
+    <% if order.created_at.present? %>
+    受付日時：<%= order.created_at.localtime.strftime('%Y-%m-%d %H:%M') %>
+    <% end %>
+    </td>
+  </tr>
 </tbody>
 </table>
 
@@ -165,211 +165,211 @@
 <% nd_count = 4 %>
 <table class="order-lineitems" >
 <thead >
-	<tr >
-		<th >商品名</th>
-		<th >サイズ</th>
-		<th >数量</th>
-		<th >限定</th>
-		<th >金額</th>
-		<th ></th>
-		<th >備考</th>
-	</tr>
+  <tr >
+    <th >商品名</th>
+    <th >サイズ</th>
+    <th >数量</th>
+    <th >限定</th>
+    <th >金額</th>
+    <th ></th>
+    <th >備考</th>
+  </tr>
 </thead>
 <% num_cols = 7 %>
 <tbody >
-	<tr id="line_note" >
-		<td class="empty-cell" colspan="<%= num_cols - 1 %>" >
-		</td>
-		<td class="field text_area" rowspan=<%= 1 + n_lines %> >
+  <tr id="line_note" >
+    <td class="empty-cell" colspan="<%= num_cols - 1 %>" >
+    </td>
+    <td class="field text_area" rowspan=<%= 1 + n_lines %> >
     <%= form.text_area :note, id: :order_note, size: '20x6' %>
-		</td>
-	</tr>
-	<% i = -1 %>
-	<%= form.fields_for :line_items, order.current_line_items(n_lines) do |item| %>
-		<% i += 1 %>
-	<tr id="line_<%= i %>" index="<%= i %>" >
-		<td >
-		<%= item.hidden_field :id %>
-		<%= item.hidden_field :revision %>
-		<%= item.hidden_field :reserved, class: 'reserved' %>
-		<%= item.hidden_field :product_id, class: 'product_id' %>
-		<%= item.hidden_field :product_price, class: 'product_price' %>
-		<%= item.text_field :product_name, class: 'product_name',
-		    size: 30, readonly: true,
-		    onFocus: "orders.select_row(this);" %>
-		</td>
-		<td >
-		<%= item.text_field :product_size, class: 'product_size center',
-		    size: 20, readonly: true,
-		    onFocus: "orders.select_row(this);" %>
-		</td>
-		<td >
-		<%= item.text_field :quantity, size: nd_count, class: 'numeric quantity',
-		    onFocus: "orders.select_row(this);" %>
-		</td>
-		<td >
-		<%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
-		    tabindex: -1, disabled: true %>
-		</td>
-		<td >
-		<%= item.text_field :total_price, class: 'hidden numeric total_price' %>
-		<%= item.text_field :total_price_delimited, size: 10,
-		    class: 'numeric total_price_delimited', tabindex: -1, disabled: true %>
-		</td>
-		<td >
-		<span class="clear-button invisible" >X</span>
-		</td>
-	</tr>
-	<% end %>
+    </td>
+  </tr>
+  <% i = -1 %>
+  <%= form.fields_for :line_items, order.current_line_items(n_lines) do |item| %>
+    <% i += 1 %>
+  <tr id="line_<%= i %>" index="<%= i %>" >
+    <td >
+    <%= item.hidden_field :id %>
+    <%= item.hidden_field :revision %>
+    <%= item.hidden_field :reserved, class: 'reserved' %>
+    <%= item.hidden_field :product_id, class: 'product_id' %>
+    <%= item.hidden_field :product_price, class: 'product_price' %>
+    <%= item.text_field :product_name, class: 'product_name',
+        size: 30, readonly: true,
+        onFocus: "orders.select_row(this);" %>
+    </td>
+    <td >
+    <%= item.text_field :product_size, class: 'product_size center',
+        size: 20, readonly: true,
+        onFocus: "orders.select_row(this);" %>
+    </td>
+    <td >
+    <%= item.text_field :quantity, size: nd_count, class: 'numeric quantity',
+        onFocus: "orders.select_row(this);" %>
+    </td>
+    <td >
+    <%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
+        tabindex: -1, disabled: true %>
+    </td>
+    <td >
+    <%= item.text_field :total_price, class: 'hidden numeric total_price' %>
+    <%= item.text_field :total_price_delimited, size: 10,
+        class: 'numeric total_price_delimited', tabindex: -1, disabled: true %>
+    </td>
+    <td >
+    <span class="clear-button invisible" >X</span>
+    </td>
+  </tr>
+  <% end %>
 <% # Order.current_line_items でパディングを行なえば，不要な訳だが．．． %>
-	<% while i < (n_lines - 1) %>
-		<% i += 1 %>
-	<tr id="line_<%= i %>" index="<%= i %>" >
-		<td >
-		<%= form.text_field "product_name[#{i}]", size: 30 %>
-		</td>
-		<td >
-		<%= form.text_field "product_size[#{i}]", size: 20, class: 'center' %>
-		</td>
-		<td >
-		<%= form.text_field "quantity[#{i}]", size: nd_count, class: 'numeric' %>
-		</td>
-		<td >
-		<%= form.text_field "remain[#{i}]", size: nd_count, class: 'numeric', disabled: true %>
-		</td>
-		<td >
-		<%= form.text_field "price[#{i}]", size: 1, class: 'numeric', disabled: true %>
-		</td>
-	</tr>
-	<% end %>
+  <% while i < (n_lines - 1) %>
+    <% i += 1 %>
+  <tr id="line_<%= i %>" index="<%= i %>" >
+    <td >
+    <%= form.text_field "product_name[#{i}]", size: 30 %>
+    </td>
+    <td >
+    <%= form.text_field "product_size[#{i}]", size: 20, class: 'center' %>
+    </td>
+    <td >
+    <%= form.text_field "quantity[#{i}]", size: nd_count, class: 'numeric' %>
+    </td>
+    <td >
+    <%= form.text_field "remain[#{i}]", size: nd_count, class: 'numeric', disabled: true %>
+    </td>
+    <td >
+    <%= form.text_field "price[#{i}]", size: 1, class: 'numeric', disabled: true %>
+    </td>
+  </tr>
+  <% end %>
 </tbody>
 <tfoot >
-	<% num_rows = 8 %>
-	<tr class="fixed-height" id="line_order_total" >
-		<td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
-			<div >
+  <% num_rows = 8 %>
+  <tr class="fixed-height" id="line_order_total" >
+    <td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
+      <div >
 <%= @message %>
-			</div>
-		</td>
-		<td rowspan="<%= num_rows %>" colspan="3" class="address-panel hidden" >
+      </div>
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="3" class="address-panel hidden" >
 住所はキーボードで入力して下さい．
-		</td>
-		<td rowspan="<%= num_rows %>" colspan="1" class="phone-panel hidden selector area_code_selector" >
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="1" class="phone-panel hidden selector area_code_selector" >
 <%= render 'area_code_selector' %>
-		</td>
-		<td rowspan="<%= num_rows %>" colspan="2" class="phone-panel hidden selector numbers_selector" >
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="2" class="phone-panel hidden selector numbers_selector" >
 <%= render 'numbers_selector' %>
-		</td>
-		<td rowspan="<%= num_rows %>" colspan="3" class="datetime-panel hidden selector datetime_selector" >
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="3" class="datetime-panel hidden selector datetime_selector" >
 <%= render 'datetime_selector' %>
-		</td>
-		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
-			<div class="selector title_page_selector" >
+    </td>
+    <td rowspan="<%= num_rows %>" class="item-panel hidden" >
+      <div class="selector title_page_selector" >
 <%= render 'title_page_selector' %>
-			</div>
-			<div class="selector product_selector" >
+      </div>
+      <div class="selector product_selector" >
 <%= render 'product_selector' %>
-			</div>
-		</td>
-		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
-			<div class="selector title_page_selector" >
-			</div>
-			<div class="selector size_selector" >
+      </div>
+    </td>
+    <td rowspan="<%= num_rows %>" class="item-panel hidden" >
+      <div class="selector title_page_selector" >
+      </div>
+      <div class="selector size_selector" >
 <%= render 'size_selector' %>
-			</div>
-		</td>
-		<td rowspan="<%= num_rows %>" class="item-panel hidden" >
-			<div class="selector title_page_selector" >
-			</div>
-			<div class="selector quantity_selector" >
+      </div>
+    </td>
+    <td rowspan="<%= num_rows %>" class="item-panel hidden" >
+      <div class="selector title_page_selector" >
+      </div>
+      <div class="selector quantity_selector" >
 <%= render 'quantity_selector' %>
-			</div>
-		</td>
-		<td rowspan="<%= num_rows %>" colspan="6" class="kana-panel hidden" >
+      </div>
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="6" class="kana-panel hidden" >
 <%= render 'kana_panel' -%>
-		</td>
-		<th class="base-panel" >
+    </td>
+    <th class="base-panel" >
     <%= form.label :total_price %>
-		</th>
-		<td class="field base-panel order_total_price" >
+    </th>
+    <td class="field base-panel order_total_price" >
     <%= form.text_field :total_price_delimited, id: :order_total_price_delimited,
-		    size: 1, disabled: true, class: 'numeric order_total_price' %>
-		</td>
-		<th class="base-panel" >
-		<label class="currency" >円</label>
-		</th>
-		<td rowspan="<%= num_rows %>" class="phrases" >
-		<% @phrases.each do |phrase| %>
-			<%= form.button phrase, type: 'button', class: 'phrase',
-			    onClick: "orders.select_phrase(this, '#order_note');" %><br />
-		<% end %>
-		</td>
-	</tr>
-	<tr class="base-panel fixed-height">
-	<% invisible = (order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
-		<th >
+        size: 1, disabled: true, class: 'numeric order_total_price' %>
+    </td>
+    <th class="base-panel" >
+    <label class="currency" >円</label>
+    </th>
+    <td rowspan="<%= num_rows %>" class="phrases" >
+    <% @phrases.each do |phrase| %>
+      <%= form.button phrase, type: 'button', class: 'phrase',
+          onClick: "orders.select_phrase(this, '#order_note');" %><br />
+    <% end %>
+    </td>
+  </tr>
+  <tr class="base-panel fixed-height">
+  <% invisible = (order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
+    <th >
     <%= form.label :balance, class: invisible %>
-		</th>
-		<td class="balance" >
+    </th>
+    <td class="balance" >
     <%= form.text_field :balance, id: :order_balance, size: 1, disabled: true,
-				class: 'numeric no-spin-button %s' % [invisible] %>
-		</td>
-		<th >
-		<span class="<%= invisible %>" >円</span>
-		</th>
-	</tr>
-	<tr class="base-panel fixed-height" >
-		<th class="field">
+        class: 'numeric no-spin-button %s' % [invisible] %>
+    </td>
+    <th >
+    <span class="<%= invisible %>" >円</span>
+    </th>
+  </tr>
+  <tr class="base-panel fixed-height" >
+    <th class="field">
     <%= form.label :payment %>
-		</th>
-		<td colspan="2" class="payment" >
-		<% s = Order::PAYMENT_YET %>
-		<%= form.radio_button :payment, s, checked: (order.payment == s),
-		    class: 'order_payment order_payment_yet'
-		%><span class='order_payment order_payment_yet' > <%= s %></span>
-		・
-		<% s = Order::PAYMENT_DONE %>
-		<%= form.radio_button :payment, s, checked: (order.payment == s),
-		    class: 'order_payment order_payment_done'
-		%><span class='order_payment order_payment_done' > <%= s %></span>
-		</td>
-	</tr>
-	<tr class="base-panel fixed-height" >
-		<th class="field">
+    </th>
+    <td colspan="2" class="payment" >
+    <% s = Order::PAYMENT_YET %>
+    <%= form.radio_button :payment, s, checked: (order.payment == s),
+        class: 'order_payment order_payment_yet'
+    %><span class='order_payment order_payment_yet' > <%= s %></span>
+    ・
+    <% s = Order::PAYMENT_DONE %>
+    <%= form.radio_button :payment, s, checked: (order.payment == s),
+        class: 'order_payment order_payment_done'
+    %><span class='order_payment order_payment_done' > <%= s %></span>
+    </td>
+  </tr>
+  <tr class="base-panel fixed-height" >
+    <th class="field">
     <%= form.label :means %>
-		</th>
-		<td colspan="2" class="means" >
-		<% s = Order::MEANS_PHONE %>
-		<%= form.radio_button :means, s, checked: (order.means == s),
-		    class: "order_means order_means_phone"
-		%><span class="order_means order_means_phone" > <%= s %></span>
-		・
-		<% s = Order::MEANS_STORE %>
-		<%= form.radio_button :means, s, checked: (order.means == s),
-		    class: "order_means order_means_store"
-		%><span class="order_means order_means_stroe" > <%= s %></span>
-		</td>
-	</tr>
-	<tr class="base-panel fixed-height" >
-		<th class="field">
+    </th>
+    <td colspan="2" class="means" >
+    <% s = Order::MEANS_PHONE %>
+    <%= form.radio_button :means, s, checked: (order.means == s),
+        class: "order_means order_means_phone"
+    %><span class="order_means order_means_phone" > <%= s %></span>
+    ・
+    <% s = Order::MEANS_STORE %>
+    <%= form.radio_button :means, s, checked: (order.means == s),
+        class: "order_means order_means_store"
+    %><span class="order_means order_means_stroe" > <%= s %></span>
+    </td>
+  </tr>
+  <tr class="base-panel fixed-height" >
+    <th class="field">
     <%= form.label :state %>
-		</th>
-		<td colspan="2" >
-		</td>
-	</tr>
-	<tr class="base-panel fixed-height" >
-		<th >
-		</th>
-		<td colspan="2" class="actions" >
+    </th>
+    <td colspan="2" >
+    </td>
+  </tr>
+  <tr class="base-panel fixed-height" >
+    <th >
+    </th>
+    <td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true %>
-		</td>
-	</tr>
-	<tr class="base-panel" >
-		<th >
-		</th>
-		<td colspan="2" >
-		</td>
-	</tr>
+    </td>
+  </tr>
+  <tr class="base-panel" >
+    <th >
+    </th>
+    <td colspan="2" >
+    </td>
+  </tr>
 </tfoot>
 </table>
 <div class="names-panel hidden" id="names-panel" >

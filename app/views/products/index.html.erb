@@ -18,51 +18,51 @@
       <th>Remain</th>
       <th colspan="3"></th>
     </tr>
-		<tr >
-			<td ><!-- Menu -->
-				<%= form.collection_select :menu_id, @menus, :id, :name,
-					{ selected: @product.menu.id, },
-					{ id: :product_menu_id, onChange: "products.updateLines(this, 'submit');" } %>
-			</td>
-			<td ><!-- Priority -->
-				<%= form.number_field :priority, id: :product_priority,
-					min: @p_min, max: @p_max, class: 'numeric priority' %>
-			</td>
-			<td ><!-- Title -->
-				<%= form.collection_select :title_id, @titles, :id, :name,
-					{ include_blank: true, },
-					{ id: :product_title_id, onChange: "products.updateLines(this, 'submit');" } %>
-			</td>
-			<td ><!-- Size -->
-				<%= form.text_field :size, id: :product_size,
-					class: 'center', size: 12 %>
-			</td>
-			<td ><!-- Price -->
-				<%= form.text_field :price, id: :product_price,
-					class: 'numeric price no-spin-button',
-					onChange: "products.updateButtonStatus(this, 'submit');" %>
-			</td>
-			<td ><!-- Limit -->
-				<%= form.number_field :limit, id: :product_limit,
-					min: -1, class: 'numeric limit no-spin-button', size: 4 %>
-			</td>
-			<td ><!-- Remain -->
-				<%= form.number_field :remain, id: :product_remain,
-					min: -1, class: 'numeric remain no-spin-button', disabled: true %>
-			</td>
-			<td colspan="3" >
-				<%= form.submit id: :submit_update, format: :js, class: :hidden %>
-				<%= form.submit id: :submit, disabled: (@product.title_id.blank? || @product.price.blank?) %>
-			</td>
-		</tr>
+    <tr >
+      <td ><!-- Menu -->
+        <%= form.collection_select :menu_id, @menus, :id, :name,
+          { selected: @product.menu.id, },
+          { id: :product_menu_id, onChange: "products.updateLines(this, 'submit');" } %>
+      </td>
+      <td ><!-- Priority -->
+        <%= form.number_field :priority, id: :product_priority,
+          min: @p_min, max: @p_max, class: 'numeric priority' %>
+      </td>
+      <td ><!-- Title -->
+        <%= form.collection_select :title_id, @titles, :id, :name,
+          { include_blank: true, },
+          { id: :product_title_id, onChange: "products.updateLines(this, 'submit');" } %>
+      </td>
+      <td ><!-- Size -->
+        <%= form.text_field :size, id: :product_size,
+          class: 'center', size: 12 %>
+      </td>
+      <td ><!-- Price -->
+        <%= form.text_field :price, id: :product_price,
+          class: 'numeric price no-spin-button',
+          onChange: "products.updateButtonStatus(this, 'submit');" %>
+      </td>
+      <td ><!-- Limit -->
+        <%= form.number_field :limit, id: :product_limit,
+          min: -1, class: 'numeric limit no-spin-button', size: 4 %>
+      </td>
+      <td ><!-- Remain -->
+        <%= form.number_field :remain, id: :product_remain,
+          min: -1, class: 'numeric remain no-spin-button', disabled: true %>
+      </td>
+      <td colspan="3" >
+        <%= form.submit id: :submit_update, format: :js, class: :hidden %>
+        <%= form.submit id: :submit, disabled: (@product.title_id.blank? || @product.price.blank?) %>
+      </td>
+    </tr>
   </thead>
 
   <tbody id="index_tbody" >
 <%= render 'index_lines', products: @products %>
   </tbody>
 
-	<tfoot >
-	</tfoot>
+  <tfoot >
+  </tfoot>
 </table>
 <% end %>
 

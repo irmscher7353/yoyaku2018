@@ -5,10 +5,10 @@ class TitlesController < ApplicationController
   # GET /titles.json
   def index
     @titles = Title.order(:name)
-		if params[:title] and params[:title][:name]
-			@titles = @titles.where("name like ?", ["#{params[:title][:name]}%", ])
-		end
-		@title = Title.new
+    if params[:title] and params[:title][:name]
+      @titles = @titles.where("name like ?", ["#{params[:title][:name]}%", ])
+    end
+    @title = Title.new
   end
 
   # GET /titles/1
@@ -65,10 +65,10 @@ class TitlesController < ApplicationController
     end
   end
 
-	# GET  /title/update_index.js
-	def update_index
-		@titles = Title.order('id DESC')
-	end
+  # GET  /title/update_index.js
+  def update_index
+    @titles = Title.order('id DESC')
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

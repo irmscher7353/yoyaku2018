@@ -22,7 +22,7 @@
   <div class="field">
     <%= form.label :priority %>
     <%= form.number_field :priority, id: :product_priority,
-			min: 101, max: 999, class: 'numeric no-spin-button' %>
+      min: 101, max: 999, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
@@ -38,21 +38,21 @@
   <div class="field">
     <%= form.label :price %>
     <%= form.text_field :price, id: :product_price,
-			onChange: "products.updatePrice(this);",
-			class: 'numeric no-spin-button' %>
+      onChange: "products.updatePrice(this);",
+      class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
-		<%= form.hidden_field :limit, id: :old_limit, name: :old_limit %>
+    <%= form.hidden_field :limit, id: :old_limit, name: :old_limit %>
     <%= form.label :limit %>
     <%= form.number_field :limit, id: :product_limit,
-			min: -1, class: 'numeric no-spin-button' %>
+      min: -1, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
     <%= form.label :remain %>
     <%= form.number_field :remain, id: :product_remain,
-			min: -1, class: 'numeric no-spin-button', disabled: false %>
+      min: -1, class: 'numeric no-spin-button', disabled: false %>
   </div>
 
   <div class="actions">

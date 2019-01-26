@@ -1,12 +1,12 @@
 <div class="datetime_selector_header" >
 </div>
 <% @kana_matrix.each do |kaka_list| %>
-	<div class="kana kana-column" >
-	<% kaka_list.each do |kana| %>
-		<%= button_tag(kana, type: :button, remote: true,
-		    class: 'kana-button%s' % [kana == '｜' ? ' invisible' : ''], ) %>
-	<% end %>
-	</div>
+  <div class="kana kana-column" >
+  <% kaka_list.each do |kana| %>
+    <%= button_tag(kana, type: :button, remote: true,
+        class: 'kana-button%s' % [kana == '｜' ? ' invisible' : ''], ) %>
+  <% end %>
+  </div>
 <% end %>
 <div class="kana kana-footer" >
 <%= button_tag('　', type: :button, remote: true,
