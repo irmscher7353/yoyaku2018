@@ -294,6 +294,17 @@ $(document).on 'turbolinks:load', ->
     if $('.base-panel').hasClass('hidden')
       orders.select_panel 'message-panel'
 
+  $('.line_item').each (index,tr) ->
+    console.log 'index = "' + index + '"'
+    remain = $(tr).find('.product_remain').val()
+    if remain != ""
+      console.log 'remain = "' + remain + '"'
+      quantity = $(tr).find('.quantity').val()
+      if quantity != ""
+        console.log 'quantity = "' + quantity + '"'
+        if parseInt(remain) < parseInt(quantity)
+          $(tr).find('.quantity').addClass('shorten')
+
   $('.clear-button').on 'click', (event) =>
     $('.current-row .product_id').val('')
     $('.current-row .product_price').val('')

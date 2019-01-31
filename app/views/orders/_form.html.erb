@@ -178,16 +178,18 @@
 <% num_cols = 7 %>
 <tbody >
   <tr id="line_note" >
-    <td class="empty-cell" colspan="<%= num_cols - 1 %>" >
+  <% (1 ... num_cols).each do |i| %>
+    <td class="empty-cell" >
     </td>
+  <% end %>
     <td class="field text_area" rowspan=<%= 1 + n_lines %> >
     <%= form.text_area :note, id: :order_note, size: '20x6' %>
     </td>
   </tr>
   <% i = -1 %>
-  <%= form.fields_for :line_items, order.current_line_items(n_lines) do |item| %>
+  <%= form.fields_for :line_items, order.current_line_items(n_lines, @line_items) do |item| %>
     <% i += 1 %>
-  <tr id="line_<%= i %>" index="<%= i %>" >
+  <tr class="line_item" id="line_<%= i %>" index="<%= i %>" >
     <td >
     <%= item.hidden_field :id %>
     <%= item.hidden_field :revision %>
@@ -247,9 +249,7 @@
   <% num_rows = 8 %>
   <tr class="fixed-height" id="line_order_total" >
     <td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
-      <div >
-<%= @message %>
-      </div>
+      <%= text_area_tag :message, @message %>
     </td>
     <td rowspan="<%= num_rows %>" colspan="3" class="address-panel hidden" >
 住所はキーボードで入力して下さい．

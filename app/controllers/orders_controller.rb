@@ -92,6 +92,7 @@ class OrdersController < ApplicationController
   def new
     session[:menu] ||= Menu.latest
     @order = Order.new menu_id: session[:menu]['id']
+    @line_items = []
     @message = '新規の注文です'
     @area_codes = Preference.get_area_codes
     @numbers_list = numbers_list
@@ -104,6 +105,7 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     session[:menu] ||= Menu.latest
+    @line_items = []
     @message = '既存の注文です'
     @area_codes = Preference.get_area_codes
     @numbers_list = numbers_list
@@ -116,25 +118,25 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    params[:order][:revision] = Time.zone.now.to_i
     normalize_line_items_attributes
+    params[:order][:revision] = Time.zone.now.to_i
     normalize_params
 
     # 引き当て準備
-    d = deltas([], params[:order][:line_items_attributes])
+    d = deltas(params[:order][:line_items_attributes])
     logger.info d.to_s
 
-    success = true
-    begin
-      # 引き当て処理
-      Product.draw d
-      params[:order][:number] = Order.new_number
-      @order = Order.new(order_params)
-      @message = '既存の注文です'
-    rescue => e
+    @order = Order.new(order_params)
+    # この時点では @order.line_items は存在しない．
+    #puts '@order.line_items.count = %d' % @order.line_items.count # => 0
+
+    # 引き当て処理
+    if (invalid = Product.draw(d))
       success = false
-      @order = Order.new(order_params)
-      @message = e.to_s.split(/:/)[1]
+      @message = invalid.record.errors[:base].join("\n")
+    else
+      success = true
+      @message = '予約できました．'
     end
 
     @area_codes = Preference.get_area_codes
@@ -145,10 +147,15 @@ class OrdersController < ApplicationController
     @phrases = Preference.get_phrases
 
     respond_to do |format|
-      if success and @order.save
+      if not invalid and @order.save
+        puts "saved: @order.line_items.count = %d" % @order.line_items.count
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
+        @line_items = []
+        params[:order][:line_items_attributes].each do |index, h|
+          @line_items << LineItem.new(h.permit(:id, :revision, :product_id, :quantity, :total_price))
+        end
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -165,7 +172,7 @@ class OrdersController < ApplicationController
     normalize_params
 
     # 引き当て準備
-    d = deltas(@order.current_line_items, params[:order][:line_items_attributes])
+    d = deltas(params[:order][:line_items_attributes], @order.current_line_items)
     logger.info d.to_s
 
     success = true
@@ -221,7 +228,7 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:id, :revision, :product_id, :quantity, :total_price])
     end
 
-    def deltas(line_items, attributes)
+    def deltas(attributes, line_items=[])
       d = Hash.new{|h,k| h[k] = 0 }
       attributes.each do |index,h|
         d[h[:product_id].to_i] += h[:quantity].to_i

@@ -18,8 +18,8 @@ class Order < ApplicationRecord
     new_number = [min_number, maximum(:number) || 0].max + 1
   end
 
-  def current_line_items(n_lines=0)
-    items = line_items.where(revision: revision).to_a
+  def current_line_items(n_lines=0, items=[])
+    items += line_items.where(revision: revision).to_a
     while items.count < n_lines
       items << line_items.build(revision: revision)
     end

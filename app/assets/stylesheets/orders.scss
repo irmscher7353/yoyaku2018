@@ -103,6 +103,9 @@ table.order-lineitems {
     .total_price {
       /* width: 100% */
     }
+    .shorten {
+      background-color: #f88;
+    }
     textarea#order_note {
       resize: none;
       width: 100%;
@@ -302,6 +305,11 @@ table.order-lineitems {
         font-weight: bold;
         width: 100%;
       }
+    }
+    textarea#message {
+      border-width: 0;
+      resize: none;
+      width: 100%;
     }
     th {
       text-align: center;

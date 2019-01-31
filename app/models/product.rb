@@ -63,9 +63,12 @@ class Product < ApplicationRecord
   def self.draw(d)
     Product.transaction do
       where(['id IN (?)', d.keys]).each do |product|
-        product.draw d[product.id]
+        product.draw! d[product.id]
       end
     end
+    nil
+  rescue ActiveRecord::RecordInvalid => e
+    e
   end
 
   def self.ordered(*args)
@@ -80,7 +83,7 @@ class Product < ApplicationRecord
     h
   end
 
-  def draw(delta)
+  def draw!(delta)
     # 「限定無し」は -1 である．
     if 0 <= limit
       reload lock: true
