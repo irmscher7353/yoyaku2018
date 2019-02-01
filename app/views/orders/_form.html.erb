@@ -311,11 +311,13 @@
     <%= form.label :balance, class: invisible %>
     </th>
     <td class="balance" >
-    <%= form.text_field :balance, id: :order_balance, size: 1, disabled: true,
+    <%= form.hidden_field :balance, id: :order_balance %>
+    <%= form.text_field :balance_delimited, id: :order_balance_delimited,
+        size: 1, disabled: true,
         class: 'numeric no-spin-button %s' % [invisible] %>
     </td>
     <th >
-    <span class="<%= invisible %>" >円</span>
+    <label class="currency <%= invisible %>" >円</label>
     </th>
   </tr>
   <tr class="base-panel fixed-height" >
