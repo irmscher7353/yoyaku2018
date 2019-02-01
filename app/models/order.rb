@@ -71,6 +71,10 @@ class Order < ApplicationRecord
     modified
   end
 
+  def balance_delimited
+    balance.present? ? balance.to_s(:delimited) : ''
+  end
+
   def total_price_delimited
     total_price.present? ? total_price.to_s(:delimited) : ''
   end
