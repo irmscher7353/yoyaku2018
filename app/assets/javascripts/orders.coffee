@@ -295,15 +295,16 @@ $(document).on 'turbolinks:load', ->
       orders.select_panel 'message-panel'
 
   $('.line_item').each (index,tr) ->
-    console.log 'index = "' + index + '"'
     remain = $(tr).find('.product_remain').val()
     if remain != ""
-      console.log 'remain = "' + remain + '"'
+      reserved = $(tr).find('.reserved').val()
+      reserved = if reserved != "" then parseInt(reserved) else 0
       quantity = $(tr).find('.quantity').val()
       if quantity != ""
-        console.log 'quantity = "' + quantity + '"'
-        if parseInt(remain) < parseInt(quantity)
+        if (reserved + parseInt(remain)) < parseInt(quantity)
           $(tr).find('.quantity').addClass('shorten')
+        else
+          $(tr).find('.quantity').removeClass('shorten')
 
   $('.clear-button').on 'click', (event) =>
     $('.current-row .product_id').val('')
