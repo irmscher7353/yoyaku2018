@@ -223,27 +223,6 @@
     </td>
   </tr>
   <% end %>
-<% # Order.current_line_items でパディングを行なえば，不要な訳だが．．． %>
-  <% while i < (n_lines - 1) %>
-    <% i += 1 %>
-  <tr id="line_<%= i %>" index="<%= i %>" >
-    <td >
-    <%= form.text_field "product_name[#{i}]", size: 30 %>
-    </td>
-    <td >
-    <%= form.text_field "product_size[#{i}]", size: 20, class: 'center' %>
-    </td>
-    <td >
-    <%= form.text_field "quantity[#{i}]", size: nd_count, class: 'numeric' %>
-    </td>
-    <td >
-    <%= form.text_field "remain[#{i}]", size: nd_count, class: 'numeric', disabled: true %>
-    </td>
-    <td >
-    <%= form.text_field "price[#{i}]", size: 1, class: 'numeric', disabled: true %>
-    </td>
-  </tr>
-  <% end %>
 </tbody>
 <tfoot >
   <% num_rows = 8 %>
