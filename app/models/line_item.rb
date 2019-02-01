@@ -21,7 +21,7 @@ class LineItem < ApplicationRecord
   end
 
   def reserved
-    quantity || 0
+    persisted? ? quantity : 0
   end
 
   def total_price_delimited
