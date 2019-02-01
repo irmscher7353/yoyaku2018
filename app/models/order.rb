@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   belongs_to :buyer
   has_many :line_items, dependent: :destroy
   accepts_nested_attributes_for :line_items, allow_destroy: true
+  before_create :assign_new_number
 
   paginates_per 15
 
@@ -16,6 +17,10 @@ class Order < ApplicationRecord
   def self.new_number
     min_number = (Time.zone.now.year % 100) * MAX_NUMBER_PER_YEAR + 0
     new_number = [min_number, maximum(:number) || 0].max + 1
+  end
+
+  def assign_new_number
+    self.number = Order.new_number
   end
 
   def current_line_items(n_lines=0, items=[])
