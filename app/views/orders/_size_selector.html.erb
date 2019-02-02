@@ -8,7 +8,7 @@
         type: :button, remote: true, disabled: (products.size == 1 or product.remain == 0),
         class: 'size',
         onClick: "orders.select_product(this,#{product.id},#{product.price},#{remain});") %>
-    <span class="sold-out" ><%= product.remain == 0 ? "SOLD OUT" : "" %></span>
+    <span class="sold-out" ><%= product.sold_out %></span>
     </div>
     <% end %>
   </div>

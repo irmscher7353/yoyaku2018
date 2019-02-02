@@ -100,6 +100,10 @@ class Product < ApplicationRecord
     name
   end
 
+  def sold_out
+    remain == 0 ? 'SOLD OUT' : ''
+  end
+
   private
 
   def self.priority_range(p)
