@@ -153,10 +153,15 @@
     $('.quantity-incr').attr('disabled',(max_val <= new_val))
     quantity.val(new_val)
     @update_total_price()
+    # 数字ボタンが押下された場合は，次の行に移動する．
+    if $(button).hasClass('quantity-digit')
+      @select_row($('.current-row').parent().find('tr:last .product_remain'))
 
   select_row: (element) ->
+    # element（input タグ）のある行を「カレント」にする．
     $(element).blur()
     tr = $(element).parent().parent()
+    # ただし，上に空行があれば，最初の空行を「カレント」にする．
     while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
       tr = $(tr).prev()
     if $('.current-row').length == 0
@@ -166,6 +171,8 @@
     $(tr).addClass('current-row').find('.product_id').focus()
     $('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
     $('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
+    # size_selector を非表示にする．
+    $('.size_selector .selector').addClass('hidden')
 
   select_title: (element, title_selector, product_id) ->
     $(element).blur()
