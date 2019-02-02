@@ -104,7 +104,7 @@ table.order-lineitems {
       /* width: 100% */
     }
     .shorten {
-      background-color: #f88;
+      background-color: tomato;
     }
     textarea#order_note {
       resize: none;
@@ -117,7 +117,7 @@ table.order-lineitems {
       vertical-align: top;
     }
     tr.current-row {
-      background-color: #f00;
+      background-color: orange;
     }
     tr#line_note {
       td.empty-cell {
@@ -208,7 +208,7 @@ table.order-lineitems {
     div.title-buttons {
       position: relative;
       span.sold-out {
-        color: red;
+        color: tomato;
         font-weight: bold;
         position: absolute;
         bottom: 5px;
