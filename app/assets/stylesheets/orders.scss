@@ -87,6 +87,7 @@ table.order-index {
 
 table.order-lineitems {
   position: relative;
+  white-space: nowrap;
   input#submit {
     font-size: large;
     padding: 0.5rem;
