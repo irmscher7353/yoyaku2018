@@ -1,0 +1,119 @@
+<div class="show_order" >
+  <div class="caption" >
+    ご予約伝票
+  </div>
+  <table class="show_order_header" >
+    <tbody >
+      <tr >
+        <td class="id_label" >予約番号</td>
+        <td class="id" ><%= @order.id -%></td>
+        <td class="caption" ></td>
+        <td class="destination" ><%= destination -%></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="show_order" >
+    <tbody >
+      <tr >
+        <td >お名前</td>
+        <td class="field" ><%= @order.name -%></td>
+        <td class="sama" >様</td>
+      </tr>
+      <tr >
+        <td >ＴＥＬ</td>
+        <td class="field" colspan="2" ><%= @order.phone -%></td>
+      </tr>
+      <tr >
+        <td >ご住所</td>
+        <td class="field" colspan="2" ><%= @order.address -%></td>
+      </tr>
+      <tr class="due" >
+        <td >お渡し日</td>
+        <td class="field" colspan="2" >
+          <%= sprintf('%2i', @order.due_month) -%>
+          <span >月</span>
+          <%= sprintf('%2i', @order.due_day) -%>
+          <span >日</span>
+          <span >（</span><%= @order.due_wday -%><span >）</span>
+          <%= sprintf('%02i', @order.due_hour) -%>
+          <span >：</span>
+          <%= sprintf('%02i', @order.due_min) -%>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="show_order_line_items" >
+    <thead >
+      <tr >
+        <td class="product" >商 品 名</td>
+        <td class="size" >サイズ</td>
+        <td class="quantity" >数量</td>
+        <td class="price" >金　額</td>
+      </tr>
+    </thead>
+    <tbody >
+    <% @order.current_line_items(Order::N_LINES).each do |item| %>
+      <tr >
+        <td class="product" ><%= item.product_name -%></td>
+        <td class="size" ><%= item.product_size -%></td>
+        <td class="quantity" ><%= item.quantity -%></td>
+        <td class="price" >&nbsp;<%= item.total_price_delimited -%></td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot >
+      <tr >
+        <td ></td>
+        <td class="total_price_label" >合計</td>
+        <td class="total_price" colspan="2" ><%= @order.total_price_delimited -%><span > 円</span></td>
+      </tr>
+      <tr >
+        <td class="note_head" >備考</td>
+        <td class="payment_label" >代金</td>
+        <td class="payment" colspan="2" >
+          <div class="payment <%= @order.balance == 0 ? '' : 'circle' -%>" >未</div>
+          ・
+          <div class="payment <%= @order.balance == 0 ? 'circle' : '' -%>" >済</div>
+        </td>
+      </tr>
+      <tr >
+        <td class="note" rowspan="2" ><%= @order.note -%></td>
+        <td class="means_label" >受付</td>
+        <td class="means" colspan="2" ><%= @order.means -%></td>
+      </tr>
+      <tr >
+        <td class="blank_cell" colspan="3" >&nbsp;</td>
+      </tr>
+    </tfoot>
+  </table>
+  <table class="show_order_footer" >
+    <tbody >
+      <tr >
+        <td class="comment" colspan="2" ><%= @preferences['予約伝票の注記'] -%></td>
+        <td class="tantou" rowspan="3" >担 当</td>
+        <td class="tantou" rowspan="3" >&nbsp;</td>
+      </tr>
+      <tr >
+        <td class="logo_bw" rowspan="3" ><img id="logo_bw" src="/images/PremierLogo.png" alt="Premier Logo" /></td>
+        <td class="store_name" ><span class="prefix" ><%= @preferences['前修飾'] -%></span>
+          <%= @preferences['店名'] -%>
+        </td>
+      </tr>
+      <tr >
+        <td class="store_descriptions" rowspan="2" >
+          <%= @preferences['住所'] -%><br/>
+          TEL／<%= @preferences['電話番号'] -%><br/>
+          営業時間／<%= @preferences['営業時間'] -%><br/>
+        </td>
+      </tr>
+      <tr >
+        <td class="order_date" colspan="2" >
+          <span >受注日 </span>
+          <%= sprintf('%4i', @order.updated_at.year) %><span > 年</span>
+          <%= sprintf('%2i', @order.updated_at.month) %><span > 月</span>
+          <%= sprintf('%2i', @order.updated_at.day) %><span > 日</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

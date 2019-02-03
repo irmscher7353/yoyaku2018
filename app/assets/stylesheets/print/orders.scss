@@ -1,0 +1,13 @@
+@page {
+  size: B5 landscape; /* 257mm 182mm; /* B5 landscape */
+  /* margin: 10mm 9mm 10mm 9mm; /* */
+  margin: 0mm 0mm 10mm 0mm;
+}
+@media print {
+  div.no-print {
+    display: none;
+  }
+  div.show_order {
+    margin: 10mm 6mm 0mm;
+  }
+}
