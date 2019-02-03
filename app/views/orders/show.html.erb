@@ -1,84 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="no-print" >
+<%= link_to '予約修正', edit_order_path(@order) %>
+</div>
 
-<p>
-  <strong>Menu:</strong>
-  <%= @order.menu %>
-</p>
+<%= render 'show', destination: '①店舗控' %>
 
-<p>
-  <strong>Number:</strong>
-  <%= @order.number %>
-</p>
+<div class="intercepter no-print" >
+</div>
 
-<p>
-  <strong>Revision:</strong>
-  <%= @order.revision %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @order.phone %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @order.address %>
-</p>
-
-<p>
-  <strong>Buyer:</strong>
-  <%= @order.buyer %>
-</p>
-
-<p>
-  <strong>Due:</strong>
-  <%= @order.due %>
-</p>
-
-<p>
-  <strong>Due datenum:</strong>
-  <%= @order.due_datenum %>
-</p>
-
-<p>
-  <strong>Means:</strong>
-  <%= @order.means %>
-</p>
-
-<p>
-  <strong>Total price:</strong>
-  <%= @order.total_price %>
-</p>
-
-<p>
-  <strong>Amount paid:</strong>
-  <%= @order.amount_paid %>
-</p>
-
-<p>
-  <strong>Balance:</strong>
-  <%= @order.balance %>
-</p>
-
-<p>
-  <strong>Payment:</strong>
-  <%= @order.payment %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @order.state %>
-</p>
-
-<p>
-  <strong>Note:</strong>
-  <%= @order.note %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= render 'show', destination: '②お客様控' %>

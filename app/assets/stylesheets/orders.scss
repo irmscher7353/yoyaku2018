@@ -323,3 +323,218 @@ table.order-lineitems {
     }
   }
 }
+
+div.intercepter {
+  display: inline-block;
+  width: 5mm
+}
+
+div.show_order {
+  display: inline-block;
+  position: relative;
+  width: 110mm;
+  div.caption {
+    font-size: 16pt;
+    font-weight: bold;
+    position: relative;
+    top: 10pt;
+    text-align: center;
+  }
+  table.show_order_header {
+    table-layout: fixed;
+    margin-bottom: 5.0mm;
+    white-space: nowrap;
+    td {
+      padding: 0.1rem 0.5rem; /* overwrite scaffolds '0 5px 7px' */
+    }
+    td.caption {
+      width: 100%;
+    }
+    td.destination {
+      text-align: right;
+    }
+    td.id {
+      border-bottom: solid black 1pt;
+      text-align: center;
+    }
+    td.id_label {
+      text-align: left;
+    }
+  }
+  table.show_order {
+    table-layout: fixed;
+    margin-bottom: 3.0mm;
+    white-space: nowrap;
+    td {
+      padding: 3pt; /* overwrite scaffolds '0 5px 7px' */
+    }
+    td.field {
+      font-size: 14pt;
+      font-weight: bold;
+      padding-left: 10pt;
+      width: 100%;
+      span {
+        font-size: 10.5pt;
+        vertical-align: text-base;
+      }
+    }
+    tr {
+      border-bottom: solid black 1pt;
+    }
+    tr.due {
+      background: wheat;
+      td {
+        padding-top: 5pt;
+        padding-bottom: 5pt;
+      }
+    }
+  }
+  table.show_order_line_items {
+    border-collapse: collapse;
+    margin-bottom: 2.0mm;
+    table-layout: fixed;
+    white-space: nowrap;
+    width: 100%;
+    td {
+      border: solid black 0.75pt;
+      padding: 1pt 3pt; /* overwrite scaffolds '0 5px 7px' */
+    }
+    thead {
+      td {
+        font-size: 8pt;
+        padding: 1pt 3pt;
+        text-align: center;
+      }
+      td.product {
+        width: 50%;
+      }
+      td.size {
+        width: 25%;
+      }
+      td.quantity {
+        width: 10%;
+      }
+      td.price {
+        width: 15%;
+      }
+    }
+    tbody {
+      td.product {
+        padding-left: 6pt;
+        text-align: left;
+      }
+      td.size {
+        text-align: center;
+      }
+      td.quantity {
+        text-align: right;
+      }
+      td.price {
+        text-align: right;
+      }
+    }
+    tfoot {
+      .circle {
+        border: solid black 1pt;
+        border-radius: 8pt;
+      }
+      td.blank_cell {
+        height: 25mm;
+      }
+      td.means {
+        border-left: none;
+        height: 18pt;
+        text-align: center;
+      }
+      td.means_label {
+        border-right: none;
+        text-align: center;
+      }
+      td.note_head {
+        border-bottom: none;
+      }
+      td.note {
+        border-top: none;
+        padding-left: 6pt;
+        white-space: pre-wrap;
+      }
+      td.payment {
+        border-left: none;
+        height: 18pt;
+        text-align: center;
+        div.payment {
+          display: inline-block;
+          width: 18pt;
+        }
+      }
+      td.payment_label {
+        border-right: none;
+        text-align: center;
+      }
+      td.total_price {
+        border: solid black 1pt;
+        font-size: 14pt;
+        font-weight: bold;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+        text-align: right;
+        span {
+          font-size: 10.5pt;
+        }
+      }
+      td.total_price_label {
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+  }
+  table.show_order_footer {
+    border-collapse: collapse;
+    /* table-layout: fixed; */
+    width: 100%;
+    white-space: nowrap;
+    img#logo_bw {
+      width: 35mm;
+    }
+    td {
+      padding: 0;
+    }
+    td.logo_bw {
+      vertical-align: bottom;
+    }
+    td.store_descriptions {
+      font-size: 7pt;
+      line-height: 9pt;
+      padding: 0 1pt;
+      vertical-align: bottom;
+    }
+    td.store_name {
+      font-size: 10.5pt;
+      font-weight: bold;
+      padding: 0 1pt 1pt;
+      span.prefix {
+        font-size: 8pt;
+        font-weight: normal;
+      }
+    }
+    td.comment {
+      font-size: 6.5pt;
+      vertical-align: top;
+    }
+    td.tantou {
+      font-size: 8pt;
+      border: solid black 0.75pt;
+      text-align: center;
+      vertical-align: top;
+      width: 15mm;
+    }
+    td.order_date {
+      border-bottom: solid black 0.75pt;
+      font-size: 7pt;
+      text-align: center;
+      span {
+        font-size: 6pt;
+      }
+    }
+  }
+}

@@ -86,6 +86,7 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+     @preferences = Preference.to_hash
   end
 
   # GET /orders/new
@@ -148,6 +149,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if not invalid and @order.save
+        @preferences = Preference.to_hash
         puts "saved: @order.line_items.count = %d" % @order.line_items.count
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
