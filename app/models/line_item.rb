@@ -4,6 +4,17 @@ class LineItem < ApplicationRecord
 
   paginates_per 15
 
+  def self.build_from_hash(h)
+    # ActionController::Parameters のハッシュから，LineItem の Array を生成
+    # する．
+    line_items = []
+    h.each do |index, h|
+      line_items << new(
+      h.permit(:id, :revision, :product_id, :quantity, :total_price))
+    end
+    line_items
+  end
+
   def product_remain
     product.present? && 0 <= product.remain ? product.remain : ''
   end
