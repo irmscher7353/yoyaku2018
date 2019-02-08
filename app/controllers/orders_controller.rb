@@ -175,10 +175,8 @@ class OrdersController < ApplicationController
 
     # 引き当て処理
     if (invalid = Product.draw(d))
-      success = false
       @message = invalid.record.errors[:base].join("\n")
     else
-      success = true
       @message = "予約を更新しました．"
     end
 
@@ -251,17 +249,30 @@ class OrdersController < ApplicationController
           params[:order][:line_items_attributes].delete index
           next
         end
+        # 念の為？ total_price を再計算する．
+        params[:order][:line_items_attributes][index][:total_price] =
+          params[:order][:line_items_attributes][index][:product_price].to_i *
+          params[:order][:line_items_attributes][index][:quantity].to_i
       end
     end
 
     def normalize_params
+      # params[:order] を正規化する．つまり，
+      # name 末尾の空白文字を削除する．
       params[:order][:name].gsub!(/\s+$/, '')
-      params[:order][:due] = Time.zone.local(params[:order][:due_year].to_i,
-      params[:order][:due_month].to_i, params[:order][:due_day].to_i,
-      params[:order][:due_hour].to_i, params[:order][:due_min].to_i, )
+      # 年・月・日・時・分の文字列から datetime を生成する．
+      params[:order][:due] = Time.zone.local(
+        params[:order][:due_year].to_i,
+        params[:order][:due_month].to_i, params[:order][:due_day].to_i,
+        params[:order][:due_hour].to_i, params[:order][:due_min].to_i,
+      )
+      # 集計用の日付番号を生成する．
       params[:order][:due_datenum] = params[:order][:due].strftime('%Y%m%d')
+      # まだ実用化できていない，必須の order.buyer に unknown を設定する．
       params[:order][:buyer_id] = Buyer.unknown.id
+      # total_price を文字列から整数に変換しておく．
       params[:order][:total_price] = params[:order][:total_price].to_i
+      # payment の文字列から amount_paid を導出する．
       if params[:order][:payment] == "済"
         params[:order][:amount_paid] = params[:order][:total_price]
       else
@@ -271,16 +282,20 @@ class OrdersController < ApplicationController
           params[:order][:amount_paid] = params[:order][:amount_paid].to_i
         end
       end
-      params[:order][:balance] = params[:order][:total_price] - params[:order][:amount_paid]
+      # total_price と amount_paid から balance を産出する．
+      params[:order][:balance] =
+        params[:order][:total_price] - params[:order][:amount_paid]
 
+      # line_items_attributes の revision が order と一致していない場合，
+      # line_item の id を空にした上で revision を同期し，
+      # LineItem が追加されるようにする．
+      logger.info 'params[:order][:revision] = "%s"' % [params[:order][:revision].to_s, ]
       params[:order][:line_items_attributes].each do |index, h|
-        logger.info 'h[:revision] = "' + h[:revision] + '"'
-        logger.info 'params[:order][:revision] = "' + params[:order][:revision].to_s + '"'
+        logger.info '  h[%s]<%s>[:revision] = "%s"' % [index, h[:id], h[:revision], ]
         if h[:revision] != params[:order][:revision]
           h[:id] = ''
           h[:revision] = params[:order][:revision]
         end
-        h[:total_price] = h[:product_price].to_i * h[:quantity].to_i
       end
     end
 
