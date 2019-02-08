@@ -154,10 +154,8 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
-        @line_items = []
-        params[:order][:line_items_attributes].each do |index, h|
-          @line_items << LineItem.new(h.permit(:id, :revision, :product_id, :quantity, :total_price))
-        end
+        @line_items =
+        LineItem.build_from_hash(params[:order][:line_items_attributes])
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
