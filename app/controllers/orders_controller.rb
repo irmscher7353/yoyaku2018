@@ -133,10 +133,8 @@ class OrdersController < ApplicationController
 
     # 引き当て処理
     if (invalid = Product.draw(d))
-      success = false
       @message = invalid.record.errors[:base].join("\n")
     else
-      success = true
       @message = '予約できました．'
     end
 
@@ -175,12 +173,13 @@ class OrdersController < ApplicationController
     d = deltas(params[:order][:line_items_attributes], @order.current_line_items)
     logger.info d.to_s
 
-    success = true
-    begin
-      Product.draw d
-    rescue => e
-      succuess = false
-      @message = e.to_s.split(/:/)[1]
+    # 引き当て処理
+    if (invalid = Product.draw(d))
+      success = false
+      @message = invalid.record.errors[:base].join("\n")
+    else
+      success = true
+      @message = "予約を更新しました．"
     end
 
     @area_codes = Preference.get_area_codes
@@ -191,7 +190,8 @@ class OrdersController < ApplicationController
     @phrases = Preference.get_phrases
 
     respond_to do |format|
-      if success and @order.update(order_params)
+      if not invalid and @order.update(order_params)
+        @preferences = Preference.to_hash
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
