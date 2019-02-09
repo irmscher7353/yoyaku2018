@@ -31,6 +31,6 @@ class Preference < ApplicationRecord
     Preference.all.order(:updated_at).each do |preference|
       h[preference.name] = preference.value
     end
-    return h
+    h
   end
 end
