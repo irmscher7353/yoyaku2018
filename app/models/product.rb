@@ -112,11 +112,11 @@ class Product < ApplicationRecord
   end
 
   def limited
-    logger.info 'limit, remain = %d, %d' % [limit, remain]
+    #puts 'limit, remain = %d, %d' % [limit, remain]
     if 0 <= limit and remain < 0
       errors[:base] <<
       "「%s」が限定数を超えるので予約できません（%d 個不足）．" % [name, -remain]
-      logger.info 'failed'
+      #puts 'failed'
     end
   end
 

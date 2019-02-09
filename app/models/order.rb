@@ -24,7 +24,7 @@ class Order < ApplicationRecord
   end
 
   def current_line_items(n_lines=0, items=[])
-    items += line_items.where(revision: revision).to_a
+    items.blank? and items = line_items.where(revision: revision).to_a
     while items.count < n_lines
       items << line_items.build(revision: revision)
     end

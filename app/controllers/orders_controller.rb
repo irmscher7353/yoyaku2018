@@ -125,11 +125,14 @@ class OrdersController < ApplicationController
 
     # 引き当て準備
     d = deltas(params[:order][:line_items_attributes])
-    logger.info d.to_s
+    #puts 'd = %s' % [d.to_s]
 
     @order = Order.new(order_params)
     # この時点では @order.line_items は存在しない．
-    #puts '@order.line_items.count = %d' % @order.line_items.count # => 0
+    #puts 'new: @order.line_items.count = %d' % @order.line_items.count
+    #puts '@order = %s' % [@order.inspect]
+    # => 0
+    # @order.new ではなく @order.save が line_items_attributes を読んでる？
 
     # 引き当て処理
     if (invalid = Product.draw(d))
@@ -148,7 +151,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if not invalid and @order.save
         @preferences = Preference.to_hash
-        puts "saved: @order.line_items.count = %d" % @order.line_items.count
+        #puts "saved: @order.line_items.count = %d" % @order.line_items.count
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -171,7 +174,7 @@ class OrdersController < ApplicationController
 
     # 引き当て準備
     d = deltas(params[:order][:line_items_attributes], @order.current_line_items)
-    logger.info d.to_s
+    #puts 'd = %s' % [d.to_s]
 
     # 引き当て処理
     if (invalid = Product.draw(d))
@@ -193,6 +196,8 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
+        @line_items =
+        LineItem.build_from_hash(params[:order][:line_items_attributes])
         format.html { render :edit }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -289,9 +294,9 @@ class OrdersController < ApplicationController
       # line_items_attributes の revision が order と一致していない場合，
       # line_item の id を空にした上で revision を同期し，
       # LineItem が追加されるようにする．
-      logger.info 'params[:order][:revision] = "%s"' % [params[:order][:revision].to_s, ]
+      #puts 'params[:order][:revision] = "%s"' % [params[:order][:revision].to_s, ]
       params[:order][:line_items_attributes].each do |index, h|
-        logger.info '  h[%s]<%s>[:revision] = "%s"' % [index, h[:id], h[:revision], ]
+        #puts '  h[%s]<%s>[:revision] = "%s"' % [index, h[:id], h[:revision], ]
         if h[:revision] != params[:order][:revision]
           h[:id] = ''
           h[:revision] = params[:order][:revision]
