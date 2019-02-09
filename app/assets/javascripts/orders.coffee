@@ -150,6 +150,7 @@
       max_val = reserved + Number(remain.val())
       if max_val < new_val
         new_val = max_val
+    $('.current-row .quantity').removeClass('shorten')
     $('.quantity-incr').attr('disabled',(max_val <= new_val))
     quantity.val(new_val)
     @update_total_price()
