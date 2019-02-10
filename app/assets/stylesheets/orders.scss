@@ -247,22 +247,29 @@ table.order-lineitems {
         margin-bottom: 0.5rem;
         padding: 0.5rem 0.5rem;
       }
-      div.kana-column {
-        display: inline-block;
-        button {
-          display: block;
+      div.kana-panel {
+        width: -moz-fit-content;
+        div.kana-table {
+          div.kana-column {
+            display: inline-block;
+            min-width: 1.0rem;
+            button {
+              display: block;
+            }
+          }
         }
-      }
-      div.kana-footer {
-        text-align: center;
-        button {
-          margin-right: 4.0rem;
-        }
-        button.delete {
-          width: 8rem;
-        }
-        button.white-space {
-          width: 20rem;
+        div.kana-footer {
+          padding-top: 0.5rem;
+          text-align: center;
+          button {
+            margin-right: 4.0rem;
+          }
+          button.delete {
+            width: 8rem;
+          }
+          button.white-space {
+            width: 20rem;
+          }
         }
       }
     }

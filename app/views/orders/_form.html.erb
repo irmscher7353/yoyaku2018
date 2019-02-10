@@ -264,9 +264,6 @@
 <%= render 'quantity_selector' %>
       </div>
     </td>
-    <td rowspan="<%= num_rows %>" colspan="6" class="kana-panel hidden" >
-<%= render 'kana_panel' -%>
-    </td>
     <th class="base-panel" >
     <%= form.label :total_price %>
     </th>
@@ -277,11 +274,14 @@
     <th class="base-panel" >
     <label class="currency" >円</label>
     </th>
-    <td rowspan="<%= num_rows %>" class="phrases" >
+    <td rowspan="<%= num_rows %>" class="base-panel phrases" >
     <% @phrases.each do |phrase| %>
       <%= form.button phrase, type: 'button', class: 'phrase',
           onClick: "orders.select_phrase(this, '#order_note');" %><br />
     <% end %>
+    </td>
+    <td rowspan="<%= num_rows %>" colspan="<%= num_cols -%>" class="kana-panel hidden" >
+<%= render 'kana_panel' -%>
     </td>
   </tr>
   <tr class="base-panel fixed-height">

@@ -278,8 +278,8 @@ $(document).on 'turbolinks:load', ->
   o.css('height', (h - 1) + 'px')
 
   # 名前候補表示用 div の幅と高さを調整する．
-  $('div#names-panel').css('width', 0 + parseInt($('table.order-lineitems').css('width')) - parseInt($('table.order-lineitems > thead > tr:first > th:last ').css('width')) - 3)
-  $('div#names-panel').css('height', 0 + parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
+  $('div#names-panel').css('width', parseInt($('table.order-lineitems').css('width')) - 3)
+  $('div#names-panel').css('height', parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
 
   # 各種イベントハンドラの登録．
 
