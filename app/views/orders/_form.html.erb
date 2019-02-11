@@ -207,16 +207,17 @@
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :quantity, size: nd_count, class: 'numeric quantity',
+    <%= item.text_field :quantity, class: 'quantity numeric',
+        size: nd_count, 
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :product_remain, size: nd_count, class: 'numeric product_remain',
-        tabindex: -1, disabled: true %>
+    <%= item.text_field :product_remain, class: 'product_remain numeric',
+        size: nd_count, tabindex: -1, disabled: true %>
     </td>
     <td >
-    <%= item.text_field :total_price_delimited, size: 10,
-        class: 'numeric total_price_delimited', tabindex: -1, disabled: true %>
+    <%= item.text_field :total_price_delimited, class: 'total_price_delimited numeric',
+        size: 10, tabindex: -1, disabled: true %>
     </td>
     <td >
     <span class="clear-button invisible" >X</span>

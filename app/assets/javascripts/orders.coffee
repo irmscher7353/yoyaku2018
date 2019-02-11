@@ -117,7 +117,9 @@
       target.val(target.val() + str + "\n")
 
   select_product: (element, product_id, product_price, product_remain) ->
-    $(element).blur()
+    #$(element).blur()
+    # 次の列 (quantity) にフォーカスを移動する．
+    $('.current-row .quantity').focus().select()
     $('.current-row .product_id').val(product_id)
     $('.current-row .product_size').val($(element).html())
     $('.current-row .product_price').val(product_price)
@@ -156,27 +158,41 @@
     @update_total_price()
     # 数字ボタンが押下された場合は，次の行に移動する．
     if $(button).hasClass('quantity-digit')
-      @select_row($('.current-row').parent().find('tr:last .product_remain'))
+      @select_row($('.current-row').parent().find('tr:last .quantity'))
 
   select_row: (element) ->
     # element（input タグ）のある行を「カレント」にする．
-    $(element).blur()
+    #$(element).blur()
     tr = $(element).parent().parent()
-    # ただし，上に空行があれば，最初の空行を「カレント」にする．
-    while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
-      tr = $(tr).prev()
-    if $('.current-row').length == 0
-      @select_panel 'item-panel'
-    $('.current-row .clear-button').addClass('invisible')
-    $('.current-row').removeClass('current-row')
-    $(tr).addClass('current-row').find('.product_id').focus()
-    $('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
-    $('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
-    # size_selector を非表示にする．
-    $('.size_selector .selector').addClass('hidden')
+    if not tr.hasClass('current-row')
+      # ただし，上に空行があれば，最初の空行を「カレント」にする．
+      nprev = 0
+      while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
+        tr = $(tr).prev()
+        nprev += 1
+      if $('.current-row').length == 0
+        @select_panel 'item-panel'
+      $('.current-row .clear-button').addClass('invisible')
+      $('.current-row').removeClass('current-row')
+      $(tr).addClass('current-row')
+      if 0 < nprev
+        # カレント行の element 列にフォーカスを移動する．
+        klass = $(element).attr('class').split()[0]
+        element = $('.current-row .'+klass).focus()
+      $('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
+      $('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
+      # size_selector を非表示にする．
+      product_id = $('current-row .product_id').val()
+      if product_id == ''
+        $('.size_selector .selector').addClass('hidden')
+      else
+        $('.size_selector .selector').addClass('hidden')
+    $(element).select()
 
   select_title: (element, title_selector, product_id) ->
-    $(element).blur()
+    #$(element).blur()
+    # 次の列 (product_size) にフォーカスを移動する．
+    $('.current-row .product_size').focus().select()
     field = $('.current-row .product_name')
     $('.current-title').removeClass('current-title').addClass('hidden')
     $(title_selector).addClass('current-title').removeClass('hidden')
