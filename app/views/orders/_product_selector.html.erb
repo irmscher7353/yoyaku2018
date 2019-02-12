@@ -2,13 +2,14 @@
   <% title_list.each do |title, products| %>
   <div id="title-<%= title.id %>" class="selector product_selector hidden" >
     <% products.each do |product| %>
-    <div class="product-buttons<%= product.size.blank? ? ' hidden' : '' %>" >
-    <% remain = (0 <= product.remain ? product.remain : '') %>
-    <%= button_tag(product.size, id: 'product-button-%d' % [product.id],
-        type: :button, remote: true, disabled: (products.size == 1 or product.remain == 0),
-        class: 'size',
-        onClick: "orders.select_product(this,#{product.id},#{product.price},#{remain});") %>
-    <span class="sold-out" ><%= product.sold_out %></span>
+    <div class="product-button<%= product.size.blank? ? ' hidden' : '' %>" >
+      <% product_button_id = 'product-button-%d' % [product.id] %>
+      <% disabled = (products.size == 1 || product.remain == 0) %>
+      <% remain = (0 <= product.remain ? product.remain : '') %>
+      <%= button_tag(product.size, id: product_button_id, class: 'product-button',
+          type: :button, remote: true, disabled: disabled,
+          onClick: "orders.select_product(this,#{product.id},#{product.price},#{remain});") %>
+      <span class="sold-out" ><%= product.sold_out %></span>
     </div>
     <% end %>
   </div>
