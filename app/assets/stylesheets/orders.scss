@@ -190,11 +190,6 @@ table.order-lineitems {
         color: #777;
       }
     }
-    div.product_selector {
-      button {
-        width: 90%;
-      }
-    }
     div.quantity_selector {
       button {
         font-size: large;
@@ -221,6 +216,11 @@ table.order-lineitems {
       button {
         margin-bottom: 0.0rem;
         padding: 0.0rem 1.0rem;
+      }
+    }
+    div.title_selector {
+      button {
+        width: 90%;
       }
     }
     input#submit {

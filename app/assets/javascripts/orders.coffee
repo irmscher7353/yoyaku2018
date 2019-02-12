@@ -189,13 +189,13 @@
         $('.size_selector .selector').addClass('hidden')
     $(element).select()
 
-  select_title: (element, title_selector, product_id) ->
+  select_title: (element, product_selector, product_id) ->
     #$(element).blur()
     # 次の列 (product_size) にフォーカスを移動する．
     $('.current-row .product_size').focus().select()
     field = $('.current-row .product_name')
     $('.current-title').removeClass('current-title').addClass('hidden')
-    $(title_selector).addClass('current-title').removeClass('hidden')
+    $(product_selector).addClass('current-title').removeClass('hidden')
     new_val = $(element).html()
     if field.val() != new_val
       field.val(new_val)
