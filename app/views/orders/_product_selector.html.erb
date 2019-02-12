@@ -1,8 +1,8 @@
 <% @products_list.each do |title_list| %>
   <% title_list.each do |title, products| %>
-  <div id="title-<%= title.id %>" class="selector size_selector hidden" >
+  <div id="title-<%= title.id %>" class="selector product_selector hidden" >
     <% products.each do |product| %>
-    <div class="title-buttons<%= product.size.blank? ? ' hidden' : '' %>" >
+    <div class="product-buttons<%= product.size.blank? ? ' hidden' : '' %>" >
     <% remain = (0 <= product.remain ? product.remain : '') %>
     <%= button_tag(product.size, id: 'product-button-%d' % [product.id],
         type: :button, remote: true, disabled: (products.size == 1 or product.remain == 0),

@@ -181,12 +181,12 @@
         element = $('.current-row .'+klass).focus()
       $('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
       $('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
-      # size_selector を非表示にする．
+      # product_selector を非表示にする．
       product_id = $('current-row .product_id').val()
       if product_id == ''
-        $('.size_selector .selector').addClass('hidden')
+        $('.product_selector .selector').addClass('hidden')
       else
-        $('.size_selector .selector').addClass('hidden')
+        $('.product_selector .selector').addClass('hidden')
     $(element).select()
 
   select_title: (element, product_selector, product_id) ->
