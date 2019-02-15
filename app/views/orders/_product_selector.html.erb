@@ -1,6 +1,9 @@
+<% ip = 0 %>
 <% @products_list.each do |title_list| %>
+  <% title_page_button_id = 'title-page-button-%d' % [ip += 1] %>
   <% title_list.each do |title, products| %>
-  <div id="title-<%= title.id %>" class="selector product_selector hidden" >
+    <% product_selector_id = 'title-%d' % [title.id] %>
+  <div id="<%= product_selector_id %>" class="selector product_selector hidden" >
     <% products.each do |product| %>
     <div class="product-button<%= product.size.blank? ? ' hidden' : '' %>" >
       <% product_button_id = 'product-button-%d' % [product.id] %>
@@ -8,7 +11,7 @@
       <% remain = (0 <= product.remain ? product.remain : '') %>
       <%= button_tag(product.size, id: product_button_id, class: 'product-button',
           type: :button, remote: true, disabled: disabled,
-          onClick: "orders.select_product(this,#{product.id},#{product.price},#{remain});") %>
+          onClick: "orders.select_product(this,'#{title_page_button_id}','##{product_selector_id}',#{product.id},#{product.price},'#{remain}');") %>
       <span class="sold-out" ><%= product.sold_out %></span>
     </div>
     <% end %>

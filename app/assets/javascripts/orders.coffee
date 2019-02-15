@@ -116,17 +116,29 @@
     if target.val().search(str) < 0
       target.val(target.val() + str + "\n")
 
-  select_product: (element, product_id, product_price, product_remain) ->
-    #$(element).blur()
-    # 次の列 (quantity) にフォーカスを移動する．
-    $('.current-row .quantity').focus().select()
+  select_product: (element, title_page_button_id, product_selector, product_id, product_price, product_remain) ->
+    # product が選択されたら
+    # title_page と product_selector を再表示するための情報を属性に保存する．
+    $('.current-row').attr('title_page_button_id', title_page_button_id)
+    $('.current-row').attr('product_selector', product_selector)
+    # fields に値を設定する．
     $('.current-row .product_id').val(product_id)
     $('.current-row .product_size').val($(element).html())
     $('.current-row .product_price').val(product_price)
     $('.current-row .product_remain').val(product_remain)
+    # quantity_selector を利用可能にする．
     $('.quantity_selector button').removeAttr('disabled')
+    # ただし，product_remain よりも大きな quantity-digit は利用不可．
+    n = 0
+    $('.quantity-digit').each (index) ->
+      n = Number($(this).html())
+      $(this).attr('disabled', (product_remain != '' and Number(product_remain) < n))
+    $('.quantity-incr').attr('disabled', (product_remain != '' and Number(product_remain) <= n))
+    # .quantity が入力されていたら，total_price を更新する．
     if $('.current-row .quantity').val() != ''
       @update_total_price()
+    # 次の列 (quantity) にフォーカスを移動する．
+    $('.current-row .quantity').focus().select()
 
   select_quantity: (button) ->
     $(button).blur()
@@ -161,8 +173,7 @@
       @select_row($('.current-row').parent().find('tr:last .quantity'))
 
   select_row: (element) ->
-    # element（input タグ）のある行を「カレント」にする．
-    #$(element).blur()
+    # element（input タグ）のある行 tr を「カレント」にする．
     tr = $(element).parent().parent()
     if not tr.hasClass('current-row')
       # ただし，上に空行があれば，最初の空行を「カレント」にする．
@@ -170,23 +181,46 @@
       while 0 < Number($(tr).attr('index')) and $(tr).prev().find('.quantity').val() == ''
         tr = $(tr).prev()
         nprev += 1
+      # current-row が未定義であれば，item-panel を表示する．
       if $('.current-row').length == 0
         @select_panel 'item-panel'
+      # （古い）current-row の clear-button を非表示にしてから
       $('.current-row .clear-button').addClass('invisible')
+      # （古い）current-row から current-row を除外し
       $('.current-row').removeClass('current-row')
+      # 新しい行に current-row を設定する．
       $(tr).addClass('current-row')
+      # 選択（クリック）された行と新しい行が異る場合
       if 0 < nprev
-        # カレント行の element 列にフォーカスを移動する．
+        # カレント行の element にフォーカスを移動する．
         klass = $(element).attr('class').split()[0]
         element = $('.current-row .'+klass).focus()
+      # カレント行の clear-button を表示する．
       $('.current-row .clear-button').removeClass('invisible').css('cursor', 'default')
-      $('.quantity_selector button').attr('disabled', $('.current-row .quantity').val() == '')
+      # product_id が設定されていれば，quantity-selector を利用可能にする．
+      disabled = $('.current-row .product_id').val() == ''
+      $('.quantity_selector button').attr('disabled', disabled)
+      if not disabled
+        product_remain = $('.current-row .product_remain').val()
+        $('.quantity-digit').each (index) ->
+          n = Number($(this).html())
+          $(this).attr('disabled', (product_remain != '' and Number(product_remain) < n))
+        quantity = $('.current-row .quantity').val()
+        $('.quantity-incr').attr('disabled', (product_remain != '' and quantity != '' and Number(product_remain) <= Number(quantity)))
       # product_selector を非表示にする．
-      product_id = $('current-row .product_id').val()
-      if product_id == ''
-        $('.product_selector .selector').addClass('hidden')
-      else
-        $('.product_selector .selector').addClass('hidden')
+      $('.current-title').removeClass('current-title').addClass('hidden')
+      # ただし，product が入力済みの場合は，title_page と product_selector を
+      # 復元する．
+      title_page_button_id = $(tr).attr('title_page_button_id')
+      if title_page_button_id != ''
+        $('#'+title_page_button_id).click()
+      product_selector = $(tr).attr('product_selector')
+      if product_selector != ''
+        $(product_selector).addClass('current-title').removeClass('hidden')
+    # element (input) の内容を選択状態にする．
+    $(element).select()
+
+  select_text: (element) ->
     $(element).select()
 
   select_title: (element, product_selector, product_id) ->
@@ -214,9 +248,6 @@
         $('.quantity_selector button').attr('disabled', 'disabled')
       @update_total_price()
       @update_button_state()
-
-  select_text: (element) ->
-    $(element).select()
 
   select_title_page: (button, page_selector) ->
     cls = 'current-title-page-button'
@@ -330,7 +361,14 @@ $(document).on 'turbolinks:load', ->
         else
           $(tr).find('.quantity').removeClass('shorten')
 
+  $('.quantity').on 'keyup', (event) =>
+    orders.update_total_price()
+
   $('.clear-button').on 'click', (event) =>
+    $('.current-title').removeClass('current-title').addClass('hidden')
+    $('.quantity_selector button').attr('disabled', true)
+    $('.current-row').removeAttr('title_page_button_id')
+    $('.current-row').removeAttr('product_selector')
     $('.current-row .product_id').val('')
     $('.current-row .product_price').val('')
     $('.current-row .product_name').val('')

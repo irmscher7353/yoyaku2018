@@ -1,7 +1,8 @@
 <% @products_list.each_index do |i| %>
 <% ii = i + 1 %>
-<%= button_tag(ii, name: 'title-page-button-%d' % [ii], type: :button,
-    remote: true, disabled: (i == 0),
+<% title_page_selector = '#title-page-%d' % [ii] %>
+<%= button_tag(ii, id: 'title-page-button-%d' % [ii],
     class: (i == 0 ? 'current-title-page-button' : ''),
-    onClick: "orders.select_title_page(this,'#title-page-%d');" % [ii] ) %>
+    type: :button, remote: true, disabled: (i == 0),
+    onClick: "orders.select_title_page(this,'#{title_page_selector}');") %>
 <% end %>

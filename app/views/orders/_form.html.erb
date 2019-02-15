@@ -98,7 +98,7 @@
     </th>
     <td class="field">
     <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory',
-        onFocus: "orders.select_kana(this);" %>
+        autocomplete: 'off', onFocus: "orders.select_kana(this);" %>
     </td>
     <td class="honorific" >
     様
@@ -108,7 +108,7 @@
     </th>
     <td class="field order_phone">
     <%= form.text_field :phone, id: :order_phone, size: 16, type: :tel,
-        class: 'mandatory',
+        class: 'mandatory', autocomplete: 'off',
         onFocus: "orders.select_phone(this);" %>
     </td>
   </tr>
@@ -117,7 +117,8 @@
     <%= form.label :address %>
     </th>
     <td class="field" colspan="<%= colspan %>" >
-    <%= form.text_field :address, id: :order_address, class: 'optional' %>
+    <%= form.text_field :address, id: :order_address, class: 'optional',
+        autocomplete: 'off' %>
     </td>
   </tr>
   <tr >
@@ -208,7 +209,7 @@
     </td>
     <td >
     <%= item.text_field :quantity, class: 'quantity numeric',
-        size: nd_count, 
+        size: nd_count, autocomplete: 'off',
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
