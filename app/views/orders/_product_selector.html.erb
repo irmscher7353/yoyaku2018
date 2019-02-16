@@ -8,10 +8,9 @@
     <div class="product-button<%= product.size.blank? ? ' hidden' : '' %>" >
       <% product_button_id = 'product-button-%d' % [product.id] %>
       <% disabled = (products.size == 1 || product.remain == 0) %>
-      <% remain = (0 <= product.remain ? product.remain : '') %>
       <%= button_tag(product.size, id: product_button_id, class: 'product-button',
           type: :button, remote: true, disabled: disabled,
-          onClick: "orders.select_product(this,'#{title_page_button_id}','##{product_selector_id}',#{product.id},#{product.price},'#{remain}');") %>
+          onClick: "orders.select_product(this,'#{title_page_button_id}','##{product_selector_id}',#{product.id},#{product.price},#{product.remain});") %>
       <span class="sold-out" ><%= product.sold_out %></span>
     </div>
     <% end %>

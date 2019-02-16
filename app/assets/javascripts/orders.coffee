@@ -3,6 +3,26 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @orders =
 
+  check_quantity: (element) ->
+    # element に入力された quantity が reserved+remain を超ていたら
+    # shorten とする．
+    tr = $(element).parent().parent()
+    quantity = Number(tr.find('.quantity').val())
+    console.log 'quantity = ' + quantity
+    if 0 <= (product_remain = Number(tr.find('.product_remain').val()))
+      reserved = Number(tr.find('.reserved').val())
+      console.log 'reserved = ' + reserved
+      shorten = ((reserved + product_remain) < quantity)
+    else
+      shorten = false
+    console.log 'product_remain = ' + product_remain
+    console.log 'shorten = ' + shorten
+    if shorten
+      $(element).addClass('shorten')
+    else
+      $(element).removeClass('shorten')
+    @update_button_state
+
   close_names_panel: (element) ->
     $('.names-panel').addClass('hidden')
     $('#order_name').focus()
@@ -122,18 +142,20 @@
     $('.current-row').attr('title_page_button_id', title_page_button_id)
     $('.current-row').attr('product_selector', product_selector)
     # fields に値を設定する．
+    $('.current-row .reserved').val(0)
     $('.current-row .product_id').val(product_id)
     $('.current-row .product_size').val($(element).html())
     $('.current-row .product_price').val(product_price)
     $('.current-row .product_remain').val(product_remain)
+    $('.current-row .product_remain_delimited').val(if 0 <= product_remain then product_remain else '')
     # quantity_selector を利用可能にする．
     $('.quantity_selector button').removeAttr('disabled')
     # ただし，product_remain よりも大きな quantity-digit は利用不可．
     n = 0
     $('.quantity-digit').each (index) ->
       n = Number($(this).html())
-      $(this).attr('disabled', (product_remain != '' and Number(product_remain) < n))
-    $('.quantity-incr').attr('disabled', (product_remain != '' and Number(product_remain) <= n))
+      $(this).attr('disabled', (0 <= product_remain and product_remain < n))
+    $('.quantity-incr').attr('disabled', (0 <= product_remain and product_remain <= n))
     # .quantity が入力されていたら，total_price を更新する．
     if $('.current-row .quantity').val() != ''
       @update_total_price()
@@ -158,10 +180,9 @@
         new_val = old_val
     if new_val <= 0
       new_val = 1
-    remain = $('.current-row .product_remain')
-    if remain.val().match(/^\d+$/)
+    if 0 <= (product_remain = Number($('.current-row .product_remain').val()))
       reserved = Number($('.current-row .reserved').val())
-      max_val = reserved + Number(remain.val())
+      max_val = reserved + product_remain
       if max_val < new_val
         new_val = max_val
     $('.current-row .quantity').removeClass('shorten')
@@ -201,12 +222,15 @@
       disabled = $('.current-row .product_id').val() == ''
       $('.quantity_selector button').attr('disabled', disabled)
       if not disabled
-        product_remain = $('.current-row .product_remain').val()
-        $('.quantity-digit').each (index) ->
-          n = Number($(this).html())
-          $(this).attr('disabled', (product_remain != '' and Number(product_remain) < n))
+        reserved = Number($('.current-row reserved').val())
+        product_remain = Number($('.current-row .product_remain').val())
+        if 0 <= product_remain
+          qmax = reserved + product_remain
+          $('.quantity-digit').each (index) ->
+            n = Number($(this).html())
+            $(this).attr('disabled', (qmax < n))
         quantity = $('.current-row .quantity').val()
-        $('.quantity-incr').attr('disabled', (product_remain != '' and quantity != '' and Number(product_remain) <= Number(quantity)))
+        $('.quantity-incr').attr('disabled', (0 <= product_remain and quantity != '' and product_remain <= Number(quantity)))
       # product_selector を非表示にする．
       $('.current-title').removeClass('current-title').addClass('hidden')
       # ただし，product が入力済みの場合は，title_page と product_selector を
@@ -234,7 +258,8 @@
     if field.val() != new_val
       field.val(new_val)
       $('.current-row .quantity').val('')
-      $('.current-row .product_remain').val('')
+      $('.current-row .product_remain').val(-1)
+      $('.current-row .product_remain_delimited').val('')
       $('.current-row .total_price').val('')
       $('.current-row .total_price_delimited').val('')
       #$('#order_total_price').val('')
@@ -281,6 +306,8 @@
         return true
       v = $('#order_total_price').val()
       if v == '' or v == '0'
+        return true
+      if 0 < $('.shorten').length
         return true
       if $('[name="order[payment]"]:checked').length <= 0
         return true
@@ -349,19 +376,17 @@ $(document).on 'turbolinks:load', ->
     if $('.base-panel').hasClass('hidden')
       orders.select_panel 'message-panel'
 
-  $('.line_item').each (index,tr) ->
-    remain = $(tr).find('.product_remain').val()
-    if remain != ""
-      reserved = $(tr).find('.reserved').val()
-      reserved = if reserved != "" then parseInt(reserved) else 0
-      quantity = $(tr).find('.quantity').val()
-      if quantity != ""
-        if (reserved + parseInt(remain)) < parseInt(quantity)
-          $(tr).find('.quantity').addClass('shorten')
-        else
-          $(tr).find('.quantity').removeClass('shorten')
+  $('.line_item').each (index, tr) ->
+    if 0 <= (product_remain = Number($(tr).find('.product_remain').val()))
+      reserved = Number($(tr).find('.reserved').val())
+      quantity = Number($(tr).find('.quantity').val())
+      if (reserved + product_remain) < quantity
+        $(tr).find('.quantity').addClass('shorten')
+      else
+        $(tr).find('.quantity').removeClass('shorten')
 
   $('.quantity').on 'keyup', (event) =>
+    orders.check_quantity(event.target)
     orders.update_total_price()
 
   $('.clear-button').on 'click', (event) =>

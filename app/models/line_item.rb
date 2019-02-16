@@ -16,6 +16,12 @@ class LineItem < ApplicationRecord
   end
 
   def product_remain
+    # 常に数値を返す．隠し field 用．
+    product.present? ? product.remain : -1
+  end
+
+  def product_remain_delimited
+    # ゼロ以上か空文字列を返す．表示用．
     product.present? && 0 <= product.remain ? product.remain : ''
   end
 

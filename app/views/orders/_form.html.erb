@@ -197,6 +197,7 @@
     <%= item.hidden_field :reserved, class: 'reserved' %>
     <%= item.hidden_field :product_id, class: 'product_id' %>
     <%= item.hidden_field :product_price, class: 'product_price' %>
+    <%= item.hidden_field :product_remain, class: 'product_remain' %>
     <%= item.hidden_field :total_price, class: 'total_price' %>
     <%= item.text_field :product_name, class: 'product_name',
         size: 30, readonly: true,
@@ -213,7 +214,7 @@
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :product_remain, class: 'product_remain numeric',
+    <%= item.text_field :product_remain_delimited, class: 'product_remain_delimited numeric',
         size: nd_count, tabindex: -1, disabled: true %>
     </td>
     <td >
