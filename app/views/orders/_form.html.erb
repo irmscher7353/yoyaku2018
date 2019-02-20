@@ -159,6 +159,15 @@
     </td>
   </tr>
 </tbody>
+<tfoot class="hidden" >
+  <tr >
+    <td colspan="<%= 1 + colspan -%>" >
+    <% order.current_line_items.each do |line_item| %>
+      <%= hidden_field_tag 'reserved-%d' % [line_item.product_id], line_item.quantity %>
+    <% end %>
+    </td>
+  </tr>
+</tfoot>
 </table>
 
 <div class="order-lineitems" >
@@ -192,9 +201,8 @@
     <% i += 1 %>
   <tr class="line_item" id="line_<%= i %>" index="<%= i %>" >
     <td >
-    <%= item.hidden_field :id %>
-    <%= item.hidden_field :revision %>
-    <%= item.hidden_field :reserved, class: 'reserved' %>
+    <%= item.hidden_field :id, class: 'id' %>
+    <%= item.hidden_field :revision, class: 'revision' %>
     <%= item.hidden_field :product_id, class: 'product_id' %>
     <%= item.hidden_field :product_price, class: 'product_price' %>
     <%= item.hidden_field :product_remain, class: 'product_remain' %>
