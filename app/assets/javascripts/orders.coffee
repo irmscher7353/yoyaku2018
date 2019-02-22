@@ -263,7 +263,6 @@
         $('.current-row .product_size').val('')
         $('.quantity_selector button').attr('disabled', 'disabled')
       @update_total_price()
-      @update_button_state()
 
   select_title_page: (button, page_selector) ->
     cls = 'current-title-page-button'
@@ -333,6 +332,18 @@
       order_total_price += Number($(this).val())
     $('#order_total_price').val(order_total_price)
     $('#order_total_price_delimited').val(order_total_price.toLocaleString())
+    # balance（残金）の表示を更新する．
+    amount_paid = Number($('#order_amount_paid').val())
+    balance = order_total_price - amount_paid
+    $('#order_balance').val(balance)
+    $('#order_balance_delimited').val(balance.toLocaleString())
+    if amount_paid <= 0 or balance == 0
+      $('tr.balance').addClass('invisible')
+      if $('#order_payment').val() == '済'
+        $('.order_payment_done').prop('checked', true)
+    else
+      $('tr.balance').removeClass('invisible')
+      $('.order_payment_yet').prop('checked', true)
     @update_button_state()
 
 $(document).on 'turbolinks:load', ->

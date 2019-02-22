@@ -92,6 +92,9 @@ table.order-lineitems {
     font-size: large;
     padding: 0.5rem;
   }
+  input.delimited {
+    width: 100%;
+  }
   th {
     text-align: center;
   }
@@ -233,6 +236,7 @@ table.order-lineitems {
       cursor: default;
     }
     td {
+      padding: 3px; /* override 0 5px 7px; in scaffolds.scss */
       vertical-align: top;
       button {
         white-space: nowrap;
@@ -298,11 +302,6 @@ table.order-lineitems {
         width: 100%;
       }
     }
-    td.balance {
-      input {
-        width: 100%;
-      }
-    }
     td.datetime_selector {
       text-align: right;
     }
@@ -311,7 +310,7 @@ table.order-lineitems {
       input {
         font-size: large;
         font-weight: bold;
-        width: 100%;
+        /* width: 100%; */
       }
     }
     textarea#message {

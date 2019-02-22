@@ -222,12 +222,14 @@
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :product_remain_delimited, class: 'product_remain_delimited numeric',
+    <%= item.text_field :product_remain_delimited,
+        class: 'product_remain_delimited numeric delimited',
         size: nd_count, tabindex: -1, disabled: true %>
     </td>
     <td >
-    <%= item.text_field :total_price_delimited, class: 'total_price_delimited numeric',
-        size: 10, tabindex: -1, disabled: true %>
+    <%= item.text_field :total_price_delimited,
+        class: 'total_price_delimited numeric delimited',
+        size: 1, tabindex: -1, disabled: true %>
     </td>
     <td >
     <span class="clear-button invisible" >X</span>
@@ -280,7 +282,7 @@
     </th>
     <td class="field base-panel order_total_price" >
     <%= form.text_field :total_price_delimited, id: :order_total_price_delimited,
-        size: 1, disabled: true, class: 'numeric order_total_price' %>
+        size: 6, disabled: true, class: 'numeric order_total_price' %>
     </td>
     <th class="base-panel" >
     <label class="currency" >円</label>
@@ -295,19 +297,19 @@
 <%= render 'kana_panel' -%>
     </td>
   </tr>
-  <tr class="base-panel fixed-height">
-  <% invisible = (order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
+  <% invisible = (order.amount_paid.present? and order.amount_paid != 0 and order.balance.present? and order.balance != 0) ? '' : 'invisible' %>
+  <tr class="base-panel fixed-height balance <%= invisible -%>" >
     <th >
-    <%= form.label :balance, class: invisible %>
+    <%= form.label :balance %>
     </th>
     <td class="balance" >
     <%= form.hidden_field :balance, id: :order_balance %>
     <%= form.text_field :balance_delimited, id: :order_balance_delimited,
-        size: 1, disabled: true,
-        class: 'numeric no-spin-button %s' % [invisible] %>
+        class: 'order_balance_delimited numeric delimited',
+        size: 1, disabled: true %>
     </td>
     <th >
-    <label class="currency <%= invisible %>" >円</label>
+    <label class="currency" >円</label>
     </th>
   </tr>
   <tr class="base-panel fixed-height" >
