@@ -28,10 +28,18 @@ class Name < ApplicationRecord
         else
           filter = ["value LIKE ?", '%s%%' % [w] ]
         end
-        result = where(filter).order(:value).each.map{|r| r.value }
+        result = where(filter).order(:value)
       end
     end
     result
+  end
+
+  def is_last?
+    is_title or not (is_shamei or is_sitenmei or is_sei)
+  end
+
+  def text
+    value + (is_last? ? '' : ' ')
   end
 
 end

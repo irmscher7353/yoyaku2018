@@ -275,7 +275,9 @@
 
   set_last_name: (element) ->
     $('.names-panel').addClass('hidden')
-    $('#order_name').val($('#order_name').val().replace(/\S+$/, $(element).html() + ' ')).focus()
+    val = $('#order_name').val().replace(/\S+$/, $(element).html())
+    $('#order_name').val(val)
+    $(if val.match(/\s$/) then '#order_name' else '#order_phone').focus()
     @update_button_state()
 
   update_button_state: () ->
