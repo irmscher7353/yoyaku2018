@@ -31,6 +31,7 @@ ja:
       total_price: 小計
   orders:
     index:
+      Search: 検索する
       number: 予約番号
       name: お名前
       phone: TEL
