@@ -145,6 +145,10 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+#      order:
+#        create: 予約登録
+#        submit: 予約保存
+#        update: 予約更新
   number:
     currency:
       format:
