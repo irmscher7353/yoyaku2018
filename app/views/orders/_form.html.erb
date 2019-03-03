@@ -345,23 +345,28 @@
     </td>
   </tr>
   <tr class="base-panel fixed-height" >
-    <th class="field">
-    <%= form.label :state %>
+    <th >
     </th>
-    <td colspan="2" >
+    <td colspan="2" class="actions" >
+    <%= form.submit id: :submit, disabled: true,
+        class: order.submit_button_classes %>
     </td>
   </tr>
   <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
-    <%= form.submit id: :submit, disabled: true %>
+    <%= form.submit t('.Deliver'), id: :deliver,
+        class: order.deliver_button_classes %>
     </td>
   </tr>
   <tr class="base-panel" >
     <th >
     </th>
-    <td colspan="2" >
+    <td colspan="2" class="actions" >
+    <%= form.submit order.cancel_button_label, id: :cancel,
+        class: order.cancel_button_classes,
+        data: { confirm: order.cancel_button_confirm } %>
     </td>
   </tr>
 </tfoot>

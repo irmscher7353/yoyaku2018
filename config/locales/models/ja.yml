@@ -30,6 +30,8 @@ ja:
       quantity: 数量
       total_price: 小計
   orders:
+    form:
+      Deliver: お引渡し
     index:
       Search: 検索する
       number: 予約番号

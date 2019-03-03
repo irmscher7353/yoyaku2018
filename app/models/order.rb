@@ -13,6 +13,11 @@ class Order < ApplicationRecord
   PAYMENT_YET  = '未'
   MEANS_PHONE = '電話'
   MEANS_STORE = '来店'
+  STATE_CANCELLED = 'キャンセル'
+  STATE_DELIVERED = '引渡し済み'
+  STATE_RESERVED  = ''
+  LABEL_CANCEL = '予約取消'
+  LABEL_REVERT = '予約復元'
 
   def self.new_number
     min_number = (Time.zone.now.year % 100) * MAX_NUMBER_PER_YEAR + 0
@@ -21,6 +26,34 @@ class Order < ApplicationRecord
 
   def assign_new_number
     self.number = Order.new_number
+  end
+
+  def cancel_button_confirm
+    state == STATE_RESERVED ? 'この予約を取消しますか？' : ''
+  end
+
+  def cancel_button_classes
+    classes = []
+    if (not persisted?) or state == STATE_DELIVERED
+      classes << 'invisible'
+    end
+    if persisted? and state == STATE_CANCELLED
+      classes << 'revert'
+    end
+    classes.join(' ')
+  end
+
+  def cancel_button_label
+    persisted? ? (state == STATE_CANCELLED ? LABEL_REVERT : (
+      state == STATE_RESERVED ? LABEL_CANCEL : '')) : ''
+  end
+
+  def deliver_button_classes
+    state == STATE_RESERVED ? '' : 'invisible'
+  end
+
+  def submit_button_classes
+    state.blank? ? '' : 'invisible'
   end
 
   def current_line_items(n_lines=0, items=[])

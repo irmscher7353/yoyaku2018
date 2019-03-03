@@ -1,4 +1,3 @@
-// Place all the styles related to the orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -7,10 +6,6 @@
   border-color: #f00;
 }
 /* */
-
-:disabled {
-  background-color: whitesmoke;
-}
 
 div.order-lineitems {
   position: relative;
@@ -32,8 +27,14 @@ div.order-lineitems {
 }
 
 table.order-form {
+  :disabled {
+    background-color: whitesmoke;
+  }
+
   caption {
+    color: black;
     font-size: x-large;
+    font-weight: bold;
     text-align: center;
   }
   td.honorific {
@@ -86,11 +87,31 @@ table.order-index {
 }
 
 table.order-lineitems {
+  :disabled {
+    background-color: whitesmoke;
+  }
+
   position: relative;
   white-space: nowrap;
+  td.actions input {
+    font-size: large;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  input#cancel {
+    margin-top: 1.0rem;
+    color: tomato;
+  }
+  input#cancel.revert {
+    color: limegreen;
+  }
+  input#deliver {
+    color: limegreen;
+  }
   input#submit {
     font-size: large;
     padding: 0.5rem;
+    width: 100%;
   }
   input.delimited {
     width: 100%;
@@ -225,9 +246,6 @@ table.order-lineitems {
       button {
         width: 90%;
       }
-    }
-    input#submit {
-      width: 100%;
     }
     input.order_means {
       vertical-align: text-bottom;

@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
     session[:menu] ||= Menu.latest
     @order = Order.new menu_id: session[:menu]['id']
     @line_items = []
-    @message = ''
+    @message = '新規の注文です'
     @area_codes = Preference.get_area_codes
     @numbers_list = numbers_list
     @kana_matrix = KANA_MATRIX
@@ -106,20 +106,8 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     session[:menu] ||= Menu.latest
-    today = Time.zone.today
     @line_items = []
-    case @order.state
-    when Order::STATE_CANCELLED
-      @message = 'この予約はキャンセルされています．'
-    when Order::STATE_DELIVERED
-      @message = 'この予約は引渡し済みです．'
-    else
-      if @order.due.to_date == today
-        @message = '今日引渡しの予約です．'
-      else
-        @message = '今日引渡しの予約ではありません．'
-      end
-    end
+    @message = '既存の注文です'
     @area_codes = Preference.get_area_codes
     @numbers_list = numbers_list
     @kana_matrix = KANA_MATRIX
@@ -150,7 +138,7 @@ class OrdersController < ApplicationController
     if (invalid = Product.draw(d))
       @message = invalid.record.errors[:base].join("\n")
     else
-      @message = '予約を登録しました．'
+      @message = '予約できました．'
     end
 
     @area_codes = Preference.get_area_codes
@@ -189,9 +177,9 @@ class OrdersController < ApplicationController
     # 引き当て準備
     current_line_items = @order.current_line_items
     case params[:commit]
-    when Order::LABEL_CANCEL
+    when Order::STATE_CANCELLED
       d = deltas({}, current_line_items)
-    when Order::LABEL_REVERT
+    when Order::STATE_REVERT
       d = deltas(line_items_attributes)
     else
       d = deltas(line_items_attributes, current_line_items)
@@ -203,12 +191,11 @@ class OrdersController < ApplicationController
       @message = invalid.record.errors[:base].join("\n")
     else
       case params[:commit]
-      when Order::LABEL_CANCEL
+      when Order::STATE_CANCELLED
         params[:order][:state] = Order::STATE_CANCELLED
         @message = "予約をキャンセルしました．"
-      when Order::LABEL_REVERT
-        params[:order][:state] = Order::STATE_RESERVED
-        @message = "予約を復元しました．"
+      when Order::STATE_REVERT
+        @message = "予約をし直しました．"
       else
         @message = "予約を更新しました．"
       end
@@ -224,11 +211,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if not invalid and @order.update(order_params)
         @preferences = Preference.to_hash
-        if @order.state == Order::STATE_RESERVED
-          format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        else
-          format.html { render :edit, notice: 'Order was successfully updated.' }
-        end
+        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
         @line_items =
