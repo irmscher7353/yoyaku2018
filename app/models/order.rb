@@ -33,7 +33,7 @@ class Order < ApplicationRecord
   end
 
   def cancel_button_classes
-    classes = []
+    classes = ['ui']
     if (not persisted?) or state == STATE_DELIVERED
       classes << 'invisible'
     end
@@ -48,12 +48,16 @@ class Order < ApplicationRecord
       state == STATE_RESERVED ? LABEL_CANCEL : '')) : ''
   end
 
+  def cancelled?
+    persisted? && state == STATE_CANCELLED
+  end
+
   def deliver_button_classes
-    state == STATE_RESERVED ? '' : 'invisible'
+    'ui' + (state == STATE_RESERVED ? '' : ' invisible')
   end
 
   def submit_button_classes
-    state.blank? ? '' : 'invisible'
+    'ui' + (state.blank? ? '' : ' invisible')
   end
 
   def current_line_items(n_lines=0, items=[])

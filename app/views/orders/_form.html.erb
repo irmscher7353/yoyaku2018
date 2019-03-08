@@ -20,7 +20,7 @@
     <%= form.label :number %>
     </th>
     <td class="filed" colspan="<%= colspan %>" >
-    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button', disabled: true %>
+    <%= form.text_field :number, id: :order_number, size: 8, class: 'numeric no-spin-button ui', readonly: true %>
     </td>
   </tr>
   <tr class="hidden" >
@@ -97,7 +97,7 @@
     <%= form.label :name %>
     </th>
     <td class="field">
-    <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory',
+    <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory ui',
         autocomplete: 'off', onFocus: "orders.select_kana(this);" %>
     </td>
     <td class="honorific" >
@@ -108,8 +108,8 @@
     </th>
     <td class="field order_phone">
     <%= form.text_field :phone, id: :order_phone, size: 16, type: :tel,
-        class: 'mandatory', autocomplete: 'off',
-        onFocus: "orders.select_phone(this);" %>
+        class: 'mandatory ui',
+        autocomplete: 'off', onFocus: "orders.select_phone(this);" %>
     </td>
   </tr>
   <tr >
@@ -117,7 +117,7 @@
     <%= form.label :address %>
     </th>
     <td class="field" colspan="<%= colspan %>" >
-    <%= form.text_field :address, id: :order_address, class: 'optional',
+    <%= form.text_field :address, id: :order_address, class: 'optional ui',
         autocomplete: 'off' %>
     </td>
   </tr>
@@ -134,21 +134,21 @@
         onClick: "orders.select_text(this);",
         onFocus: "orders.select_datetime(this);" %><!-- 年 -->
     <%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
-        class: 'mandatory due no-spin-button center',
+        class: 'ui mandatory due no-spin-button center',
         onClick: "orders.select_text(this);",
         onFocus: "orders.select_datetime(this);" %> 月
     <%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
-        class: 'mandatory due no-spin-button center',
+        class: 'ui mandatory due no-spin-button center',
         onClick: "orders.select_text(this);",
         onFocus: "orders.select_datetime(this);" %> 日
     （ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
     <%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
-        class: 'mandatory due no-spin-button center',
+        class: 'ui mandatory due no-spin-button center',
         onClick: "orders.select_text(this);",
         onFocus: "orders.select_datetime(this);" %> 時
     <!-- minute の type を number にすると，"00" と表示できなくなる．-->
     <%= form.text_field :due_min, id: :due_minute, type: :text, size: nd,
-        class: 'mandatory due no-spin-button center',
+        class: 'ui mandatory due no-spin-button center',
         onClick: "orders.select_text(this);",
         onFocus: "orders.select_datetime(this);" %> 分
     </td>
@@ -193,7 +193,7 @@
     </td>
   <% end %>
     <td class="field text_area" rowspan=<%= 1 + n_lines %> >
-    <%= form.text_area :note, id: :order_note, size: '20x6' %>
+    <%= form.text_area :note, id: :order_note, class: 'ui', size: '20x6' %>
     </td>
   </tr>
   <% i = -1 %>
@@ -207,29 +207,29 @@
     <%= item.hidden_field :product_price, class: 'product_price' %>
     <%= item.hidden_field :product_remain, class: 'product_remain' %>
     <%= item.hidden_field :total_price, class: 'total_price' %>
-    <%= item.text_field :product_name, class: 'product_name',
+    <%= item.text_field :product_name, class: 'product_name ui',
         size: 30, readonly: true,
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :product_size, class: 'product_size center',
+    <%= item.text_field :product_size, class: 'product_size ui center',
         size: 20, readonly: true,
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
-    <%= item.text_field :quantity, class: 'quantity numeric',
+    <%= item.text_field :quantity, class: 'quantity ui numeric',
         size: nd_count, autocomplete: 'off',
         onFocus: "orders.select_row(this);" %>
     </td>
     <td >
     <%= item.text_field :product_remain_delimited,
-        class: 'product_remain_delimited numeric delimited',
-        size: nd_count, tabindex: -1, disabled: true %>
+        class: 'product_remain_delimited ui numeric delimited',
+        size: nd_count, tabindex: -1, readonly: true %>
     </td>
     <td >
     <%= item.text_field :total_price_delimited,
-        class: 'total_price_delimited numeric delimited',
-        size: 1, tabindex: -1, disabled: true %>
+        class: 'total_price_delimited ui numeric delimited',
+        size: 1, tabindex: -1, readonly: true %>
     </td>
     <td >
     <span class="clear-button invisible" >X</span>
@@ -281,15 +281,16 @@
     <%= form.label :total_price %>
     </th>
     <td class="field base-panel order_total_price" >
-    <%= form.text_field :total_price_delimited, id: :order_total_price_delimited,
-        size: 6, disabled: true, class: 'numeric order_total_price' %>
+    <%= form.text_field :total_price_delimited,
+        id: :order_total_price_delimited, class: 'order_total_price ui numeric',
+        size: 6, readonly: true %>
     </td>
     <th class="base-panel" >
     <label class="currency" >円</label>
     </th>
     <td rowspan="<%= num_rows %>" class="base-panel phrases" >
     <% @phrases.each do |phrase| %>
-      <%= form.button phrase, type: 'button', class: 'phrase',
+      <%= form.button phrase, type: 'button', class: 'phrase ui',
           onClick: "orders.select_phrase(this, '#order_note');" %><br />
     <% end %>
     </td>
@@ -306,7 +307,7 @@
     <%= form.hidden_field :balance, id: :order_balance %>
     <%= form.text_field :balance_delimited, id: :order_balance_delimited,
         class: 'order_balance_delimited numeric delimited',
-        size: 1, disabled: true %>
+        size: 1, readonly: true %>
     </td>
     <th >
     <label class="currency" >円</label>
@@ -319,12 +320,12 @@
     <td colspan="2" class="payment" >
     <% s = Order::PAYMENT_YET %>
     <%= form.radio_button :payment, s, checked: (order.payment == s),
-        class: 'order_payment order_payment_yet'
+        class: 'order_payment order_payment_yet ui'
     %><span class='order_payment order_payment_yet' > <%= s %></span>
     ・
     <% s = Order::PAYMENT_DONE %>
     <%= form.radio_button :payment, s, checked: (order.payment == s),
-        class: 'order_payment order_payment_done'
+        class: 'order_payment order_payment_done ui'
     %><span class='order_payment order_payment_done' > <%= s %></span>
     </td>
   </tr>
@@ -335,12 +336,12 @@
     <td colspan="2" class="means" >
     <% s = Order::MEANS_PHONE %>
     <%= form.radio_button :means, s, checked: (order.means == s),
-        class: "order_means order_means_phone"
+        class: 'order_means order_means_phone ui'
     %><span class="order_means order_means_phone" > <%= s %></span>
     ・
     <% s = Order::MEANS_STORE %>
     <%= form.radio_button :means, s, checked: (order.means == s),
-        class: "order_means order_means_store"
+        class: "order_means order_means_store ui"
     %><span class="order_means order_means_stroe" > <%= s %></span>
     </td>
   </tr>
@@ -367,6 +368,13 @@
     <%= form.submit order.cancel_button_label, id: :cancel,
         class: order.cancel_button_classes,
         data: { confirm: order.cancel_button_confirm } %>
+    </td>
+  </tr>
+  <tr class="base-panel" >
+    <th >
+    </th>
+    <td colspan="2" class="revert <%= order.cancelled? ? '' : 'hidden' -%>" >
+      <%= check_box_tag :revert, id: :revert %>ロック解除
     </td>
   </tr>
 </tfoot>

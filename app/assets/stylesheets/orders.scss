@@ -98,16 +98,6 @@ table.order-lineitems {
     padding: 0.5rem;
     width: 100%;
   }
-  input#cancel {
-    margin-top: 1.0rem;
-    color: tomato;
-  }
-  input#cancel.revert {
-    color: limegreen;
-  }
-  input#deliver {
-    color: limegreen;
-  }
   input#submit {
     font-size: large;
     padding: 0.5rem;
@@ -250,6 +240,20 @@ table.order-lineitems {
     input.order_means {
       vertical-align: text-bottom;
     }
+    input#cancel {
+      margin-top: 1.0rem;
+      color: tomato;
+    }
+    input#cancel.revert {
+      color: limegreen;
+    }
+    input#deliver {
+      color: limegreen;
+    }
+    input#revert {
+      margin-top: 1.0rem;
+      vertical-align: text-bottom;
+    }
     span.sold-out, span.order_payment, span.order_means {
       cursor: default;
     }
@@ -330,6 +334,9 @@ table.order-lineitems {
         font-weight: bold;
         /* width: 100%; */
       }
+    }
+    td.revert {
+      text-align: center;
     }
     textarea#message {
       border-width: 0;

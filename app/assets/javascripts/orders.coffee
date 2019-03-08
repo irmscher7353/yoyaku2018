@@ -348,6 +348,9 @@
       $('.order_payment_yet').prop('checked', true)
     @update_button_state()
 
+  update_ui_status: () ->
+    $('.ui').attr('disabled', not $('#revert').prop('checked') and $('#order_state').val() != '')
+
 $(document).on 'turbolinks:load', ->
   # サブパネルのボタン上辺を揃える．
   h = $('.order_total_price').parent().css('height')
@@ -373,6 +376,9 @@ $(document).on 'turbolinks:load', ->
   # 名前候補表示用 div の幅と高さを調整する．
   $('div#names-panel').css('width', parseInt($('table.order-lineitems').css('width')) - 3)
   $('div#names-panel').css('height', parseInt($('table.order-lineitems thead').css('height')) + parseInt($('table.order-lineitems tbody').css('height')))
+
+  # order が cancelled の時は基本，編集できない．
+  orders.update_ui_status()
 
   # 各種イベントハンドラの登録．
 
@@ -465,3 +471,5 @@ $(document).on 'turbolinks:load', ->
     $('input.order_means_store').click()
     orders.update_button_state()
 
+  $('input#revert').on 'click', () =>
+    orders.update_ui_status()
