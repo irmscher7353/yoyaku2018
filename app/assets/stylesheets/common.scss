@@ -2,6 +2,107 @@ button, input, select, textarea {
   border-width: 1px;
 }
 
+table {
+  caption {
+    caption-side: top;
+  }
+}
+
+.btn-xs, .btn-group-xs > .btn {
+  border-radius: 0.175rem;
+  font-size: 13px;
+  line-height: 1.1;
+  padding: 0.175rem 0.75rem;
+}
+
+.button-destroy {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-danger;
+}
+
+.button-destroy-inline {
+  @extend .button-destroy;
+  @extend .btn-xs;
+}
+
+.button-new {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-primary;
+}
+
+.button-new-inline {
+  @extend .button-new;
+  @extend .btn-xs;
+}
+
+.button-search {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-secondary;
+}
+
+.button-search-inline {
+  @extend .button-search;
+  @extend .btn-xs;
+}
+
+.button-submit {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-primary;
+}
+
+.button-submit-inline {
+  @extend .button-submit;
+  @extend .btn-xs;
+}
+
+.link-back {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-secondary;
+}
+
+.link-back-inline {
+  @extend .link-back;
+  @extend .btn-xs;
+}
+
+.link-edit {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-success;
+}
+
+.link-edit-inline {
+  @extend .link-edit;
+  @extend .btn-xs;
+}
+
+.link-new {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-primary;
+}
+
+.link-new-inline {
+  @extend .link-new;
+  @extend .btn-xs;
+}
+
+.link-show {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-info;
+}
+
+.link-show-inline {
+  @extend .link-show;
+  @extend .btn-xs;
+}
+
 .hidden {
   display: none;
 }

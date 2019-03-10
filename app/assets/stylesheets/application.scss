@@ -10,14 +10,27 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ *- require_tree .
+ *- require_self
  */
+@import "bootstrap";
+@import "scaffolds";
+@import "common";
+@import "buyers";
+@import "customers";
+@import "line_items";
+@import "menus";
+@import "names";
+@import "orders";
+@import "preferences";
+@import "products";
+@import "titles";
+
 body {
-  margin: 3px; // 33px;
+  margin: 3px; /* 33px; */
 }
 
 h1, .h1, h2, .h2, h3, .h3 {
-  margin-top: 10px; // 20px;
-  margin-bottom: 5px; // 10px;
+  margin-top: 10px; /* 20px; */
+  margin-bottom: 5px; /* 10px; */
 }
