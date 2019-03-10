@@ -26,9 +26,13 @@
         <td class="center" ><%= line_item.product.size %></td>
         <td class="numeric" ><%= line_item.quantity %></td>
         <td class="numeric" ><%= line_item.total_price_delimited %></td>
-        <td><%= link_to t('Show'), line_item %></td>
-        <td><%= link_to t('Edit'), edit_line_item_path(line_item) %></td>
-        <td><%= link_to t('Destroy'), line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), line_item,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_line_item_path(line_item),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), line_item,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New Line Item', new_line_item_path %>
+<%= link_to 'New Line Item', new_line_item_path, class: 'link-new' %>

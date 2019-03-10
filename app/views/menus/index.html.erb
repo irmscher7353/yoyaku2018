@@ -15,7 +15,8 @@
           onInput: "menus.updateSubmitButtonStatus(this, 'submit');" %>
       </td>
       <td colspan="3" >
-        <%= form.submit disabled: @menu.name.blank?, id: :submit %>
+        <%= form.submit id: :submit, disabled: @menu.name.blank?,
+            class: 'button-new-inline' %>
       </td>
     </tr>
   </thead>
@@ -24,9 +25,13 @@
     <% @menus.each do |menu| %>
       <tr>
         <td><%= menu.name %></td>
-        <td><%= link_to t('Show'), menu %></td>
-        <td><%= link_to t('Edit'), edit_menu_path(menu) %></td>
-        <td><%= link_to t('Destroy'), menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), menu,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_menu_path(menu),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), menu,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -35,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Menu', new_menu_path %>
+<%= link_to 'New Menu', new_menu_path, class: 'link-new' %>

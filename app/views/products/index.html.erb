@@ -52,7 +52,8 @@
       </td>
       <td colspan="3" >
         <%= form.submit id: :submit_update, format: :js, class: :hidden %>
-        <%= form.submit id: :submit, disabled: (@product.title_id.blank? || @product.price.blank?) %>
+        <%= form.submit id: :submit, class: 'button-submit-inline',
+            disabled: (@product.title_id.blank? || @product.price.blank?) %>
       </td>
     </tr>
   </thead>
@@ -68,4 +69,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_product_path, class: 'link-new' %>

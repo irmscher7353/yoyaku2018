@@ -30,5 +30,5 @@
   <%= @name.is_title %>
 </p>
 
-<%= link_to 'Edit', edit_name_path(@name) %> |
-<%= link_to 'Back', names_path %>
+<%= link_to 'Edit', edit_name_path(@name), class: 'link-edit' %> |
+<%= link_to 'Back', names_path, class: 'link-back' %>

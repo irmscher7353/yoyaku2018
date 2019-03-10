@@ -290,7 +290,8 @@
     </th>
     <td rowspan="<%= num_rows %>" class="base-panel phrases" >
     <% @phrases.each do |phrase| %>
-      <%= form.button phrase, type: 'button', class: 'phrase ui',
+      <%= form.button phrase, type: 'button',
+          class: 'phrase ui btn btn-sm btn-outline-secondary',
           onClick: "orders.select_phrase(this, '#order_note');" %><br />
     <% end %>
     </td>
@@ -350,7 +351,7 @@
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true,
-        class: order.submit_button_classes %>
+        class: order.submit_button_classes + ' btn btn-sm btn-primary' %>
     </td>
   </tr>
   <tr class="base-panel fixed-height" >
@@ -358,7 +359,7 @@
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit t('.Deliver'), id: :deliver,
-        class: order.deliver_button_classes %>
+        class: order.deliver_button_classes + ' btn btn-sm btn-success' %>
     </td>
   </tr>
   <tr class="base-panel" >
@@ -366,7 +367,7 @@
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit order.cancel_button_label, id: :cancel,
-        class: order.cancel_button_classes,
+        class: order.cancel_button_classes + ' btn btn-sm btn-danger',
         data: { confirm: order.cancel_button_confirm } %>
     </td>
   </tr>

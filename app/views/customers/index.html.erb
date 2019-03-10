@@ -18,9 +18,13 @@
         <td><%= customer.name %></td>
         <td><%= customer.phone %></td>
         <td><%= customer.address %></td>
-        <td><%= link_to t('Show'), customer %></td>
-        <td><%= link_to t('Edit'), edit_customer_path(customer) %></td>
-        <td><%= link_to t('Destroy'), customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), customer,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_customer_path(customer),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), customer,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Customer', new_customer_path %>
+<%= link_to 'New Customer', new_customer_path, class: 'link-new' %>

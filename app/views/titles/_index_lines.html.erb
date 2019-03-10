@@ -4,8 +4,12 @@
         <td class="numeric" ><%= title.priority %></td>
 <!--    <td><%= title.description %></td> -->
 <!--    <td><%= title.image_url %></td> -->
-        <td><%= link_to t('Show'), title %></td>
-        <td><%= link_to t('Edit'), edit_title_path(title) %></td>
-        <td><%= link_to t('Destroy'), title, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), title,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_title_path(title),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), title,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -24,9 +24,13 @@
         <td><%= name.is_sei %></td>
         <td><%= name.is_mei %></td>
         <td><%= name.is_title %></td>
-        <td><%= link_to t('Show'), name %></td>
-        <td><%= link_to t('Edit'), edit_name_path(name) %></td>
-        <td><%= link_to t('Destroy'), name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), name,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_name_path(name),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), name,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +42,4 @@
 
 <br>
 
-<%= link_to 'New Name', new_name_path %>
+<%= link_to 'New Name', new_name_path, class: 'link-new' %>

@@ -20,9 +20,13 @@
         <td><%= buyer.phone %></td>
         <td><%= buyer.address %></td>
         <td><%= buyer.customer %></td>
-        <td><%= link_to t('Show'), buyer %></td>
-        <td><%= link_to t('Edit'), edit_buyer_path(buyer) %></td>
-        <td><%= link_to t('Destroy'), buyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), buyer,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_buyer_path(buyer),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), buyer,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Buyer', new_buyer_path %>
+<%= link_to 'New Buyer', new_buyer_path, class: 'link-new' %>

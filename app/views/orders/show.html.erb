@@ -1,5 +1,7 @@
 <div class="no-print" >
-<%= link_to '予約修正', edit_order_path(@order) %>
+<%= link_to '予約修正', edit_order_path(@order), class: 'link-edit' %>
+｜
+<%= link_to '戻る', orders_path, class: 'link-back' %>
 </div>
 
 <%= render 'show', destination: '①店舗控' %>

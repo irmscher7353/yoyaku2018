@@ -9,9 +9,13 @@
         <td class="center" ><%= due.strftime(fmt) %></td>
         <td class="center" ><%= order.means %></td>
         <td class="center" ><%= order.state %></td>
-        <td><%= link_to t('.Show'), order %></td>
-        <td><%= link_to t('.Edit'), edit_order_path(order) %></td>
-        <td><%= link_to t('.Destroy'), order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('.Show'), order,
+            class: 'link-show-inline' %></td>
+        <td><%= link_to t('.Edit'), edit_order_path(order),
+            class: 'link-edit-inline' %></td>
+        <td><%= link_to t('.Destroy'), order,
+            class: 'button-destroy-inline',
+            method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <!--
         -->
       </tr>
