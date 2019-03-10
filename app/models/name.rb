@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*=
 class Name < ApplicationRecord
 
+  paginates_per 15
+
   def self.candidates(s)
     result = []
     if s.present? and s != ''
