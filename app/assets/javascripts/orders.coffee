@@ -17,7 +17,7 @@
       $(element).addClass('shorten')
     else
       $(element).removeClass('shorten')
-    @update_button_state
+    @update_button_status()
 
   close_names_panel: (element) ->
     $('.names-panel').addClass('hidden')
@@ -37,7 +37,7 @@
       #console.log w
       $('.names-panel').removeClass('hidden')
       $('#update_names').click()
-    @update_button_state()
+    @update_button_status()
 
   phone_update: (element, keycode) ->
     v = $(element).val()
@@ -54,7 +54,7 @@
       $(element).val(v)
     $('.number-minus').attr('disabled', (v.length < 2 or v.slice(-1) == '-' or 2 < v.split('-').length or v.match(/^(0[5-9]0-\d{1,3}|[1-9]\d-)/)))
     $('.area_code_selector button').attr('disabled', (0 < v.length))
-    @update_button_state()
+    @update_button_status()
     if n_max <= n
       $('#due_month').focus().select()
 
@@ -81,7 +81,7 @@
       s = $('#due_year').val() + '-' + mm + '-' + dd
       i = (new Date(s)).getDay()
       $('#due_wday').html(wday[i])
-    @update_button_state()
+    @update_button_status()
 
   select_kana: (element) ->
     @select_panel 'kana-panel'
@@ -265,6 +265,7 @@
       @update_total_price()
 
   select_title_page: (button, page_selector) ->
+    $(button).blur()
     cls = 'current-title-page-button'
     $('.'+cls).removeClass(cls).removeAttr('disabled')
     $(button).addClass(cls).attr('disabled', 'disabled')
@@ -278,10 +279,10 @@
     val = $('#order_name').val().replace(/\S+$/, $(element).html())
     $('#order_name').val(val)
     $(if val.match(/\s$/) then '#order_name' else '#order_phone').focus()
-    @update_button_state()
+    @update_button_status()
 
-  update_button_state: () ->
-    $('#submit').attr 'disabled', do () ->
+  update_button_status: () ->
+    disabled = do () ->
       if $('#order_name').val() == '' or $('#order_phone').val() == ''
         return true
       v = $('#due_month').val()
@@ -306,6 +307,9 @@
       if $('[name="order[means]"]:checked').length <= 0
         return true
       return false
+    $('#submit').attr 'disabled', disabled
+    $('#revert').attr 'disabled', disabled
+    $('#deliver').attr 'disabled', (disabled or $('#order_payment_yet').prop('checked'))
 
   update_quantity_selector: () ->
     # .current-row の .product_id が設定されていれば，
@@ -346,10 +350,10 @@
     else
       $('tr.balance').removeClass('invisible')
       $('.order_payment_yet').prop('checked', true)
-    @update_button_state()
+    @update_button_status()
 
   update_ui_status: () ->
-    $('.ui').attr('disabled', not $('#revert').prop('checked') and $('#order_state').val() != '')
+    $('.ui').attr('disabled', not $('#unlock').prop('checked') and $('#order_state').val() != '')
 
 $(document).on 'turbolinks:load', ->
   # サブパネルのボタン上辺を揃える．
@@ -450,26 +454,26 @@ $(document).on 'turbolinks:load', ->
     $('.current-row').removeClass('current-row')
 
   $('.order_payment').on 'click', () =>
-    orders.update_button_state()
+    orders.update_button_status()
 
   $('.order_means').on 'click', () =>
-    orders.update_button_state()
+    orders.update_button_status()
 
   $('span.order_payment_yet').on 'click', () =>
     $('input.order_payment_yet').click()
-    orders.update_button_state()
+    orders.update_button_status()
 
   $('span.order_payment_done').on 'click', () =>
     $('input.order_payment_done').click()
-    orders.update_button_state()
+    orders.update_button_status()
 
   $('span.order_means_phone').on 'click', () =>
     $('input.order_means_phone').click()
-    orders.update_button_state()
+    orders.update_button_status()
 
   $('span.order_means_store').on 'click', () =>
     $('input.order_means_store').click()
-    orders.update_button_state()
+    orders.update_button_status()
 
-  $('input#revert').on 'click', () =>
+  $('input#unlock').on 'click', () =>
     orders.update_ui_status()

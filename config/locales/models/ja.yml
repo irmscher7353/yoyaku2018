@@ -31,7 +31,9 @@ ja:
       total_price: 小計
   orders:
     form:
+      Cancel: 予約取消
       Deliver: お引渡し
+      Revert: 予約復元
     index:
       Search: 検索する
       number: 予約番号

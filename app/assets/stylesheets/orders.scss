@@ -54,12 +54,15 @@ table.order-form {
   }
   th {
     white-space: nowrap;
+    label {
+      margin-bottom: 3px;
+    }
   }
   input {
     padding: 0.1rem 0.5rem;
   }
   input.due {
-    width: 6.0rem;
+    width: 4.0rem;
   }
   input#order_address {
     width: 100%;
@@ -108,6 +111,10 @@ table.order-lineitems {
   }
   th {
     text-align: center;
+    white-space: nowrap;
+    label {
+      margin-bottom: 3px;
+    }
   }
   thead {
     th {
@@ -159,8 +166,8 @@ table.order-lineitems {
     div.datetime_selector {
       display: inline-block;
       vertical-align: top;
-      padding-left: 1em;
-      padding-right: 1em;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
     div.datetime_selector_column {
       display: inline-block;
@@ -169,7 +176,7 @@ table.order-lineitems {
         display: block;
         font-size: large;
         margin-bottom: 0.5rem;
-        padding: 0.5rem 1.5rem;
+        padding: 0.5rem 1.0rem;
       }
     }
     div.datetime_selector_header {
@@ -242,16 +249,8 @@ table.order-lineitems {
     }
     input#cancel {
       margin-top: 1.0rem;
-      color: tomato;
     }
-    input#cancel.revert {
-      color: limegreen;
-    }
-    input#deliver {
-      color: limegreen;
-    }
-    input#revert {
-      margin-top: 1.0rem;
+    input#unlock {
       vertical-align: text-bottom;
     }
     span.sold-out, span.order_payment, span.order_means {
@@ -336,6 +335,9 @@ table.order-lineitems {
       }
     }
     td.revert {
+      text-align: center;
+    }
+    td.unlock {
       text-align: center;
     }
     textarea#message {

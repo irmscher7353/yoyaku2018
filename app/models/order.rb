@@ -28,36 +28,16 @@ class Order < ApplicationRecord
     self.number = Order.new_number
   end
 
-  def cancel_button_confirm
-    state == STATE_RESERVED ? 'この予約を取消しますか？' : ''
-  end
-
-  def cancel_button_classes
-    classes = ['ui']
-    if (not persisted?) or state == STATE_DELIVERED
-      classes << 'invisible'
-    end
-    if persisted? and state == STATE_CANCELLED
-      classes << 'revert'
-    end
-    classes.join(' ')
-  end
-
-  def cancel_button_label
-    persisted? ? (state == STATE_CANCELLED ? LABEL_REVERT : (
-      state == STATE_RESERVED ? LABEL_CANCEL : '')) : ''
-  end
-
   def cancelled?
-    persisted? && state == STATE_CANCELLED
+    persisted? and state == STATE_CANCELLED
   end
 
-  def deliver_button_classes
-    'ui' + (state == STATE_RESERVED ? '' : ' invisible')
+  def deliverable?
+    persisted? and state == STATE_RESERVED and payment == PAYMENT_DONE
   end
 
-  def submit_button_classes
-    'ui' + (state.blank? ? '' : ' invisible')
+  def reserved?
+    persisted? and state == STATE_RESERVED
   end
 
   def current_line_items(n_lines=0, items=[])

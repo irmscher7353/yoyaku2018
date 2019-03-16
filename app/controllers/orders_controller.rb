@@ -179,22 +179,36 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
     line_items_attributes = normalize_line_items_attributes
-    if params[:commit] != Order::STATE_CANCELLED
+    if params[:submit].present? or params[:revert].present?
       if @order.line_items_modified?(line_items_attributes)
         params[:order][:revision] = Time.zone.now.to_i
       end
+    else
+      # :submit と :revert 以外（:cancel と :deliver）の場合は，
+      # 入力されている line_items は無視する．
+      params[:order][:line_items_attributes].keys.each do |index|
+        params[:order][:line_items_attributes].delete(index)
+      end
+      line_items_attributes = {}
     end
     normalize_params
 
     # 引き当て準備
     current_line_items = @order.current_line_items
-    case params[:commit]
-    when Order::LABEL_CANCEL
-      d = deltas({}, current_line_items)
-    when Order::LABEL_REVERT
-      d = deltas(line_items_attributes)
-    else
-      d = deltas(line_items_attributes, current_line_items)
+ 
+    command = case
+    when params[:cancel].present? then :cancel
+    when params[:deliver].present? then :deliver
+    when params[:revert].present? then :revert
+    else :submit
+    end
+    #p 'command = "%s"' % [command]
+
+    d = case command
+    when :cancel then deltas({}, current_line_items)
+    when :deliver then {}
+    when :revert then deltas(line_items_attributes)
+    else deltas(line_items_attributes, current_line_items)
     end
     #puts 'd = %s' % [d.to_s]
 
@@ -202,15 +216,18 @@ class OrdersController < ApplicationController
     if (invalid = Product.draw(d))
       @message = invalid.record.errors[:base].join("\n")
     else
-      case params[:commit]
-      when Order::LABEL_CANCEL
+      case command
+      when :cancel
         params[:order][:state] = Order::STATE_CANCELLED
         @message = "予約をキャンセルしました．"
-      when Order::LABEL_REVERT
+      when :deliver
+        params[:order][:state] = Order::STATE_DELIVERED
+        @message = 'この予約は引渡し済みです．'
+      when :revert
         params[:order][:state] = Order::STATE_RESERVED
-        @message = "予約を復元しました．"
+        @message = '予約を復元しました．'
       else
-        @message = "予約を更新しました．"
+        @message = '予約を更新しました．'
       end
     end
 

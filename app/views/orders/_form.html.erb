@@ -238,7 +238,7 @@
   <% end %>
 </tbody>
 <tfoot >
-  <% num_rows = 8 %>
+  <% num_rows = 10 %>
   <tr class="fixed-height" id="line_order_total" >
     <td rowspan="<%= num_rows %>" colspan="3" class="message-panel current-panel message" >
       <%= text_area_tag :message, @message %>
@@ -321,12 +321,12 @@
     <td colspan="2" class="payment" >
     <% s = Order::PAYMENT_YET %>
     <%= form.radio_button :payment, s, checked: (order.payment == s),
-        class: 'order_payment order_payment_yet ui'
+        id: 'order_payment_yet', class: 'order_payment order_payment_yet ui'
     %><span class='order_payment order_payment_yet' > <%= s %></span>
     ・
     <% s = Order::PAYMENT_DONE %>
     <%= form.radio_button :payment, s, checked: (order.payment == s),
-        class: 'order_payment order_payment_done ui'
+        id: 'order_payment_done', class: 'order_payment order_payment_done ui'
     %><span class='order_payment order_payment_done' > <%= s %></span>
     </td>
   </tr>
@@ -346,36 +346,45 @@
     %><span class="order_means order_means_stroe" > <%= s %></span>
     </td>
   </tr>
-  <tr class="base-panel fixed-height" >
+  <tr class="base-panel fixed-height <%= order.cancelled? ? 'hidden' : '' -%>" >
     <th >
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true,
-        class: order.submit_button_classes + ' btn btn-sm btn-primary' %>
+        class: 'ui btn btn-sm btn-primary' + (order.cancelled? ? ' hidden' : '') -%>
     </td>
   </tr>
-  <tr class="base-panel fixed-height" >
+  <tr class="base-panel fixed-height <%= order.cancelled? ? 'hidden' : '' -%>" >
     <th >
     </th>
     <td colspan="2" class="actions" >
-    <%= form.submit t('.Deliver'), id: :deliver,
-        class: order.deliver_button_classes + ' btn btn-sm btn-success' %>
+    <%= form.submit t('.Deliver'), id: :deliver, name: :deliver,
+        class: 'btn btn-sm btn-success' + (order.reserved? ? '' : ' invisible'),
+        disabled: (not order.deliverable?) %>
+    </td>
+  </tr>
+  <tr class="base-panel <%= order.reserved? ? '' : 'hidden' -%>" >
+    <th >
+    </th>
+    <td colspan="2" class="actions" >
+    <%= form.submit t('.Cancel'), id: :cancel, name: :cancel,
+        class: 'btn btn-sm btn-danger' + (order.reserved? ? '' : ' invisible'),
+        data: { confirm: 'この予約を取消しますか？' } %>
+    </td>
+  </tr>
+  <tr class="<%= order.cancelled? ? '' : 'hidden' -%>" >
+    <th >
+    </th>
+    <td colspan="2" class="actions" >
+    <%= form.submit t('.Revert'), id: :revert, name: :revert,
+        class: 'ui btn btn-sm btn-success', disabled: true %>
     </td>
   </tr>
   <tr class="base-panel" >
     <th >
     </th>
-    <td colspan="2" class="actions" >
-    <%= form.submit order.cancel_button_label, id: :cancel,
-        class: order.cancel_button_classes + ' btn btn-sm btn-danger',
-        data: { confirm: order.cancel_button_confirm } %>
-    </td>
-  </tr>
-  <tr class="base-panel" >
-    <th >
-    </th>
-    <td colspan="2" class="revert <%= order.cancelled? ? '' : 'hidden' -%>" >
-      <%= check_box_tag :revert, id: :revert %>ロック解除
+    <td colspan="2" class="unlock <%= order.cancelled? ? '' : 'hidden' -%>" >
+      <%= check_box_tag :unlock, true, false, {id: :unlock} %>ロック解除
     </td>
   </tr>
 </tfoot>
