@@ -150,6 +150,9 @@ table.order-lineitems {
     }
   }
   tfoot {
+    .fixed-height {
+      height: 1%; /* 自動で行の高さが変わるのを防ぐ． */
+    }
     div.area_code_selector {
       display: inline-block;
       text-align: right;

@@ -36,6 +36,10 @@ class Order < ApplicationRecord
     persisted? and state == STATE_RESERVED and payment == PAYMENT_DONE
   end
 
+  def delivered?
+    persisted? and state == STATE_DELIVERED
+  end
+
   def reserved?
     persisted? and state == STATE_RESERVED
   end

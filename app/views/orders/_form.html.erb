@@ -346,33 +346,38 @@
     %><span class="order_means order_means_stroe" > <%= s %></span>
     </td>
   </tr>
-  <tr class="base-panel fixed-height <%= order.cancelled? ? 'hidden' : '' -%>" >
+<% if not (order.cancelled? or order.delivered?) %>
+  <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit id: :submit, disabled: true,
-        class: 'ui btn btn-sm btn-primary' + (order.cancelled? ? ' hidden' : '') -%>
+        class: 'btn btn-sm btn-primary' %>
     </td>
   </tr>
-  <tr class="base-panel fixed-height <%= order.cancelled? ? 'hidden' : '' -%>" >
+<% end %>
+<% if order.reserved? %>
+  <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit t('.Deliver'), id: :deliver, name: :deliver,
-        class: 'btn btn-sm btn-success' + (order.reserved? ? '' : ' invisible'),
+        class: 'btn btn-sm btn-success',
         disabled: (not order.deliverable?) %>
     </td>
   </tr>
-  <tr class="base-panel <%= order.reserved? ? '' : 'hidden' -%>" >
+  <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
     <%= form.submit t('.Cancel'), id: :cancel, name: :cancel,
-        class: 'btn btn-sm btn-danger' + (order.reserved? ? '' : ' invisible'),
+        class: 'btn btn-sm btn-danger',
         data: { confirm: 'この予約を取消しますか？' } %>
     </td>
   </tr>
-  <tr class="<%= order.cancelled? ? '' : 'hidden' -%>" >
+<% end %>
+<% if order.cancelled? %>
+  <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
@@ -380,11 +385,18 @@
         class: 'ui btn btn-sm btn-success', disabled: true %>
     </td>
   </tr>
+  <tr class="base-panel fixed-height" >
+    <th >
+    </th>
+    <td colspan="2" class="unlock" >
+      <%= check_box_tag :unlock, true, false, {id: :unlock} %>ロック解除
+    </td>
+  </tr>
+<% end %>
   <tr class="base-panel" >
     <th >
     </th>
-    <td colspan="2" class="unlock <%= order.cancelled? ? '' : 'hidden' -%>" >
-      <%= check_box_tag :unlock, true, false, {id: :unlock} %>ロック解除
+    <td >
     </td>
   </tr>
 </tfoot>

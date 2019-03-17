@@ -353,6 +353,9 @@
     @update_button_status()
 
   update_ui_status: () ->
+    if not $('#unlock').prop('checked')
+      if not $('.current-panel').hasClass('message-panel')
+        @select_panel 'message-panel'
     $('.ui').attr('disabled', not $('#unlock').prop('checked') and $('#order_state').val() != '')
 
 $(document).on 'turbolinks:load', ->
@@ -365,10 +368,6 @@ $(document).on 'turbolinks:load', ->
   # lineitems の列幅を固定する．
   $('table.order-lineitems > thead > tr:first > th').each (index,element) ->
     $(element).css('min-width', $(element).css('width'))
-
-  # lineitems のフッタの行高さを固定する．
-  $('table.order-lineitems > tfoot > tr.fixed-height').each (index,element) ->
-    $(element).css('height', $(element).css('height'))
 
   # order_note の高さを tbody と同じにする．
   o = $('textarea#order_note')
