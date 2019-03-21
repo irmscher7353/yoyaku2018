@@ -23,6 +23,10 @@
     $('.names-panel').addClass('hidden')
     $('#order_name').focus()
 
+  edit_order: (number) ->
+    #console.log 'orders.edit_order(' + order_number + ')'
+    window.location.href = '/orders/edit_order?number='+number
+
   get_reserved: (product_id) ->
     # product_id の reserved を取得する．
     # Number('') はゼロを返すが，Number(undefined) は NaN になる．
@@ -281,6 +285,10 @@
     $(if val.match(/\s$/) then '#order_name' else '#order_phone').focus()
     @update_button_status()
 
+  show_order: (number) ->
+    #console.log 'orders.show_order(' + order_number + ')'
+    window.location.href = '/orders/show_order?number='+number
+
   update_button_status: () ->
     disabled = do () ->
       if $('#order_name').val() == '' or $('#order_phone').val() == ''
@@ -476,3 +484,4 @@ $(document).on 'turbolinks:load', ->
 
   $('input#unlock').on 'click', () =>
     orders.update_ui_status()
+

@@ -22,6 +22,20 @@
                 <%= link_to t('New Order'), new_order_path, class: 'nav-link' -%>
               </li>
             </ul>
+            <ul class="nav flex-column shortcut-menu" >
+              <li class="nav-item shortcut" >
+                <span ><%= t('Order Number') -%></span>
+                <input id="order_number" type="number" class="numeric" autocomplete="off" />
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Show Order'), show_order_orders_path,
+                    id: :show_order, class: 'nav-link', remote: true %>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Edit Order'), edit_order_orders_path,
+                    id: :edit_order, class: 'nav-link', remote: true %>
+              </li>
+            </ul>
             <ul class="nav flex-column administrative-menu" >
               <li class="nav-item" >
                 <%= link_to t('Menus'), menus_path, class: 'nav-link' -%>

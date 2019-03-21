@@ -86,7 +86,7 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-     @preferences = Preference.to_hash
+    @preferences = Preference.to_hash
   end
 
   # GET /orders/new
@@ -266,10 +266,34 @@ class OrdersController < ApplicationController
     end
   end
 
+  def edit_order
+    # 古い予約番号のサポート
+    if (number = params[:number].to_i) <= 9999
+      @order = Order.where(['number IN (?)', old_numbers(number) ]).first
+    else
+      @order = Order.where(number: params[:number]).first
+    end
+
+    respond_to do |format|
+      format.html { redirect_to action: :edit, id: @order.id }
+    end
+  end
+
   def names
-
     @names = Name.candidates params[:name]
+  end
 
+  def show_order
+    # 古い予約番号のサポート
+    if (number = params[:number].to_i) <= 9999
+      @order = Order.where(['number IN (?)', old_numbers(number) ]).first
+    else
+      @order = Order.where(number: params[:number]).first
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @order }
+    end
   end
 
   private
@@ -376,6 +400,10 @@ class OrdersController < ApplicationController
         result << res
       end
       result
+    end
+
+    def old_numbers(number)
+      (11 .. 18).map {|yy| ('%2d%04d' % [yy, number]).to_i }
     end
 
     def session_order(order)

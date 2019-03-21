@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :line_items
   resources :orders do
     collection do
+      get :edit_order
       get :names
+      get :show_order
     end
   end
   resources :buyers

@@ -149,3 +149,15 @@ input[type="number"].no-spin-button {
   width: 4em;
 }
 
+.shortcut-menu {
+  margin-top: 1.0rem;
+  li.shortcut {
+    margin: 0.1rem 1.0rem;
+  }
+  input#order_number {
+    width: 8.0rem;
+  }
+  span {
+    display: block;
+  }
+}
