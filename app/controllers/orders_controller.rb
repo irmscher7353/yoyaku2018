@@ -267,12 +267,7 @@ class OrdersController < ApplicationController
   end
 
   def edit_order
-    # 古い予約番号のサポート
-    if (number = params[:number].to_i) <= 9999
-      @order = Order.where(['number IN (?)', old_numbers(number) ]).first
-    else
-      @order = Order.where(number: params[:number]).first
-    end
+    @order = Order.where(number: params[:number]).first
 
     respond_to do |format|
       format.html { redirect_to action: :edit, id: @order.id }
@@ -284,12 +279,7 @@ class OrdersController < ApplicationController
   end
 
   def show_order
-    # 古い予約番号のサポート
-    if (number = params[:number].to_i) <= 9999
-      @order = Order.where(['number IN (?)', old_numbers(number) ]).first
-    else
-      @order = Order.where(number: params[:number]).first
-    end
+    @order = Order.where(number: params[:number]).first
 
     respond_to do |format|
       format.html { redirect_to @order }
