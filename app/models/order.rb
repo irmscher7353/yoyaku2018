@@ -25,7 +25,7 @@ class Order < ApplicationRecord
   end
 
   def assign_new_number
-    self.number = Order.new_number
+    self.id = self.number = Order.new_number
   end
 
   def cancelled?
