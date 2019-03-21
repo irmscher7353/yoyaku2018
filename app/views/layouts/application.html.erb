@@ -15,32 +15,54 @@
         <div class="col-md-2 d-none d-md-block bg-light sidebar no-print" >
           <div class="sidebar-sticky" >
             <ul class="nav flex-column" >
-              <li class="nav-item" ><%= link_to "Orders", orders_path -%></li>
-              <li class="nav-item" ><%= link_to "New Order", new_order_path -%></li>
+              <li class="nav-item" >
+                <%= link_to t('Orders'), orders_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('New Order'), new_order_path, class: 'nav-link' -%>
+              </li>
             </ul>
-            <ul class="nav flex-column" >
-              <li class="nav-item" ><%= link_to "Menus", menus_path -%></li>
-              <li class="nav-item" ><%= link_to "Titles", titles_path -%></li>
-              <li class="nav-item" ><%= link_to "Products", products_path -%></li>
-              <li class="nav-item" ><%= link_to "LineItems", line_items_path -%></li>
-              <li class="nav-item" ><%= link_to "Names", names_path -%></li>
-              <li class="nav-item" ><%= link_to "Buyers", buyers_path -%></li>
-              <li class="nav-item" ><%= link_to "Customers", customers_path -%></li>
-              <li class="nav-item" ><%= link_to "Preferences", preferences_path -%></li>
+            <ul class="nav flex-column administrative-menu" >
+              <li class="nav-item" >
+                <%= link_to t('Menus'), menus_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Titles'), titles_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Products'), products_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('LineItems'), line_items_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Names'), names_path, class: 'nav-link' -%>
+              </li>
+              <!--
+              <li class="nav-item" >
+                <%= link_to t('Buyers'), buyers_path, class: 'nav-link' -%>
+              </li>
+              <li class="nav-item" >
+                <%= link_to t('Customers'), customers_path, class: 'nav-link' -%>
+              </li>
+              -->
+              <li class="nav-item" >
+                <%= link_to t('Preferences'), preferences_path, class: 'nav-link' -%>
+              </li>
             </ul>
             <div id="menu_selector" >
               <%= form_tag(set_current_menus_path, method: :get, ) do |form| %>
                 <%= select_tag :menu_id, options_from_collection_for_select(
-                  Menu.ordered, :id, :name,
-                  session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
-                  include_blank: true, onchange: 'this.form.submit()'
+                    Menu.ordered, :id, :name,
+                    session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
+                    include_blank: true, onchange: 'this.form.submit()'
                 %>
               <% end %>
             </div>
           </div>
         </div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" >
-    <%= yield %>
+<%= yield %>
         </div>
       </div>
     </div>

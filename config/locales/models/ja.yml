@@ -3,6 +3,16 @@ ja:
   Destroy: 削除
   Edit: 編集
   Show: 表示
+  Orders: 予約一覧
+  New Order: 新規予約
+  Menus: 品書管理
+  Titles: 品名管理
+  Products: 商品管理
+  LineItems: 詳細管理
+  Names: 名前管理
+  Buyers: 来客管理
+  Customers: 顧客管理
+  Preferences: 設定管理
   activerecord:
     models:
       order: 予約
