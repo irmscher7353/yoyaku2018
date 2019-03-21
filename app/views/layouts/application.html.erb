@@ -73,6 +73,14 @@
                 %>
               <% end %>
             </div>
+            <div id="logo" >
+            <% if Rails.env.production? %>
+              <img src="/images/PremierLogoColor.png" alt="Premier Logo Color" />
+            <% else %>
+              <br/>
+              <%= Rails.env -%>
+            <% end %>
+            </div>
           </div>
         </div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" >
