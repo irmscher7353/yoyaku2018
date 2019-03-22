@@ -12,56 +12,56 @@
   <body>
     <div class="container-fluid" >
       <div class="row" >
-        <div class="col-md-2 d-none d-md-block bg-light sidebar no-print" >
+        <div class="col-md-2 d-none d-md-block bg-nature sidebar no-print" >
           <div class="sidebar-sticky" >
             <ul class="nav flex-column" >
               <li class="nav-item" >
-                <%= link_to t('Orders'), orders_path, class: 'nav-link' -%>
+                <%= link_to t('Orders'), orders_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('New Order'), new_order_path, class: 'nav-link' -%>
+                <%= link_to t('New Order'), new_order_path, class: 'btn btn-nature' -%>
               </li>
             </ul>
             <ul class="nav flex-column shortcut-menu" >
-              <li class="nav-item shortcut" >
+              <li class="nav-item" >
                 <span ><%= t('Order Number') -%></span>
                 <input id="order_number" type="number" class="numeric" autocomplete="off" />
               </li>
               <li class="nav-item" >
                 <%= link_to t('Show Order'), show_order_orders_path,
-                    id: :show_order, class: 'nav-link', remote: true %>
+                    id: :show_order, class: 'btn btn-nature', remote: true %>
               </li>
               <li class="nav-item" >
                 <%= link_to t('Edit Order'), edit_order_orders_path,
-                    id: :edit_order, class: 'nav-link', remote: true %>
+                    id: :edit_order, class: 'btn btn-nature', remote: true %>
               </li>
             </ul>
             <ul class="nav flex-column administrative-menu" >
               <li class="nav-item" >
-                <%= link_to t('Menus'), menus_path, class: 'nav-link' -%>
+                <%= link_to t('Menus'), menus_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('Titles'), titles_path, class: 'nav-link' -%>
+                <%= link_to t('Titles'), titles_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('Products'), products_path, class: 'nav-link' -%>
+                <%= link_to t('Products'), products_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('LineItems'), line_items_path, class: 'nav-link' -%>
+                <%= link_to t('LineItems'), line_items_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('Names'), names_path, class: 'nav-link' -%>
+                <%= link_to t('Names'), names_path, class: 'btn btn-nature' -%>
               </li>
               <!--
               <li class="nav-item" >
-                <%= link_to t('Buyers'), buyers_path, class: 'nav-link' -%>
+                <%= link_to t('Buyers'), buyers_path, class: 'btn btn-nature' -%>
               </li>
               <li class="nav-item" >
-                <%= link_to t('Customers'), customers_path, class: 'nav-link' -%>
+                <%= link_to t('Customers'), customers_path, class: 'btn btn-nature' -%>
               </li>
               -->
               <li class="nav-item" >
-                <%= link_to t('Preferences'), preferences_path, class: 'nav-link' -%>
+                <%= link_to t('Preferences'), preferences_path, class: 'btn btn-nature' -%>
               </li>
             </ul>
             <div id="menu_selector" >
@@ -69,7 +69,8 @@
                 <%= select_tag :menu_id, options_from_collection_for_select(
                     Menu.ordered, :id, :name,
                     session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
-                    include_blank: true, onchange: 'this.form.submit()'
+                    include_blank: true, onchange: 'this.form.submit()',
+                    class: 'nav-item'
                 %>
               <% end %>
             </div>

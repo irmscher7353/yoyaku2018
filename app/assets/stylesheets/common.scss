@@ -1,5 +1,23 @@
+
+$nav-item-width: 6rem;
+
 button, input, select, textarea {
   border-width: 1px;
+}
+
+div#menu_selector {
+  padding: 0.5rem 0.0rem;
+}
+
+// Chrome, Safari
+input[type="number"].no-spin-button::-webkit-outer-spin-button,
+input[type="number"].no-spin-button::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+// Firefox, IE
+input[type="number"].no-spin-button {
+  -moz-appearance: textfield;
 }
 
 table {
@@ -9,7 +27,23 @@ table {
 }
 
 .administrative-menu {
-  margin-top: 1.0rem;
+  margin-top: 1.5rem;
+}
+
+.bg-nature {
+  background-color: darkgreen;
+  padding-top: 1.0rem;
+}
+
+.btn-nature {
+  @include button-variant(forestgreen, wheat, wheat);
+  color: wheat !important;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  width: $nav-item-width;
+  &:hover {
+    background-color: darkgreen;
+  }
 }
 
 .btn-xs, .btn-group-xs > .btn {
@@ -23,6 +57,9 @@ table {
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-danger;
+  &:visited {
+    color: #fff;
+  }
 }
 
 .button-destroy-inline {
@@ -63,6 +100,22 @@ table {
   @extend .btn-xs;
 }
 
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.limit {
+  width: 4em;
+}
+
 .link-back {
   @extend .btn;
   @extend .btn-sm;
@@ -78,6 +131,12 @@ table {
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-outline-success;
+  &:visited {
+    color: #28a745;
+  }
+  &:hover, &:active {
+    color: #fff;
+  }
 }
 
 .link-edit-inline {
@@ -100,6 +159,12 @@ table {
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-outline-info;
+  &:visited {
+    color: #17a2b8;
+  }
+  &:hover, &:active {
+    color: #fff;
+  }
 }
 
 .link-show-inline {
@@ -107,30 +172,8 @@ table {
   @extend .btn-xs;
 }
 
-.hidden {
-  display: none;
-}
-.invisible {
-  visibility: hidden;
-}
-
-// Chrome, Safari
-input[type="number"].no-spin-button::-webkit-outer-spin-button,
-input[type="number"].no-spin-button::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-// Firefox, IE
-input[type="number"].no-spin-button {
-  -moz-appearance: textfield;
-}
-
-.center {
-  text-align: center;
-}
-
-.limit {
-  width: 4em;
+.nav-item {
+   width: $nav-item-width;
 }
 
 .numeric {
@@ -150,14 +193,23 @@ input[type="number"].no-spin-button {
 }
 
 .shortcut-menu {
-  margin-top: 1.0rem;
-  li.shortcut {
-    margin: 0.1rem 1.0rem;
-  }
+  margin-top: 0.75rem;
   input#order_number {
-    width: 8.0rem;
+    width: $nav-item-width;
+    margin-bottom: 0.1rem;
   }
   span {
+    color: wheat;
     display: block;
   }
+}
+
+.sidebar {
+  position: fixed;
+  min-height: 99%;
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
 }
