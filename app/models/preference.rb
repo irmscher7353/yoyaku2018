@@ -3,7 +3,7 @@ class Preference < ApplicationRecord
 
   def self.get_area_codes
     h = to_hash
-    h['市外局番'].gsub(/ /, '').split(/,/)
+    h['短縮市外局番'].gsub(/ /, '').split(/,/)
   end
 
   def self.get_due_datetime
