@@ -33,4 +33,8 @@ class Preference < ApplicationRecord
     end
     h
   end
+
+  def self.get_title
+    get_value('タイトル')
+  end
 end
