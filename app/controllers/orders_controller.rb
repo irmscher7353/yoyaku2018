@@ -267,7 +267,7 @@ class OrdersController < ApplicationController
   end
 
   def edit_order
-    @order = Order.where(number: params[:number]).first
+    @order = Order.where(number: params[:number].gsub(/^0+/,'')).first
 
     respond_to do |format|
       format.html { redirect_to action: :edit, id: @order.id }
@@ -279,7 +279,7 @@ class OrdersController < ApplicationController
   end
 
   def show_order
-    @order = Order.where(number: params[:number]).first
+    @order = Order.where(number: params[:number].gsub(/^0+/,'')).first
 
     respond_to do |format|
       format.html { redirect_to @order }
