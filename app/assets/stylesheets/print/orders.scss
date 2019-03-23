@@ -4,10 +4,10 @@
   margin: 0mm 0mm 10mm 0mm;
 }
 @media print {
-  div.no-print {
-    display: none;
+  .no-print {
+    display: none !important;
   }
   div.show_order {
-    margin: 10mm 6mm 0mm;
+    margin: 5mm 0mm 0mm !important;
   }
 }
