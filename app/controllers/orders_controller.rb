@@ -36,7 +36,11 @@ class OrdersController < ApplicationController
 
     @order = Order.new(order_params)
 
+    @title = '予約の検索結果'
+    @message = '予約番号を指定すると，他の検索条件は無視されます．'
     order_by = "updated_at DESC"
+
+    # kaminari だと params[:commit] があるとは限らない．
     if params[:number].present?
       @orders = Order.where(number: params[:number])
     else
@@ -63,12 +67,28 @@ class OrdersController < ApplicationController
         n += 1
       end
       if n <= 0
-        order = @orders.where(state: '', due_datenum: Time.zone.today.strftime('%Y%m%d').to_i )
-        if 0 < order.count
-          @order = order
+        # 検索条件が指定されていない場合
+        # 今日引渡しの予約があれば，予約日時の昇順で表示する．
+        @title = '最近更新された予約'
+        today = Time.zone.today
+        @orders = Order.where(menu_id: session[:menu]['id'])
+        orders = @orders.where(state: Order::STATE_RESERVED, due_datenum: datenum(today))
+        if 0 < orders.count
+          @title = '今日引渡しの予約'
+          @orders = orders
           order_by = "due ASC"
         end
+      else
+        if 0 < @orders.count
+          @order = @orders.first
+          @message = '%d 件の予約が見つかりました．' % [@orders.count]
+        else
+          @message = '指定された条件の予約は見つかりませんでした．'
+        end
       end
+    end
+    if session[:menu]['id'] != Menu.latest.id
+      @title += ' (%s)' % [session[:menu]['name']]
     end
 
     @due_dates = @orders.select(:due_datenum).distinct.order(:due_datenum).map{|order|
@@ -295,6 +315,10 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:id, :revision, :product_id, :quantity, :total_price])
+    end
+
+    def datenum(dt)
+      dt.strftime('%Y%m%d').to_i
     end
 
     def deltas(attributes, line_items=[])

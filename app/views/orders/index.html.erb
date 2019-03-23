@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Orders (<%= session[:menu]['name'] %>)</h1>
+<h1 id="title" ><%= @title %></h1>
 
 <%= form_with(url: orders_path, method: :get, html: { autocomplete: :off, } ) do |form| %>
 <table class="order-index" >
@@ -49,8 +49,8 @@
       </td>
     </tr>
     <tr >
-      <td colspan=3 >
-      予約番号を指定すると，他の検索条件は無視されます．
+      <td colspan=3 id="message" >
+        <%= @message %>
       </td>
     </tr>
   </tfoot>

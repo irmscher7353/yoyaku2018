@@ -1,4 +1,4 @@
-document.getElementById('index_tbody').innerHTML =
-  "<%= escape_javascript(render 'index_lines', orders: @orders) %>";
-document.getElementById('pager').innerHTML =
-  "<%= escape_javascript(paginate @orders) %>";
+$('#title').html("<%= @title %>")
+$('#index_tbody').html("<%= escape_javascript(render 'index_lines', orders: @orders) %>")
+$('#message').html("<%= @message %>")
+$('#pager').html("<%= escape_javascript(paginate @orders) %>")
