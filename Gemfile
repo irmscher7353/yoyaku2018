@@ -32,6 +32,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'bootstrap', '~> 4.3.1'
+# Barcode
+gem 'barby'
+gem 'chunky_png'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development

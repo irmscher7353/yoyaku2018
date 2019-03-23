@@ -376,6 +376,14 @@ div.show_order {
     top: 10pt;
     text-align: center;
   }
+  div.barcode-png {
+    margin-top: 1mm;
+  }
+  div.barcode-svg {
+    margin-top: 1mm;
+    transform-origin: left top;
+    transform: scale(1.5, 0.4);
+  }
   table.show_order_header {
     table-layout: fixed;
     margin-bottom: 5.0mm;
