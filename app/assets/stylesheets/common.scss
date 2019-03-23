@@ -1,8 +1,15 @@
 
+$nature-background: forestgreen;
+$nature-background-color: darkgreen;
+$nature-color: wheat;
 $nav-item-width: 6rem;
 
 button, input, select, textarea {
   border-width: 1px;
+}
+
+div#logo {
+  color: $nature-color;
 }
 
 div#menu_selector {
@@ -31,18 +38,18 @@ table {
 }
 
 .bg-nature {
-  background-color: darkgreen;
+  background-color: $nature-background-color;
   padding-top: 1.0rem;
 }
 
 .btn-nature {
-  @include button-variant(forestgreen, wheat, wheat);
-  color: wheat !important;
+  @include button-variant($nature-background, $nature-color, $nature-color);
+  color: $nature-color !important;
   margin-bottom: 0.25rem;
   padding: 0.25rem 0.75rem;
   width: $nav-item-width;
   &:hover {
-    background-color: darkgreen;
+    background-color: $nature-background-color;
   }
 }
 
@@ -199,7 +206,7 @@ table {
     margin-bottom: 0.1rem;
   }
   span {
-    color: wheat;
+    color: $nature-color;
     display: block;
   }
 }
