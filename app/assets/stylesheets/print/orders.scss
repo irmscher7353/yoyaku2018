@@ -1,13 +1,24 @@
 @page {
   size: B5 landscape; /* 257mm 182mm; /* B5 landscape */
   /* margin: 10mm 9mm 10mm 9mm; /* */
-  margin: 0mm 0mm 10mm 0mm;
+  margin: 10mm 0mm 4mm 0mm;
+  /* Windows 7 Firefox 65.0.2 MX932 だと margin-bottom を 4mm 以上にしないと
+     フッターの日時がプレビューに表示されない． */
 }
 @media print {
+  /* 印刷時に main の flex を無効化する */
+  body, .container-fluid, .row, .main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .main {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
   .no-print {
     display: none !important;
   }
   div.show_order {
-    margin: 5mm 0mm 0mm !important;
+    margin: 0mm 9.00mm !important; /* (237 - 110*2)/4 = 9.25 だけど． */
   }
 }
