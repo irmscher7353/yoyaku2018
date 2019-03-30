@@ -1,0 +1,76 @@
+<div id="orders-summary" >
+<table id="orders-summary-bydate" >
+  <thead >
+    <tr >
+      <th rowspan=2" >商品名</th>
+      <th rowspan=2" >サイズ</th>
+    <% dt_min = @summary[:dates][0] %>
+    <% dt_max = @summary[:dates][-1] %>
+    <% @summary[:dates].each do |dt| %>
+      <th colspan="7" class="<%= dt.datenum %> date" >
+      <% if dt_min < dt %>
+        <span class="prev-date" >＜</span>
+      <% end %>
+        <%= dt.strftime('%m/%d') %>
+      <% if dt < dt_max %>
+        <span class="next-date" >＞</span>
+      <% end %>
+      </th>
+    <% end %>
+      <th rowspan=2" >予約合計</th>
+      <th rowspan=2" >限定残り</th>
+      <th rowspan=2" >　限定　</th>
+    </tr>
+    <tr >
+     <% @summary[:dates].each do |dt| %>
+      <th class="<%= dt.datenum %> detail count-reserved" datenum="<%= dt.datenum %>" >予約</th>
+      <th class="<%= dt.datenum %> detail" datenum="<%= dt.datenum %>" >-</th>
+      <th class="<%= dt.datenum %> detail count-delivered" datenum="<%= dt.datenum %>" >渡済</th>
+      <th class="<%= dt.datenum %> detail" datenum="<%= dt.datenum %>" >=</th>
+      <th class="<%= dt.datenum %> detail count-remained" datenum="<%= dt.datenum %>" >未渡</th>
+      <th class="<%= dt.datenum %> abstruct count-remained" datenum="<%= dt.datenum %>" >未渡</th>
+      <th class="<%= dt.datenum %>" >渡残</th>
+     <% end %>
+    </tr>
+  </thead>
+  <tbody >
+  <% @summary[:products].each do |product| %>
+    <% count = @summary[:count][product.id] %>
+    <tr class="<%= cycle('odd', 'even') %>" >
+      <td ><%= product.title.name %></td>
+      <td class="center" ><%= product.size %></td>
+    <% @summary[:dates].each do |dt| %>
+      <% if count[dt].present? and 0 < count[dt][:reserved] %>
+      <td class="<%= dt.datenum %> detail numeric count-reserved" ><%= count[dt][:reserved] %></td>
+      <td class="<%= dt.datenum %> detail sign" >-</td>
+      <td class="<%= dt.datenum %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
+      <td class="<%= dt.datenum %> detail sign" >=</td>
+      <td class="<%= dt.datenum %> detail numeric count-remained" ><%= count[dt][:remained] %></td>
+      <td class="<%= dt.datenum %> abstruct numeric count-remained" >
+        <span class="<%= count[dt][:remained] <= 0 ? 'invisible zero' : '' %>" >
+        <%= count[dt][:remained] %></span>
+      </td>
+      <td class="<%= dt.datenum %> numeric" >
+        <span class="<%= count[dt][:total_remained] <= 0 ? 'hidden' : '' %>" >
+        <%= count[dt][:total_remained] %></span>
+      </td>
+      <% else %>
+      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= dt.datenum %> abstruct" ></td>
+      <td class="<%= dt.datenum %>" ></td>
+      <% end %>
+    <% end %>
+      <td class="numeric" ><%= count[:total][:reserved].to_s(:delimited) %></td>
+      <td class="numeric" ><%= product.remain.to_s(:delimited) %></td>
+      <td class="numeric" ><%= product.limit.to_s(:delimited) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot >
+  </tfoot>
+</table>
+</div>

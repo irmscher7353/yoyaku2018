@@ -19,9 +19,52 @@ class Order < ApplicationRecord
   LABEL_CANCEL = '予約取消'
   LABEL_REVERT = '予約復元'
 
+  scope :of, -> (menu_id) { where(menu_id: menu_id) }
+  scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
+ 
   def self.new_number
     min_number = (Time.zone.now.year % 100) * MAX_NUMBER_PER_YEAR + 0
     new_number = [min_number, maximum(:number) || 0].max + 1
+  end
+
+  def self.summary_bydate(menu_id)
+    # 引渡し日付け別集計．
+    summary = {
+      count: Hash.new{|h,k|
+        h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0 } }
+      },
+      dates: [],
+      products: [],
+    }
+
+    dates = Hash.new{|h,k| h[k] = 0 }
+    of(menu_id).alive.each do |order|
+      key = order.delivered? ? :delivered : :remained
+      due_date = order.due.to_date
+      dates[due_date] += 1
+      order.current_line_items.each do |line_item|
+        product_id = line_item.product_id
+        quantity = line_item.quantity
+        p '%d = %d x %d' % [order.id, product_id, quantity]
+        summary[:count][product_id][due_date][key] += quantity
+        summary[:count][product_id][due_date][:reserved] += quantity
+        summary[:count][product_id][:total][:reserved] += quantity
+      end
+    end
+
+    summary[:dates] = dates.keys.sort
+    (summary[:products] = Product.ordered(menu_id: menu_id)).each do |product|
+      p 'product = %d "%s" "%s"' % [product.id, product.title.name, product.size]
+      if summary[:count].include?(product.id)
+        sum = 0
+        summary[:dates].each do |dt|
+        p '  %s reserved = %d' % [dt.strftime('%m/%d'), summary[:count][product.id][dt][:reserved]]
+          sum = summary[:count][product.id][dt][:total_remained] = (sum + summary[:count][product.id][dt][:remained])
+        end
+      end
+    end
+
+    return summary
   end
 
   def assign_new_number

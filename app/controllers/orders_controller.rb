@@ -72,7 +72,7 @@ class OrdersController < ApplicationController
         @title = '最近更新された予約'
         today = Time.zone.today
         @orders = Order.where(menu_id: session[:menu]['id'])
-        orders = @orders.where(state: Order::STATE_RESERVED, due_datenum: datenum(today))
+        orders = @orders.where(state: Order::STATE_RESERVED, due_datenum: today.datenum)
         if 0 < orders.count
           @title = '今日引渡しの予約'
           @orders = orders
@@ -306,6 +306,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  # GET /orders/summary
+  def summary
+    @summary = Order.summary_bydate(session[:menu]['id'])
+
+    respond_to do |format|
+      format.html { render :summary }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -315,10 +324,6 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:menu_id, :number, :revision, :name, :phone, :address, :buyer_id, :due, :due_datenum, :means, :total_price, :amount_paid, :balance, :payment, :state, :note, line_items_attributes: [:id, :revision, :product_id, :quantity, :total_price])
-    end
-
-    def datenum(dt)
-      dt.strftime('%Y%m%d').to_i
     end
 
     def deltas(attributes, line_items=[])

@@ -581,3 +581,58 @@ div.show_order {
     }
   }
 }
+
+div#orders-summary {
+  overflow: auto;
+  width: 100%;
+}
+
+table#orders-summary-bydate {
+  border-collapse: separate;
+  border-spacing: 2px;
+  .abstruct {
+    cursor: default;
+  }
+  .count-delivered {
+    color: green;
+  }
+  .count-remained {
+    color: red;
+  }
+  .count-reserved {
+    color: blue;
+  }
+  .detail {
+    cursor: default;
+    /* display: none; */
+  }
+  tbody {
+    tr.even {
+      background-color: wheat;
+    }
+    tr.odd {
+    }
+  }
+  td, th {
+    padding: 2px 3px;
+    white-space: nowrap;
+  }
+  td.sign {
+    text-align: center;
+  }
+  th {
+    background-color: tan;
+    text-align: center;
+  }
+  th.date {
+    position: relative;
+    span.next-date {
+      position: absolute;
+      right: 5%;
+    }
+    span.prev-date {
+      position: absolute;
+      left: 5%;
+    }
+  }
+}

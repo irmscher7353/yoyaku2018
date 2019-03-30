@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :edit_order
       get :names
       get :show_order
+      get :summary
     end
   end
   resources :buyers

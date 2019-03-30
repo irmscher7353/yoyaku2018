@@ -366,6 +366,24 @@
         @select_panel 'message-panel'
     $('.ui').attr('disabled', not $('#unlock').prop('checked') and $('#order_state').val() != '')
 
+@orders.summary =
+  hide_all_details: () ->
+    $('.detail').css('display', 'none')
+    $('.abstruct').css('display', '')
+    $('th.date').attr('colspan', 2)
+
+  hide_details: (th) ->
+    datenum = $(th).attr('datenum')
+    $('.'+datenum+'.detail').css('display', 'none')
+    $('.'+datenum+'.abstruct').css('display', '')
+    $('th.'+datenum+'.date').attr('colspan', 2)
+
+  show_details: (th) ->
+    datenum = $(th).attr('datenum')
+    $('.'+datenum+'.detail').css('display', '')
+    $('.'+datenum+'.abstruct').css('display', 'none')
+    $('th.'+datenum+'.date').attr('colspan', 6)
+
 $(document).on 'turbolinks:load', ->
   # サブパネルのボタン上辺を揃える．
   h = $('.order_total_price').parent().css('height')
@@ -484,4 +502,14 @@ $(document).on 'turbolinks:load', ->
 
   $('input#unlock').on 'click', () =>
     orders.update_ui_status()
+
+  # orders/summary
+  if $('table#orders-summary-bydate')
+    orders.summary.hide_all_details()
+
+    $('th.abstruct.count-remained').on 'click', (event) =>
+      orders.summary.show_details(event.target)
+
+    $('th.detail').on 'click', (event) =>
+      orders.summary.hide_details(event.target)
 

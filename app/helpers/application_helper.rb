@@ -15,3 +15,9 @@ class Array
     result
   end
 end
+
+class Date
+  def datenum
+    self.strftime('%Y%m%d').to_i
+  end
+end
