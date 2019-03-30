@@ -45,7 +45,6 @@ class Order < ApplicationRecord
       order.current_line_items.each do |line_item|
         product_id = line_item.product_id
         quantity = line_item.quantity
-        p '%d = %d x %d' % [order.id, product_id, quantity]
         summary[:count][product_id][due_date][key] += quantity
         summary[:count][product_id][due_date][:reserved] += quantity
         summary[:count][product_id][:total][:reserved] += quantity
@@ -54,11 +53,9 @@ class Order < ApplicationRecord
 
     summary[:dates] = dates.keys.sort
     (summary[:products] = Product.ordered(menu_id: menu_id)).each do |product|
-      p 'product = %d "%s" "%s"' % [product.id, product.title.name, product.size]
       if summary[:count].include?(product.id)
         sum = 0
         summary[:dates].each do |dt|
-        p '  %s reserved = %d' % [dt.strftime('%m/%d'), summary[:count][product.id][dt][:reserved]]
           sum = summary[:count][product.id][dt][:total_remained] = (sum + summary[:count][product.id][dt][:remained])
         end
       end
