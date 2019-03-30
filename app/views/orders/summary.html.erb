@@ -8,13 +8,7 @@
     <% dt_max = @summary[:dates][-1] %>
     <% @summary[:dates].each do |dt| %>
       <th colspan="7" class="<%= dt.datenum %> date" >
-      <% if dt_min < dt %>
-        <span class="prev-date" >＜</span>
-      <% end %>
         <%= dt.strftime('%m/%d') %>
-      <% if dt < dt_max %>
-        <span class="next-date" >＞</span>
-      <% end %>
       </th>
     <% end %>
       <th rowspan=2" >予約合計</th>
