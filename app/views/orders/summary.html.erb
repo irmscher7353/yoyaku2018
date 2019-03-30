@@ -1,19 +1,40 @@
-<div id="orders-summary" >
-<table id="orders-summary-bydate" >
+<div id="orders-summary-bydate" >
+  <div id="orders-summary-bydate-left" >
+<table class="orders-summary-bydate" >
   <thead >
     <tr >
+      <th class="empty" >&nbsp;</th>
       <th rowspan=2" >商品名</th>
       <th rowspan=2" >サイズ</th>
-    <% dt_min = @summary[:dates][0] %>
-    <% dt_max = @summary[:dates][-1] %>
+    </tr>
+    <tr >
+      <th class="empty" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% reset_cycle %>
+  <% @summary[:products].each do |product| %>
+    <% count = @summary[:count][product.id] %>
+    <tr class="<%= cycle('odd', 'even') %>" >
+      <td ></td>
+      <td ><%= product.title.name %></td>
+      <td class="center" ><%= product.size %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot >
+  </tfoot>
+</table>
+  </div>
+  <div id="orders-summary-bydate-center" >
+<table class="orders-summary-bydate" >
+  <thead >
+    <tr >
     <% @summary[:dates].each do |dt| %>
       <th colspan="7" class="<%= dt.datenum %> date" >
         <%= dt.strftime('%m/%d') %>
       </th>
     <% end %>
-      <th rowspan=2" >予約合計</th>
-      <th rowspan=2" >限定残り</th>
-      <th rowspan=2" >　限定　</th>
     </tr>
     <tr >
      <% @summary[:dates].each do |dt| %>
@@ -28,11 +49,10 @@
     </tr>
   </thead>
   <tbody >
+  <% reset_cycle %>
   <% @summary[:products].each do |product| %>
     <% count = @summary[:count][product.id] %>
     <tr class="<%= cycle('odd', 'even') %>" >
-      <td ><%= product.title.name %></td>
-      <td class="center" ><%= product.size %></td>
     <% @summary[:dates].each do |dt| %>
       <% if count[dt].present? and 0 < count[dt][:reserved] %>
       <td class="<%= dt.datenum %> detail numeric count-reserved" ><%= count[dt][:reserved] %></td>
@@ -55,16 +75,43 @@
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> abstruct" ></td>
-      <td class="<%= dt.datenum %>" ></td>
+      <td class="<%= dt.datenum %>" >&nbsp;</td>
       <% end %>
     <% end %>
-      <td class="numeric" ><%= count[:total][:reserved].to_s(:delimited) %></td>
-      <td class="numeric" ><%= product.remain.to_s(:delimited) %></td>
-      <td class="numeric" ><%= product.limit.to_s(:delimited) %></td>
     </tr>
   <% end %>
   </tbody>
   <tfoot >
   </tfoot>
 </table>
+  </div>
+  <div id="orders-summary-bydate-right" >
+<table class="orders-summary-bydate" >
+  <thead >
+    <tr >
+      <th rowspan=2" >予約合計</th>
+      <th rowspan=2" >限定残り</th>
+      <th rowspan=2" >　限定　</th>
+      <th class="empty" >&nbsp;</th>
+    </tr>
+    <tr >
+      <th class="empty" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% reset_cycle %>
+  <% @summary[:products].each do |product| %>
+    <% count = @summary[:count][product.id] %>
+    <tr class="<%= cycle('odd', 'even') %>" >
+      <td class="numeric" ><%= count[:total][:reserved].to_s(:delimited) %></td>
+      <td class="numeric" ><%= product.remain.to_s(:delimited) %></td>
+      <td class="numeric" ><%= product.limit.to_s(:delimited) %></td>
+      <td ></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot >
+  </tfoot>
+</table>
+  </div>
 </div>

@@ -582,14 +582,25 @@ div.show_order {
   }
 }
 
-div#orders-summary {
-  overflow: auto;
+div#orders-summary-bydate {
+  display: flex;
+  flex-flow: row nowrap;
   width: 100%;
 }
+div#orders-summary-bydate-left {
+  width: -moz-fit-content;
+}
+div#orders-summary-bydate-center {
+  overflow: auto;
+}
+div#orders-summary-bydate-right {
+  width: -moz-fit-content;
+}
 
-table#orders-summary-bydate {
+table.orders-summary-bydate {
   border-collapse: separate;
   border-spacing: 2px;
+  empty-cells: show;
   .abstruct {
     cursor: default;
   }
@@ -624,15 +635,8 @@ table#orders-summary-bydate {
     background-color: tan;
     text-align: center;
   }
-  th.date {
-    position: relative;
-    span.next-date {
-      position: absolute;
-      right: 5%;
-    }
-    span.prev-date {
-      position: absolute;
-      left: 5%;
-    }
+  th.empty {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
