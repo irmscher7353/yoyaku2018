@@ -364,7 +364,7 @@
     if not $('#unlock').prop('checked')
       if not $('.current-panel').hasClass('message-panel')
         @select_panel 'message-panel'
-    $('.ui').attr('disabled', not $('#unlock').prop('checked') and $('#order_state').val() != '')
+    $('.ui').attr('disabled', not $('#unlock').prop('checked') and $('#order_state_symbol').val() != 'STATE_RESERVED')
 
 @orders.summary =
   hide_all_details: () ->

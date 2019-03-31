@@ -13,9 +13,16 @@ class Order < ApplicationRecord
   PAYMENT_YET  = '未'
   MEANS_PHONE = '電話'
   MEANS_STORE = '来店'
+  MEANS_LIST = [MEANS_PHONE, MEANS_STORE]
   STATE_CANCELLED = 'キャンセル'
   STATE_DELIVERED = '引渡し済み'
-  STATE_RESERVED  = ''
+  STATE_RESERVED  = '予約済'
+  STATE_LIST = [STATE_RESERVED, STATE_DELIVERED, STATE_CANCELLED]
+  STATE_SYMBOLS = {
+    STATE_CANCELLED => :STATE_CANCELLED,
+    STATE_DELIVERED => :STATE_DELIVERED,
+    STATE_RESERVED  => :STATE_RESERVED,
+  }
   LABEL_CANCEL = '予約取消'
   LABEL_REVERT = '予約復元'
 
@@ -74,6 +81,7 @@ class Order < ApplicationRecord
 
   def assign_new_number
     self.id = self.number = Order.new_number
+    self.state = STATE_RESERVED
   end
 
   def cancelled?
@@ -152,4 +160,9 @@ class Order < ApplicationRecord
   def total_price_delimited
     total_price.present? ? total_price.to_s(:delimited) : ''
   end
+
+  def state_symbol
+    STATE_SYMBOLS[state]
+  end
+
 end

@@ -36,11 +36,12 @@
           id: :order_due_datenum, include_blank: true %>
       </td>
       <td >
-        <%= select_tag :means, options_for_select(['電話', '来店'], '電話'),
+        <%= select_tag :means,
+          options_for_select(Order::MEANS_LIST, Order::MEANS_PHONE),
           id: :order_means, include_blank: true %>
       </td>
       <td >
-        <%= select_tag :state, options_for_select(['引渡し済み', 'キャンセル']),
+        <%= select_tag :state, options_for_select(Order::STATE_LIST),
           id: :order_state, include_blank: true %>
       </td>
       <td colspan=3 >
