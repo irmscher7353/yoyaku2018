@@ -604,6 +604,11 @@ table.orders-summary-bydate {
   .abstruct {
     cursor: default;
   }
+  th.abstruct {
+    &:hover {
+      background-color: wheat;
+    }
+  }
   .count-delivered {
     color: green;
   }
@@ -615,7 +620,11 @@ table.orders-summary-bydate {
   }
   .detail {
     cursor: default;
-    /* display: none; */
+  }
+  th.detail {
+    &:hover {
+      background-color: wheat;
+    }
   }
   tbody {
     tr.even {

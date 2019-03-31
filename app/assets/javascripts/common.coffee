@@ -1,6 +1,6 @@
 $(document).on 'turbolinks:load', ->
   # ブラウザの戻るボタンを無効化する．
-  history.pushState(null, null, null)
+  #history.pushState(null, null, null)
 
   # イベントハンドラの登録
   $('#order_number').on 'change', (event) =>
