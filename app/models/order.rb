@@ -29,6 +29,7 @@ class Order < ApplicationRecord
 
   def self.summary_bydate(menu_id)
     # 引渡し日付け別集計．
+    t0 = Time.now
     summary = {
       count: Hash.new{|h,k|
         h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0 } }
@@ -38,18 +39,34 @@ class Order < ApplicationRecord
     }
 
     dates = Hash.new{|h,k| h[k] = 0 }
+    key_of = {}
+    due_date_of = {}
+    pairs = []
     of(menu_id).alive.each do |order|
-      key = order.delivered? ? :delivered : :remained
-      due_date = order.due.to_date
-      dates[due_date] += 1
-      order.current_line_items.each do |line_item|
-        product_id = line_item.product_id
-        quantity = line_item.quantity
-        summary[:count][product_id][due_date][key] += quantity
-        summary[:count][product_id][due_date][:reserved] += quantity
-        summary[:count][product_id][:total][:reserved] += quantity
-      end
+      key_of[order.id] = order.delivered? ? :delivered : :remained
+      due_date_of[order.id] = order.due.to_date
+      dates[due_date_of[order.id]] += 1
+      pairs << [order.id, order.revision]
+#      order.current_line_items.each do |line_item|
+#        product_id = line_item.product_id
+#        quantity = line_item.quantity
+#        summary[:count][product_id][due_date][key] += quantity
+#        summary[:count][product_id][due_date][:reserved] += quantity
+#        summary[:count][product_id][:total][:reserved] += quantity
+#      end
+# => 8.1 sec.
     end
+    LineItem.of(pairs).each do |line_item|
+      order_id = line_item.order_id
+      key = key_of[order_id]
+      due_date = due_date_of[order_id]
+      product_id = line_item.product_id
+      quantity = line_item.quantity
+      summary[:count][product_id][due_date][key] += quantity
+      summary[:count][product_id][due_date][:reserved] += quantity
+      summary[:count][product_id][:total][:reserved] += quantity
+    end
+# => 1.6 sec.
 
     summary[:dates] = dates.keys.sort
     (summary[:products] = Product.ordered(menu_id: menu_id)).each do |product|
@@ -60,6 +77,8 @@ class Order < ApplicationRecord
         end
       end
     end
+
+    logger.info 'summary_bydate: %.1f sec.' % [Time.now - t0]
 
     return summary
   end

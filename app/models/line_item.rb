@@ -4,6 +4,11 @@ class LineItem < ApplicationRecord
 
   paginates_per 15
 
+  scope :of, -> (pairs) {
+    # pairs := [[order_id, revision], ...]
+    where('(order_id,revision) IN (%s)' % [pairs.map{|pair| '(%d,%d)' % pair }.join(',')])
+  }
+
   def self.build_from_hash(h)
     # ActionController::Parameters のハッシュから，LineItem の Array を生成
     # する．
