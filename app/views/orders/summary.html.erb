@@ -60,23 +60,21 @@
       <td class="<%= dt.datenum %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
       <td class="<%= dt.datenum %> detail sign" >=</td>
       <td class="<%= dt.datenum %> detail numeric count-remained" ><%= count[dt][:remained] %></td>
-      <td class="<%= dt.datenum %> abstruct numeric count-remained" >
-        <span class="<%= count[dt][:remained] <= 0 ? 'invisible zero' : '' %>" >
-        <%= count[dt][:remained] %></span>
-      </td>
-      <td class="<%= dt.datenum %> numeric" >
-        <span class="<%= count[dt][:total_remained] <= 0 ? 'hidden' : '' %>" >
-        <%= count[dt][:total_remained] %></span>
-      </td>
       <% else %>
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> detail" ></td>
       <td class="<%= dt.datenum %> detail" ></td>
-      <td class="<%= dt.datenum %> abstruct" ></td>
-      <td class="<%= dt.datenum %>" >&nbsp;</td>
       <% end %>
+      <td class="<%= dt.datenum %> abstruct numeric count-remained" >
+        <span class="<%= count[dt][:remained] <= 0 ? 'invisible' : '' %>" >
+        <%= count[dt][:remained] %></span>
+      </td>
+      <td class="<%= dt.datenum %> numeric" >
+        <span class="<%= count[dt][:total_remained] <= 0 ? 'invisible' : '' %>" >
+        <%= count[dt][:total_remained] %></span>
+      </td>
     <% end %>
     </tr>
   <% end %>

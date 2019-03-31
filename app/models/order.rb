@@ -47,14 +47,6 @@ class Order < ApplicationRecord
       due_date_of[order.id] = order.due.to_date
       dates[due_date_of[order.id]] += 1
       pairs << [order.id, order.revision]
-#      order.current_line_items.each do |line_item|
-#        product_id = line_item.product_id
-#        quantity = line_item.quantity
-#        summary[:count][product_id][due_date][key] += quantity
-#        summary[:count][product_id][due_date][:reserved] += quantity
-#        summary[:count][product_id][:total][:reserved] += quantity
-#      end
-# => 8.1 sec.
     end
     LineItem.of(pairs).each do |line_item|
       order_id = line_item.order_id
@@ -66,7 +58,6 @@ class Order < ApplicationRecord
       summary[:count][product_id][due_date][:reserved] += quantity
       summary[:count][product_id][:total][:reserved] += quantity
     end
-# => 1.6 sec.
 
     summary[:dates] = dates.keys.sort
     (summary[:products] = Product.ordered(menu_id: menu_id)).each do |product|
@@ -77,8 +68,6 @@ class Order < ApplicationRecord
         end
       end
     end
-
-    logger.info 'summary_bydate: %.1f sec.' % [Time.now - t0]
 
     return summary
   end
