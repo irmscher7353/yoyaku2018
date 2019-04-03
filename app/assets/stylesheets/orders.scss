@@ -26,17 +26,18 @@ div.order-lineitems {
   }
 }
 
+caption {
+  color: black;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+}
+
 table.order-form {
   :disabled {
     background-color: whitesmoke;
   }
 
-  caption {
-    color: black;
-    font-size: x-large;
-    font-weight: bold;
-    text-align: center;
-  }
   td.honorific {
     padding-right: 1.5rem;
   }
@@ -597,6 +598,9 @@ div#orders-summary-bydate-right {
   width: -moz-fit-content;
 }
 
+table#orders-summary-bydate-caption {
+  width: 100%;
+}
 table.orders-summary-bydate {
   border-collapse: separate;
   border-spacing: 2px;
@@ -617,6 +621,19 @@ table.orders-summary-bydate {
   }
   .count-reserved {
     color: blue;
+  }
+  th.date {
+    background-color: transparent;
+    padding: 0;
+    a {
+      width: 100%;
+      &:visited {
+        color: #28a745;
+      }
+      &:hover, &:active {
+        color: #fff;
+      }
+    }
   }
   .detail {
     cursor: default;

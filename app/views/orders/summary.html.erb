@@ -1,3 +1,6 @@
+<table id="orders-summary-bydate-caption" >
+  <caption >日付別集計</caption>
+</table>
 <div id="orders-summary-bydate" >
   <div id="orders-summary-bydate-left" >
 <table class="orders-summary-bydate" >
@@ -32,7 +35,8 @@
     <tr >
     <% @summary[:dates].each do |dt| %>
       <th colspan="7" class="<%= dt.datenum %> date" >
-        <%= dt.strftime('%m/%d') %>
+        <%= link_to dt.strftime('%m/%d'), summary_orders_path(due_datenum: dt.datenum),
+            class: 'btn btn-xs btn-outline-success' %>
       </th>
     <% end %>
     </tr>
