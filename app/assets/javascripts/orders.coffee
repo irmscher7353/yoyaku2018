@@ -518,7 +518,7 @@ $(document).on 'turbolinks:load', ->
   if $('table#orders-summary-bydate')
     orders.summary.hide_all_details()
 
-    $('th.abstruct.count-remained').on 'click', (event) =>
+    $('th.abstruct.count-undelivered').on 'click', (event) =>
       orders.summary.show_details(event.target)
 
     $('th.detail').on 'click', (event) =>

@@ -61,8 +61,8 @@
       <th class="<%= klass %> detail" <%= attrs %> >-</th>
       <th class="<%= klass %> detail count-delivered" <%= attrs %> >渡済</th>
       <th class="<%= klass %> detail" <%= attrs %> >=</th>
-      <th class="<%= klass %> detail count-remained" <%= attrs %> >未渡</th>
-      <th class="<%= klass %> abstruct count-remained" <%= attrs %> >未渡</th>
+      <th class="<%= klass %> detail count-undelivered" <%= attrs %> >未渡</th>
+      <th class="<%= klass %> abstruct count-undelivered" <%= attrs %> >未渡</th>
       <th class="<%= klass %>" >渡残</th>
      <% end %>
     </tr>
@@ -79,7 +79,7 @@
       <td class="<%= klass %> detail sign" >-</td>
       <td class="<%= klass %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
       <td class="<%= klass %> detail sign" >=</td>
-      <td class="<%= klass %> detail numeric count-remained" ><%= count[dt][:remained] %></td>
+      <td class="<%= klass %> detail numeric count-undelivered" ><%= count[dt][:undelivered] %></td>
       <% else %>
       <td class="<%= klass %> detail" ></td>
       <td class="<%= klass %> detail" ></td>
@@ -87,13 +87,13 @@
       <td class="<%= klass %> detail" ></td>
       <td class="<%= klass %> detail" ></td>
       <% end %>
-      <td class="<%= klass %> abstruct numeric count-remained" >
-        <span class="<%= count[dt][:remained] <= 0 ? 'invisible' : '' %>" >
-        <%= count[dt][:remained] %></span>
+      <td class="<%= klass %> abstruct numeric count-undelivered" >
+        <span class="<%= count[dt][:undelivered] <= 0 ? 'invisible' : '' %>" >
+        <%= count[dt][:undelivered] %></span>
       </td>
       <td class="<%= klass %> numeric" >
-        <span class="<%= count[dt][:total_remained] <= 0 ? 'invisible' : '' %>" >
-        <%= count[dt][:total_remained] %></span>
+        <span class="<%= count[dt][:total_undelivered] <= 0 ? 'invisible' : '' %>" >
+        <%= count[dt][:total_undelivered] %></span>
       </td>
     <% end %>
     </tr>
@@ -107,6 +107,7 @@
 <table class="orders-summary-bydate" >
   <thead >
     <tr >
+      <th rowspan=2" class="count-undelivered" >未渡合計</th>
       <th rowspan=2" >予約合計</th>
       <th rowspan=2" >限定残り</th>
       <th rowspan=2" >　限定　</th>
@@ -121,6 +122,7 @@
   <% @summary[:products].each do |product| %>
     <% count = @summary[:count][product.id] %>
     <tr class="<%= cycle('odd', 'even') %>" >
+      <td class="numeric count-undelivered" ><%= count[:total][:undelivered].to_s(:delimited) %></td>
       <td class="numeric" ><%= count[:total][:reserved].to_s(:delimited) %></td>
       <td class="numeric" ><%= product.remain.to_s(:delimited) %></td>
       <td class="numeric" ><%= product.limit.to_s(:delimited) %></td>

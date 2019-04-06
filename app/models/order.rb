@@ -67,7 +67,7 @@ class Order < ApplicationRecord
     due_date_of = {}
     pairs = []
     of(menu_id).on(due_datenum).alive.each do |order|
-      key_of[order.id] = order.delivered? ? :delivered : :remained
+      key_of[order.id] = order.delivered? ? :delivered : :undelivered
       due_date_of[order.id] =
       due_datenum.present? ? order.due_time : order.due_date
       dates[due_date_of[order.id]] += 1
@@ -89,8 +89,9 @@ class Order < ApplicationRecord
       if summary[:count].include?(product.id)
         sum = 0
         summary[:dates].each do |dt|
-          sum = summary[:count][product.id][dt][:total_remained] = (sum + summary[:count][product.id][dt][:remained])
+          sum = summary[:count][product.id][dt][:total_undelivered] = (sum + summary[:count][product.id][dt][:undelivered])
         end
+        summary[:count][product.id][:total][:undelivered] = sum
       end
     end
 

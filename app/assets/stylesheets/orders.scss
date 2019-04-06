@@ -626,11 +626,11 @@ table.orders-summary-bydate {
   .count-delivered {
     color: green;
   }
-  .count-remained {
-    color: red;
-  }
   .count-reserved {
     color: blue;
+  }
+  .count-undelivered {
+    color: red;
   }
   th.date {
     background-color: transparent;
