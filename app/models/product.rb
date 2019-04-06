@@ -16,6 +16,7 @@ class Product < ApplicationRecord
     only_integer: true, greater_than_or_euqal_to: -1,
   }
   validate :limited
+
   after_initialize do |product|
     product.menu ||= Menu.latest
     if product.title.present?
@@ -36,6 +37,10 @@ class Product < ApplicationRecord
     product.limit ||= -1
     product.remain ||= -1
   end
+
+  scope :ordered, -> (*args) {
+    where(*args).order("priority")
+  }
 
   def self.by_page(numrows, *args)
     result = Array.new
@@ -69,10 +74,6 @@ class Product < ApplicationRecord
     nil
   rescue ActiveRecord::RecordInvalid => e
     e
-  end
-
-  def self.ordered(*args)
-    where(*args).order("priority")
   end
 
   def self.to_h(*args)

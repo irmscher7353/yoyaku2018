@@ -7,6 +7,13 @@
 }
 /* */
 
+div.caption {
+  position: relative;
+  a {
+    position: absolute;
+  }
+}
+
 div.order-lineitems {
   position: relative;
   table.order-lineitems {
@@ -600,6 +607,9 @@ div#orders-summary-bydate-right {
 
 table#orders-summary-bydate-caption {
   width: 100%;
+  caption {
+    padding-top: 0.5rem;
+  }
 }
 table.orders-summary-bydate {
   border-collapse: separate;

@@ -1,6 +1,12 @@
-<table id="orders-summary-bydate-caption" >
-  <caption >日付別集計</caption>
-</table>
+<div class="caption" >
+<% if @summary[:type] == 'time' %>
+  <%= link_to '戻る', summary_orders_path,
+      class: 'btn btn-outline-secondary' %>
+<% end %>
+  <table id="orders-summary-bydate-caption" >
+    <caption ><%= @summary[:caption] %></caption>
+  </table>
+</div>
 <div id="orders-summary-bydate" >
   <div id="orders-summary-bydate-left" >
 <table class="orders-summary-bydate" >
@@ -34,21 +40,30 @@
   <thead >
     <tr >
     <% @summary[:dates].each do |dt| %>
-      <th colspan="7" class="<%= dt.datenum %> date" >
-        <%= link_to dt.strftime('%m/%d'), summary_orders_path(due_datenum: dt.datenum),
+      <!-- <%= dt.to_s %> -->
+      <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
+      <% url = summary_orders_path(dt.is_a?(Date) ? {due_date: dt} : {}) %>
+      <th colspan="7" class="<%= [@summary[:type], klass].join(' ') %>" >
+      <% if @summary[:type] == 'date' %>
+        <%= link_to dt.strftime(@summary[:label_format]), url,
             class: 'btn btn-xs btn-outline-success' %>
+      <% else %>
+        <%= dt.strftime(@summary[:label_format]) %>
+      <% end %>
       </th>
     <% end %>
     </tr>
     <tr >
      <% @summary[:dates].each do |dt| %>
-      <th class="<%= dt.datenum %> detail count-reserved" datenum="<%= dt.datenum %>" >予約</th>
-      <th class="<%= dt.datenum %> detail" datenum="<%= dt.datenum %>" >-</th>
-      <th class="<%= dt.datenum %> detail count-delivered" datenum="<%= dt.datenum %>" >渡済</th>
-      <th class="<%= dt.datenum %> detail" datenum="<%= dt.datenum %>" >=</th>
-      <th class="<%= dt.datenum %> detail count-remained" datenum="<%= dt.datenum %>" >未渡</th>
-      <th class="<%= dt.datenum %> abstruct count-remained" datenum="<%= dt.datenum %>" >未渡</th>
-      <th class="<%= dt.datenum %>" >渡残</th>
+      <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
+      <% attrs = '%snum=%s' % [@summary[:type], klass] %>
+      <th class="<%= klass %> detail count-reserved" <%= attrs %> >予約</th>
+      <th class="<%= klass %> detail" <%= attrs %> >-</th>
+      <th class="<%= klass %> detail count-delivered" <%= attrs %> >渡済</th>
+      <th class="<%= klass %> detail" <%= attrs %> >=</th>
+      <th class="<%= klass %> detail count-remained" <%= attrs %> >未渡</th>
+      <th class="<%= klass %> abstruct count-remained" <%= attrs %> >未渡</th>
+      <th class="<%= klass %>" >渡残</th>
      <% end %>
     </tr>
   </thead>
@@ -58,24 +73,25 @@
     <% count = @summary[:count][product.id] %>
     <tr class="<%= cycle('odd', 'even') %>" >
     <% @summary[:dates].each do |dt| %>
+      <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
       <% if count[dt].present? and 0 < count[dt][:reserved] %>
-      <td class="<%= dt.datenum %> detail numeric count-reserved" ><%= count[dt][:reserved] %></td>
-      <td class="<%= dt.datenum %> detail sign" >-</td>
-      <td class="<%= dt.datenum %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
-      <td class="<%= dt.datenum %> detail sign" >=</td>
-      <td class="<%= dt.datenum %> detail numeric count-remained" ><%= count[dt][:remained] %></td>
+      <td class="<%= klass %> detail numeric count-reserved" ><%= count[dt][:reserved] %></td>
+      <td class="<%= klass %> detail sign" >-</td>
+      <td class="<%= klass %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
+      <td class="<%= klass %> detail sign" >=</td>
+      <td class="<%= klass %> detail numeric count-remained" ><%= count[dt][:remained] %></td>
       <% else %>
-      <td class="<%= dt.datenum %> detail" ></td>
-      <td class="<%= dt.datenum %> detail" ></td>
-      <td class="<%= dt.datenum %> detail" ></td>
-      <td class="<%= dt.datenum %> detail" ></td>
-      <td class="<%= dt.datenum %> detail" ></td>
+      <td class="<%= klass %> detail" ></td>
+      <td class="<%= klass %> detail" ></td>
+      <td class="<%= klass %> detail" ></td>
+      <td class="<%= klass %> detail" ></td>
+      <td class="<%= klass %> detail" ></td>
       <% end %>
-      <td class="<%= dt.datenum %> abstruct numeric count-remained" >
+      <td class="<%= klass %> abstruct numeric count-remained" >
         <span class="<%= count[dt][:remained] <= 0 ? 'invisible' : '' %>" >
         <%= count[dt][:remained] %></span>
       </td>
-      <td class="<%= dt.datenum %> numeric" >
+      <td class="<%= klass %> numeric" >
         <span class="<%= count[dt][:total_remained] <= 0 ? 'invisible' : '' %>" >
         <%= count[dt][:total_remained] %></span>
       </td>

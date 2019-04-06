@@ -27,6 +27,9 @@ class Order < ApplicationRecord
   LABEL_REVERT = '予約復元'
 
   scope :of, -> (menu_id) { where(menu_id: menu_id) }
+  scope :on, -> (datenum) {
+    where(datenum.present? ? ['due_datenum = ?', datenum] : [])
+  }
   scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
  
   def self.new_number
@@ -34,24 +37,39 @@ class Order < ApplicationRecord
     new_number = [min_number, maximum(:number) || 0].max + 1
   end
 
-  def self.summary_bydate(menu_id)
+  def self.summary_bydate(menu_id, params)
     # 引渡し日付け別集計．
     t0 = Time.now
     summary = {
+      caption: '',
       count: Hash.new{|h,k|
         h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0 } }
       },
       dates: [],
+      label_format: '',
       products: [],
+      type: '',
     }
+    case true
+    when params[:due_date].present?
+      summary[:caption] = '時間別未渡数集計（%s）' % [params[:due_date]]
+      summary[:type] = 'time'
+      summary[:label_format] = '%H:%M'
+      due_datenum = Date.parse(params[:due_date]).datenum
+    else
+      summary[:caption] = '日付別未渡数集計'
+      summary[:type] = 'date'
+      summary[:label_format] = '%m/%d'
+    end
 
     dates = Hash.new{|h,k| h[k] = 0 }
     key_of = {}
     due_date_of = {}
     pairs = []
-    of(menu_id).alive.each do |order|
+    of(menu_id).on(due_datenum).alive.each do |order|
       key_of[order.id] = order.delivered? ? :delivered : :remained
-      due_date_of[order.id] = order.due.to_date
+      due_date_of[order.id] =
+      due_datenum.present? ? order.due_time : order.due_date
       dates[due_date_of[order.id]] += 1
       pairs << [order.id, order.revision]
     end
@@ -106,6 +124,14 @@ class Order < ApplicationRecord
       items << line_items.build(revision: revision)
     end
     items
+  end
+
+  def due_date
+    due.to_date
+  end
+
+  def due_time
+    due.to_time
   end
 
   def due_year

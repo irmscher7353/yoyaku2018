@@ -308,7 +308,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/summary
   def summary
-    @summary = Order.summary_bydate(session[:menu]['id'])
+    @summary = Order.summary_bydate(session[:menu]['id'], params)
 
     respond_to do |format|
       format.html { render :summary }
