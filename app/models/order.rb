@@ -53,8 +53,10 @@ class Order < ApplicationRecord
     case true
     when params[:due_date].present?
       summary[:caption] = '時間別未渡数集計（%s）' % [params[:due_date]]
+      summary[:caption2] = '時刻順残り予約一覧（%s）' % [params[:due_date]]
       summary[:type] = 'time'
       summary[:label_format] = '%H:%M'
+      summary[:line_items] = Hash.new{|h,k| h[k] = Array.new }
       due_datenum = Date.parse(params[:due_date]).datenum
     else
       summary[:caption] = '日付別未渡数集計'
@@ -67,11 +69,12 @@ class Order < ApplicationRecord
     due_date_of = {}
     pairs = []
     of(menu_id).on(due_datenum).alive.each do |order|
-      key_of[order.id] = order.delivered? ? :delivered : :undelivered
+      key_of[order.id] = key = order.delivered? ? :delivered : :undelivered
       due_date_of[order.id] =
       due_datenum.present? ? order.due_time : order.due_date
       dates[due_date_of[order.id]] += 1
       pairs << [order.id, order.revision]
+      summary[:count][:total][:orders][key] += 1
     end
     LineItem.of(pairs).each do |line_item|
       order_id = line_item.order_id
@@ -82,6 +85,9 @@ class Order < ApplicationRecord
       summary[:count][product_id][due_date][key] += quantity
       summary[:count][product_id][due_date][:reserved] += quantity
       summary[:count][product_id][:total][:reserved] += quantity
+      if due_datenum.present? and key == :undelivered
+        summary[:line_items][due_date] << line_item
+      end
     end
 
     summary[:dates] = dates.keys.sort
@@ -92,6 +98,17 @@ class Order < ApplicationRecord
           sum = summary[:count][product.id][dt][:total_undelivered] = (sum + summary[:count][product.id][dt][:undelivered])
         end
         summary[:count][product.id][:total][:undelivered] = sum
+      end
+    end
+
+    if summary[:type] == 'time'
+      if summary[:count][:total][:orders][:undelivered] <= 0
+        if summary[:count][:total][:orders][:delivered] <= 0
+          verb = 'ありません'
+        else
+          verb = 'すべて引渡し済みです'
+        end
+         summary[:footer] = '%s の予約は%s．' % [params[:due_date], verb]
       end
     end
 

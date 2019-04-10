@@ -393,6 +393,14 @@
       $('.'+timenum+'.abstruct').css('display', 'none')
       $('th.'+timenum+'.time').attr('colspan', 6)
 
+  hide_line_items: () ->
+    $('div.orders-summary-line_items-container').css('display', 'none')
+    $('div.orders-summary-bydate-container').css('opacity', 1.0)
+
+  show_line_items: () ->
+    $('div.orders-summary-bydate-container').css('opacity', 0.5)
+    $('div.orders-summary-line_items-container').css('display', '')
+
 $(document).on 'turbolinks:load', ->
   # orders/_form
   if $('table.order-form')
@@ -523,4 +531,15 @@ $(document).on 'turbolinks:load', ->
 
     $('th.detail').on 'click', (event) =>
       orders.summary.hide_details(event.target)
+
+    if 0 < $('#show-line_items').length
+      # 読み込み直後に非表示にする？
+      #orders.summary.hide_line_items()
+      orders.summary.show_line_items()
+
+    $('#show-line_items').on 'click', (event) =>
+      orders.summary.show_line_items()
+
+    $('#hide-line_items').on 'click', (event) =>
+      orders.summary.hide_line_items()
 

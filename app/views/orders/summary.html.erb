@@ -1,7 +1,13 @@
+<div class="orders-summary-container" >
+<div class="orders-summary-bydate-container" >
 <div class="caption" >
 <% if @summary[:type] == 'time' %>
+  <div class="buttons" >
   <%= link_to '戻る', summary_orders_path,
       class: 'btn btn-outline-secondary' %>
+  <%= link_to '時刻順残り予約一覧', '', remote: true, id: 'show-line_items',
+      class: 'btn btn-outline-success' %>
+  </div>
 <% end %>
   <table id="orders-summary-bydate-caption" >
     <caption ><%= @summary[:caption] %></caption>
@@ -134,4 +140,47 @@
   </tfoot>
 </table>
   </div>
+</div>
+</div>
+<% if @summary[:type] == 'time' %>
+<div class="orders-summary-line_items-container" >
+<div class="orders-summary-line_items" >
+<%= link_to '×', '', remote: true,  id: 'hide-line_items',
+    class: 'btn btn-xs btn-outline-secondary' %>
+<table class="orders-summary-bydate orders-summary-line_items" >
+  <caption ><%= @summary[:caption2] %></caption>
+  <thead >
+    <tr >
+      <th >名前</th>
+      <th >予約時刻</th>
+      <th >商品名</th>
+      <th >サイズ</th>
+      <th >数量</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% reset_cycle %>
+  <% @summary[:line_items].keys.each do |dt| %>
+    <% @summary[:line_items][dt].each do |line_item| %>
+    <tr class="<%= cycle('odd', 'even') %>" >
+      <td ><%= line_item.order.name %></td>
+      <td class="center" ><%= line_item.order.due.strftime('%H:%M') %></td>
+      <td ><%= line_item.product.title.name %></td>
+      <td class="center" ><%= line_item.product.size %></td>
+      <td class="numeric" ><%= line_item.quantity.to_s(:delimited) %></td>
+    </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot >
+<% if @summary[:footer].present? %>
+  <tr >
+    <td colspan="5" ><%= @summary[:footer] %></td>
+  </tr>
+<% end %>
+  </tfoot>
+</table>
+</div>
+</div>
+<% end %>
 </div>

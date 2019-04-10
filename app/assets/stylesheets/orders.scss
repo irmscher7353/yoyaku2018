@@ -9,7 +9,7 @@
 
 div.caption {
   position: relative;
-  a {
+  div {
     position: absolute;
   }
 }
@@ -599,10 +599,44 @@ div#orders-summary-bydate-left {
   width: -moz-fit-content;
 }
 div#orders-summary-bydate-center {
+  flex-grow: 1;
   overflow: auto;
 }
 div#orders-summary-bydate-right {
   width: -moz-fit-content;
+}
+div.orders-summary-container {
+  position: relative;
+}
+div.orders-summary-line_items {
+  background-color: white;
+  border: solid tan 0.25rem;
+  padding: 1.5rem;
+  position: relative;
+  #hide-line_items {
+    /* border: solid gray 1px; */
+    position: absolute;
+    right: 0.125rem;;
+    top: 0.125rem;
+  }
+}
+div.orders-summary-line_items-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 95%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+table.orders-summary-line_items {
+  caption {
+    white-space: nowrap;
+  }
+  min-width: 100%;
 }
 
 table#orders-summary-bydate-caption {
@@ -676,3 +710,4 @@ table.orders-summary-bydate {
     padding-right: 0;
   }
 }
+
