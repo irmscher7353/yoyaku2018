@@ -101,6 +101,16 @@ class Order < ApplicationRecord
       end
     end
 
+    if summary[:type] == 'date'
+      current = Time.zone.today
+    else
+      current = Time.zone.now
+      current -= (current.min % 30) * 60 + current.sec
+    end
+    i = summary[:dates].index{|dt| current <= dt} || -1
+    0 < i and i -= 1
+    summary[:previous] = summary[:dates][i]
+
     if summary[:type] == 'time'
       if summary[:count][:total][:orders][:undelivered] <= 0
         if summary[:count][:total][:orders][:delivered] <= 0

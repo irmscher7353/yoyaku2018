@@ -543,3 +543,7 @@ $(document).on 'turbolinks:load', ->
     $('#hide-line_items').on 'click', (event) =>
       orders.summary.hide_line_items()
 
+    if 0 < $('#previous').length
+      parent_id = '#orders-summary-bydate-center'
+      $(parent_id).animate({scrollLeft: $('#previous').offset().left - $(parent_id).offset().left})
+

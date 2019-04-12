@@ -47,9 +47,11 @@
     <tr >
     <% @summary[:dates].each do |dt| %>
       <!-- <%= dt.to_s %> -->
-      <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
+      <% classes = [@summary[:type]] %>
+      <% classes << (dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M')) %>
+      <% attrs = dt == @summary[:previous] ? 'id=previous' : '' %>
       <% url = summary_orders_path(dt.is_a?(Date) ? {due_date: dt} : {}) %>
-      <th colspan="7" class="<%= [@summary[:type], klass].join(' ') %>" >
+      <th colspan="7" class="<%= classes.join(' ') %>" <%= attrs %> >
       <% if @summary[:type] == 'date' %>
         <%= link_to dt.strftime(@summary[:label_format]), url,
             class: 'btn btn-xs btn-outline-success' %>
