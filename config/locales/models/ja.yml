@@ -1,7 +1,9 @@
 ---
 ja:
+  Back: 戻る
   Destroy: 削除
   Edit: 編集
+  New: 新規…
   Show: 表示
   Orders: 予約一覧
   New Order: 新規予約
@@ -35,14 +37,24 @@ ja:
         state: 状態
         note: 備考
   line_items:
-    index:
-      number: 予約番号
-      name: お名前
-      revision: 改訂番号
-      title: 商品名
-      size: サイズ
-      quantity: 数量
-      total_price: 小計
+    order_id: 予約番号
+    product_id: 商品番号
+    number: 予約番号
+    name: お名前
+    revision: 改訂番号
+    title: 商品名
+    size: サイズ
+    quantity: 数量
+    total_price: 小計
+  menus:
+    name: Menu
+  names:
+    value: 文字列
+    is_shamei: 会社名？
+    is_sitenmei: 支店名？
+    is_sei: 姓？
+    is_mei: 名？
+    is_title: 役職名？
   orders:
     form:
       Cancel: 予約取消
@@ -66,6 +78,25 @@ ja:
       Destroy: 削除
       Edit: 変更
       Show: 表示・印刷
+    show:
+      Edit: 予約修正
+  preferences:
+    name: 設定名
+    value: 値
+    updated_at: 更新日
+  products:
+    menu: Menu
+    priority: 表示順
+    title: 商品名
+    size: サイズ
+    price: 価格
+    limit: 限定
+    remain: 残り
+  titles:
+    name: 商品名
+    priority: 表示順
+    description: 説明
+    image_url: 画像URL
   views:
     pagination:
       first: 最初

@@ -15,28 +15,28 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :menu_id %>
+    <%= form.label t 'products.menu' %>
     <%= form.collection_select :menu_id, @menus, :id, :name, id: :product_menu_id %>
   </div>
 
   <div class="field">
-    <%= form.label :priority %>
+    <%= form.label t 'products.priority' %>
     <%= form.number_field :priority, id: :product_priority,
       min: 101, max: 999, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
-    <%= form.label :title_id %>
+    <%= form.label t 'products.title' %>
     <%= form.collection_select :title_id, @titles, :id, :name, id: :product_title_id %>
   </div>
 
   <div class="field">
-    <%= form.label :size %>
+    <%= form.label t 'products.size' %>
     <%= form.text_field :size, id: :product_size %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
+    <%= form.label t 'products.price' %>
     <%= form.text_field :price, id: :product_price,
       onChange: "products.updatePrice(this);",
       class: 'numeric no-spin-button' %>
@@ -44,13 +44,13 @@
 
   <div class="field">
     <%= form.hidden_field :limit, id: :old_limit, name: :old_limit %>
-    <%= form.label :limit %>
+    <%= form.label t 'products.limit' %>
     <%= form.number_field :limit, id: :product_limit,
       min: -1, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
-    <%= form.label :remain %>
+    <%= form.label t 'products.remain' %>
     <%= form.number_field :remain, id: :product_remain,
       min: -1, class: 'numeric no-spin-button', disabled: false %>
   </div>

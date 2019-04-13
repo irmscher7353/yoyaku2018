@@ -9,13 +9,13 @@
 <table class="product-index" >
   <thead>
     <tr>
-      <th>Menu</th>
-      <th>Priority</th>
-      <th>Title</th>
-      <th>Size</th>
-      <th>Price</th>
-      <th>Limit</th>
-      <th>Remain</th>
+      <th><%= t 'products.menu' %></th>
+      <th><%= t 'products.priority' %></th>
+      <th><%= t 'products.title' %></th>
+      <th><%= t 'products.size' %></th>
+      <th><%= t 'products.price' %></th>
+      <th><%= t 'products.limit' %></th>
+      <th><%= t 'products.remain' %></th>
       <th colspan="3"></th>
     </tr>
     <tr >
@@ -69,4 +69,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path, class: 'link-new' %>
+<%= link_to t('New'), new_product_path, class: 'link-new' %>

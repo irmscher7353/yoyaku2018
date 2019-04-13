@@ -6,7 +6,7 @@
 <table class="menu-index" >
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= t 'menus.name' %></th>
       <th colspan="3"></th>
     </tr>
     <tr >
@@ -42,4 +42,4 @@
 
 <br>
 
-<%= link_to 'New Menu', new_menu_path, class: 'link-new' %>
+<%= link_to t('New'), new_menu_path, class: 'link-new' %>

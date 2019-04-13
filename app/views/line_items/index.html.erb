@@ -5,13 +5,13 @@
 <table class="line_item-index" >
   <thead>
     <tr>
-      <th><%= t '.number' %></th>
-      <th><%= t '.name' %></th>
-      <th><%= t '.revision' %></th>
-      <th><%= t '.title' %></th>
-      <th><%= t '.size' %></th>
-      <th><%= t '.quantity' %></th>
-      <th><%= t '.total_price' %></th>
+      <th><%= t 'line_items.number' %></th>
+      <th><%= t 'line_items.name' %></th>
+      <th><%= t 'line_items.revision' %></th>
+      <th><%= t 'line_items.title' %></th>
+      <th><%= t 'line_items.size' %></th>
+      <th><%= t 'line_items.quantity' %></th>
+      <th><%= t 'line_items.total_price' %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -46,4 +46,4 @@
 
 <br>
 
-<%= link_to 'New Line Item', new_line_item_path, class: 'link-new' %>
+<%= link_to t('New'), new_line_item_path, class: 'link-new' %>

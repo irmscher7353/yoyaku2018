@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t 'preferences.name' %>:</strong>
   <%= @preference.name %>
 </p>
 
 <p>
-  <strong>Value:</strong>
+  <strong><%= t 'preferences.value' %>:</strong>
   <%= @preference.value %>
 </p>
 
-<%= link_to 'Edit', edit_preference_path(@preference), class: 'link-edit' %> |
-<%= link_to 'Back', preferences_path, class: 'link-back' %>
+<%= link_to t('Edit'), edit_preference_path(@preference), class: 'link-edit' %> |
+<%= link_to t('Back'), preferences_path, class: 'link-back' %>

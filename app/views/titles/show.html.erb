@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t 'titles.name' %>:</strong>
   <%= @title.name %>
 </p>
 
 <p>
-  <strong>Priority:</strong>
+  <strong><%= t 'titles.priority' %>:</strong>
   <%= @title.priority %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= t 'titles.description' %>:</strong>
   <%= @title.description %>
 </p>
 
 <p>
-  <strong>Image url:</strong>
+  <strong><%= t 'titles.image_url' %>:</strong>
   <%= @title.image_url %>
 </p>
 
-<%= link_to 'Edit', edit_title_path(@title), class: 'link-edit' %> |
-<%= link_to 'Back', titles_path, class: 'link-back' %>
+<%= link_to t('Edit'), edit_title_path(@title), class: 'link-edit' %> |
+<%= link_to t('Back'), titles_path, class: 'link-back' %>

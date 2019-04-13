@@ -1,39 +1,39 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Menu:</strong>
+  <strong><%= t 'products.menu' %>:</strong>
   <%= @product.menu.name %>
 </p>
 
 <p>
-  <strong>Priority:</strong>
+  <strong><%= t 'products.priority' %>:</strong>
   <%= @product.priority %>
 </p>
 
 <p>
-  <strong>Title:</strong>
+  <strong><%= t 'products.title' %>:</strong>
   <%= @product.title.name %>
 </p>
 
 <p>
-  <strong>Size:</strong>
+  <strong><%= t 'products.size' %>:</strong>
   <%= @product.size %>
 </p>
 
 <p>
-  <strong>Price:</strong>
+  <strong><%= t 'products.price' %>:</strong>
   <%= number_with_delimiter(@product.price) %>
 </p>
 
 <p>
-  <strong>Limit:</strong>
+  <strong><%= t 'products.limit' %>:</strong>
   <%= @product.limit %>
 </p>
 
 <p>
-  <strong>Remain:</strong>
+  <strong><%= t 'products.remain' %>:</strong>
   <%= @product.remain %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product), class: 'link-edit' %> |
-<%= link_to 'Back', products_path, class: 'link-back' %>
+<%= link_to t('Edit'), edit_product_path(@product), class: 'link-edit' %> |
+<%= link_to t('Back'), products_path, class: 'link-back' %>

@@ -11,10 +11,10 @@
 <table class="title-index" >
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Priority</th>
-<!--  <th>Description</th> -->
-<!--  <th>Image url</th> -->
+      <th><%= t 'titles.name' %></th>
+      <th><%= t 'titles.priority' %></th>
+<!--  <th><%= t 'titles.description' %></th> -->
+<!--  <th><%= t 'titles.image_url' %></th> -->
       <th colspan="3"></th>
     </tr>
     <tr >
@@ -41,4 +41,4 @@
 
 <br>
 
-<%= link_to 'New Title', new_title_path, class: 'link-new' %>
+<%= link_to t('New'), new_title_path, class: 'link-new' %>

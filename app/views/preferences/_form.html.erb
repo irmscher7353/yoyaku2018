@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label t 'preferences.name' %>
     <%= form.text_field :name, id: :preference_name, size: 42 %>
   </div>
 
   <div class="field">
-    <%= form.label :value %>
+    <%= form.label t 'preferences.value' %>
     <%= form.text_area :value, id: :preference_value, size: "40x10" %>
   </div>
 

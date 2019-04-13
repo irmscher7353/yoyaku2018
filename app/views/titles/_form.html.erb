@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label t 'titles.name' %>
     <%= form.text_field :name, id: :title_name, size: 42 %>
   </div>
 
   <div class="field">
-    <%= form.label :priority %>
+    <%= form.label t 'titles.priority' %>
     <%= form.number_field :priority, id: :title_priority %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
+    <%= form.label t 'titles.description' %>
     <%= form.text_area :description, id: :title_description, size: "40x10" %>
   </div>
 
   <div class="field">
-    <%= form.label :image_url %>
+    <%= form.label t 'titles.image_url' %>
     <%= form.text_field :image_url, id: :title_image_url, size: 42 %>
   </div>
 

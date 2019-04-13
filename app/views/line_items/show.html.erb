@@ -1,29 +1,34 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Order:</strong>
-  <%= @line_item.order %>
+  <strong><%= t 'line_items.number' %>:</strong>
+  <%= @line_item.order.number %>
 </p>
 
 <p>
-  <strong>Revision:</strong>
+  <strong><%= t 'line_items.revision' %>:</strong>
   <%= @line_item.revision %>
 </p>
 
 <p>
-  <strong>Product:</strong>
-  <%= @line_item.product %>
+  <strong><%= t 'line_items.title' %>:</strong>
+  <%= @line_item.product.title.name %>
 </p>
 
 <p>
-  <strong>Quantity:</strong>
+  <strong><%= t 'line_items.size' %>:</strong>
+  <%= @line_item.product.size %>
+</p>
+
+<p>
+  <strong><%= t 'line_items.quantity' %>:</strong>
   <%= @line_item.quantity %>
 </p>
 
 <p>
-  <strong>Total price:</strong>
+  <strong><%= t 'line_items.total_price' %>:</strong>
   <%= @line_item.total_price %>
 </p>
 
-<%= link_to 'Edit', edit_line_item_path(@line_item), class: 'link-edit' %> |
-<%= link_to 'Back', line_items_path, class: 'link-back' %>
+<%= link_to t('Edit'), edit_line_item_path(@line_item), class: 'link-edit' %> |
+<%= link_to t('Back'), line_items_path, class: 'link-back' %>

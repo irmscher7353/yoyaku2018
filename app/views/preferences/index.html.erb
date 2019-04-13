@@ -5,9 +5,9 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Value</th>
-      <th >更新日</th>
+      <th ><%= t 'preferences.name' %></th>
+      <th ><%= t 'preferences.value' %></th>
+      <th ><%= t 'preferences.updated_at' %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Preference', new_preference_path, class: 'link-new' %>
+<%= link_to t('New'), new_preference_path, class: 'link-new' %>
