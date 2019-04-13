@@ -3,10 +3,10 @@
 <div class="caption" >
 <% if @summary[:type] == 'time' %>
   <div class="buttons" >
-  <%= link_to '戻る', summary_orders_path,
+  <%= link_to Order::SUMMARY_BYDATE, summary_orders_path,
       class: 'btn btn-outline-secondary' %>
-  <%= link_to '時刻順残り予約一覧', '', remote: true, id: 'show-line_items',
-      class: 'btn btn-outline-success' %>
+  <%= link_to Order::SUMMARY_BYTIME_LINEITEMS, '', id: 'show-line_items',
+      class: 'btn btn-outline-success', remote: true %>
   </div>
 <% end %>
   <table id="orders-summary-bydate-caption" >

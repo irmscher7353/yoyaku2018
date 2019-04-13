@@ -25,6 +25,9 @@ class Order < ApplicationRecord
   }
   LABEL_CANCEL = '予約取消'
   LABEL_REVERT = '予約復元'
+  SUMMARY_BYDATE = '日付別集計'
+  SUMMARY_BYTIME = '時刻別集計'
+  SUMMARY_BYTIME_LINEITEMS = '残り予約一覧'
 
   scope :of, -> (menu_id) { where(menu_id: menu_id) }
   scope :on, -> (datenum) {
@@ -52,14 +55,14 @@ class Order < ApplicationRecord
     }
     case true
     when params[:due_date].present?
-      summary[:caption] = '時間別未渡数集計（%s）' % [params[:due_date]]
-      summary[:caption2] = '時刻順残り予約一覧（%s）' % [params[:due_date]]
+      summary[:caption] = '%s（%s）' % [SUMMARY_BYTIME, params[:due_date]]
+      summary[:caption2] = '%s（%s）' % [SUMMARY_BYTIME_LINEITEMS, params[:due_date]]
       summary[:type] = 'time'
       summary[:label_format] = '%H:%M'
       summary[:line_items] = Hash.new{|h,k| h[k] = Array.new }
       due_datenum = Date.parse(params[:due_date]).datenum
     else
-      summary[:caption] = '日付別未渡数集計'
+      summary[:caption] = SUMMARY_BYDATE
       summary[:type] = 'date'
       summary[:label_format] = '%m/%d'
     end
