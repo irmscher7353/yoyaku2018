@@ -30,9 +30,11 @@
                 class: 'link-show-inline' %></td>
         <td><%= link_to t('Edit'), edit_line_item_path(line_item),
                 class: 'link-edit-inline' %></td>
+        <% if Rails.env.development? %>
         <td><%= link_to t('Destroy'), line_item,
                 class: 'button-destroy-inline',
                 method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
