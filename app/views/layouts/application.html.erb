@@ -38,7 +38,10 @@
             </ul>
             <ul class="nav flex-column administrative-menu" >
               <li class="nav-item" >
-                <%= link_to t('Summary'), summary_orders_path, class: 'btn btn-nature' -%>
+                <% today = Time.zone.today %>
+                <%= link_to t('Summary'),
+                    (session[:menu].blank? or Order.of(session[:menu]['id']).on(today.datenum).count <= 0) ? summary_orders_path : summary_orders_path(due_date: today),
+                    class: 'btn btn-nature' -%>
               </li>
             </ul>
             <ul class="nav flex-column administrative-menu" >
