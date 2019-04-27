@@ -94,7 +94,9 @@
         <td class="tantou" rowspan="3" >&nbsp;</td>
       </tr>
       <tr >
-        <td class="logo_bw" rowspan="3" ><img id="logo_bw" src="/images/PremierLogo.png" alt="Premier Logo" /></td>
+        <td class="logo_bw" rowspan="3" >
+          <img id="logo_bw" src="<%= image_path 'PremierLogo.png' -%>" alt="Premier Logo" />
+        </td>
         <td class="store_name" ><span class="prefix" ><%= @preferences['前修飾'] -%></span>
           <%= @preferences['店名'] -%>
         </td>

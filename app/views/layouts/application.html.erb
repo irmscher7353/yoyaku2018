@@ -84,7 +84,7 @@
             </div>
             <div id="logo" >
             <% if Rails.env.production? %>
-              <img src="/images/PremierLogoColor.png" alt="Premier Logo Color" />
+              <img src="<%= image_path 'PremierLogoColor.png' %>" alt="Premier Logo Color" />
             <% else %>
               <br/>
               <%= Rails.env -%>
