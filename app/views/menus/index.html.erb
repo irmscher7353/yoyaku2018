@@ -10,11 +10,11 @@
       <th colspan="3"></th>
     </tr>
     <tr >
-      <td >
+      <td class="entry" >
         <%= form.text_field :name, id: :menu_name,
           onInput: "menus.updateSubmitButtonStatus(this, 'submit');" %>
       </td>
-      <td colspan="3" >
+      <td colspan="2" >
         <%= form.submit id: :submit, disabled: @menu.name.blank?,
             class: 'button-new-inline' %>
       </td>
@@ -42,4 +42,6 @@
 
 <br>
 
+<!--
 <%= link_to t('New'), new_menu_path, class: 'link-new' %>
+-->

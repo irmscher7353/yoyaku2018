@@ -44,13 +44,13 @@
       </td>
       <td ><!-- Limit -->
         <%= form.number_field :limit, id: :product_limit,
-          min: -1, class: 'numeric limit no-spin-button', size: 4 %>
+          min: -1, class: 'numeric limit no-spin-button' %>
       </td>
       <td ><!-- Remain -->
         <%= form.number_field :remain, id: :product_remain,
           min: -1, class: 'numeric remain no-spin-button', disabled: true %>
       </td>
-      <td colspan="3" >
+      <td colspan="2" >
         <%= form.submit id: :submit_update, format: :js, class: :hidden %>
         <%= form.submit id: :submit, class: 'button-submit-inline',
             disabled: (@product.title_id.blank? || @product.price.blank?) %>

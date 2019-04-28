@@ -4,8 +4,8 @@ class MenusController < ApplicationController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.all.order('updated_at DESC')
-    current = Date.today.strftime('%Y-%m')
+    @menus = Menu.ordered
+    current = Date.today.strftime('%Y-12')
     if Menu.where(name: current).blank?
       @menu = Menu.new(name: current)
     else
