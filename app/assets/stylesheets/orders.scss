@@ -88,6 +88,9 @@ table.order-index {
     }
   }
   tfoot {
+    .search-entry {
+      width: 100%;
+    }
     input#search {
       padding: 0.2em 2.0em 0.2em 2.0em;
     }

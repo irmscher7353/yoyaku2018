@@ -29,11 +29,12 @@ class Order < ApplicationRecord
   SUMMARY_BYTIME = '時刻別集計'
   SUMMARY_BYTIME_LINEITEMS = '残り予約一覧'
 
+  scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
   scope :of, -> (menu_id) { where(menu_id: menu_id) }
   scope :on, -> (datenum) {
     where(datenum.present? ? ['due_datenum = ?', datenum] : [])
   }
-  scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
+  scope :reserved, -> { where(state: STATE_RESERVED) }
  
   def self.new_number
     min_number = (Time.zone.now.year % 100) * MAX_NUMBER_PER_YEAR + 0

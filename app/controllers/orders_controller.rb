@@ -32,66 +32,68 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     session[:menu] ||= Menu.latest
-    params[:order] ||= session[:order] || { menu_id: session[:menu]['id'] }
-
-    @order = Order.new(order_params)
+    @order = Order.new(menu_id: session[:menu]['id'])
 
     @title = '予約の検索結果'
     @message = '予約番号を指定すると，他の検索条件は無視されます．'
     order_by = "updated_at DESC"
 
     # kaminari だと params[:commit] があるとは限らない．
-    if params[:number].present?
-      @orders = Order.where(number: params[:number])
+    if (p = params[:order]).present? and p[:number].present?
+      @orders = Order.where(number: p[:number])
+      @order.number = p[:number].to_i
     else
-      @orders = Order.where(menu_id: session[:menu]['id'])
-      n = 0
-      if params[:name].present?
-        @orders = @orders.where("name like ?", ["%#{params[:name]}%", ])
-        n += 1
-      end
-      if params[:phone].present?
-        @orders = @orders.where("phone like ?", ["%#{params[:phone]}%", ])
-        n += 1
-      end
-      if params[:due_datenum].present?
-        @orders = @orders.where("due_datenum = ?", [params[:due_datenum]])
-        n += 1
-      end
-      if params[:means].present?
-        @orders = @orders.where("means = ?", [params[:means], ])
-        n += 1
-      end
-      if params[:state].present?
-        @orders = @orders.where("state = ?", [params[:state], ])
-        n += 1
-      end
-      if n <= 0
-        # 検索条件が指定されていない場合
-        # 今日引渡しの予約があれば，予約日時の昇順で表示する．
-        @title = '最近更新された予約'
-        today = Time.zone.today
-        @orders = Order.where(menu_id: session[:menu]['id'])
-        orders = @orders.where(state: Order::STATE_RESERVED, due_datenum: today.datenum)
-        if 0 < orders.count
-          @title = '今日引渡しの予約'
-          @orders = orders
-          order_by = "due ASC"
+      @orders = Order.of(session[:menu]['id'])
+      if p.present?
+        if p[:name].present?
+          @orders = @orders.where("name like ?", ["%#{p[:name]}%", ])
+          @order.name = p[:name]
         end
-      else
+        if p[:phone].present?
+          @orders = @orders.where("phone like ?", ["%#{p[:phone]}%", ])
+          @order.phone = p[:phone]
+        end
+        if p[:due_datenum].present?
+          @orders = @orders.where("due_datenum = ?", [p[:due_datenum]])
+          @order.due_datenum = p[:due_datenum].to_i
+        end
+        if p[:means].present?
+          @orders = @orders.where("means = ?", [p[:means], ])
+          @order.means = p[:means]
+        end
+        if p[:state].present?
+          @orders = @orders.where("state = ?", [p[:state], ])
+          @order.state = p[:state]
+        end
         if 0 < @orders.count
-          @order = @orders.first
           @message = '%d 件の予約が見つかりました．' % [@orders.count]
         else
           @message = '指定された条件の予約は見つかりませんでした．'
         end
+      else
+        # 検索条件が指定されていない場合
+        # 今日引渡しの予約があれば，予約日時の昇順で表示する．
+        today = Time.zone.today
+        orders = @orders.reserved.on(today.datenum)
+        if 0 < orders.count
+          @title = '今日引渡しの予約'
+          @orders = orders
+          order_by = "due ASC"
+        else
+          @title = '最近更新された予約'
+        end
+        # 検索用「受付」の既定値を「電話」にする．
+        @order.means = Order::MEANS_PHONE
+        logger.info "Order::MEANS_PHONE"
       end
     end
+
     if session[:menu]['id'] != Menu.latest.id
       @title += ' (%s)' % [session[:menu]['name']]
     end
 
-    @due_dates = @orders.select(:due_datenum).distinct.order(:due_datenum).map{|order|
+    orders = (0 < @orders.count and (p.present? and p[:due_datenum].blank?)) ? @orders : Order.of(session[:menu]['id'])
+    @due_dates = orders.select(:due_datenum).distinct.order(:due_datenum).map{|order|
       order.due_datenum.to_s.match(/^(\d{4})(\d{2})(\d{2})$/)
       year, month, day = [$1, $2, $3]
       [year.to_i == Time.zone.today.year ? '%s/%s' % [month, day] : '%s/%s/%s' % [year, month, day], order.due_datenum]
@@ -100,7 +102,7 @@ class OrdersController < ApplicationController
     @count = @orders.count
     @orders = @orders.order(order_by).page(params[:page])
 
-    session_order @order
+    #session_order @order
   end
 
   # GET /orders/1
