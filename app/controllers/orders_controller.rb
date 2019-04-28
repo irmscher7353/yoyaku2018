@@ -111,8 +111,8 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    session[:menu] ||= Menu.latest
-    @order = Order.new menu_id: session[:menu]['id']
+    session[:menu] = Menu.latest
+    @order = Order.new(menu_id: session[:menu]['id'], state: Order::STATE_RESERVED)
     @line_items = []
     @message = ''
     @area_codes = Preference.get_area_codes
@@ -198,13 +198,22 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+ 
+    command = case
+    when params[:cancel].present? then :cancel
+    when params[:deliver].present? then :deliver
+    when params[:revert].present? then :revert
+    else :commit
+    end
+    #p 'command = "%s"' % [command]
+
     line_items_attributes = normalize_line_items_attributes
-    if params[:submit].present? or params[:revert].present?
+    if [:commit, :revert].include?(command)
       if @order.line_items_modified?(line_items_attributes)
         params[:order][:revision] = Time.zone.now.to_i
       end
     else
-      # :submit と :revert 以外（:cancel と :deliver）の場合は，
+      # :commit と :revert 以外（:cancel と :deliver）の場合は，
       # 入力されている line_items は無視する．
       params[:order][:line_items_attributes].keys.each do |index|
         params[:order][:line_items_attributes].delete(index)
@@ -215,14 +224,6 @@ class OrdersController < ApplicationController
 
     # 引き当て準備
     current_line_items = @order.current_line_items
- 
-    command = case
-    when params[:cancel].present? then :cancel
-    when params[:deliver].present? then :deliver
-    when params[:revert].present? then :revert
-    else :submit
-    end
-    #p 'command = "%s"' % [command]
 
     d = case command
     when :cancel then deltas({}, current_line_items)
