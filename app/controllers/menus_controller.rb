@@ -34,6 +34,7 @@ class MenusController < ApplicationController
 
     respond_to do |format|
       if @menu.save
+        session[:menu] = @menu
         format.html { redirect_to menus_url, notice: 'Menu was successfully created.' }
         format.json { render :show, status: :created, location: @menu }
       else
