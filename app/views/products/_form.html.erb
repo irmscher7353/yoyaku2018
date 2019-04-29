@@ -43,13 +43,14 @@
   </div>
 
   <div class="field">
-    <%= form.hidden_field :limit, id: :old_limit, name: :old_limit %>
+    <%= form.hidden_field :limit, id: :old_limit %>
     <%= form.label t 'products.limit' %>
     <%= form.number_field :limit, id: :product_limit,
       min: -1, class: 'numeric no-spin-button' %>
   </div>
 
   <div class="field">
+    <%= form.hidden_field :remain, id: :old_remain %>
     <%= form.label t 'products.remain' %>
     <%= form.number_field :remain, id: :product_remain,
       min: -1, class: 'numeric no-spin-button', disabled: false %>
