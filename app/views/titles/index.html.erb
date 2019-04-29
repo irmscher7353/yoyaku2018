@@ -23,9 +23,8 @@
             onInput: "titles.updateLines(this, 'submit');" %>
       </td>
       <td class="entry" >
-        <%= form.number_field :priority, id: :title_priority,
-            min: 101, max: 999, step: 1,
-            class: 'numeric no-spin-button priority' %>
+        <%= form.select :priority, options_for_select(Title::Priorities),
+            id: :title_priority %>
       </td>
       <td colspan="2" >
         <%= form.submit id: :submit, class: 'button-submit-inline',
