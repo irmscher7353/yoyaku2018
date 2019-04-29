@@ -13,17 +13,22 @@ class ProductsController < ApplicationController
       end
     end
     params[:product] ||= session[:product] || { menu_id: session[:menu]['id'] }
+    params[:product].delete :size
+    params[:product].delete :price
 
     @menus = Menu.ordered
     @titles = Title.order(:name)
+    @products = Product.ordered(menu_id: params[:product][:menu_id])
 
     @product = Product.new(product_params)
-    @p_min, @p_max = Product.priority_range(@product.priority)
-
-    @products = Product.ordered(menu_id: @product.menu_id)
     if @product.title_id.present?
-      @products = @products.where(title_id: @product.title_id)
+      title_priority = Title.find(@product.title_id).priority
+      @products = @products.joins(:title).where(['titles.priority = ?', title_priority ])
+      if 0 < @products.count
+        @product.priority = @products.maximum(:priority) + 1
+      end
     end
+    @p_min, @p_max = Product.priority_range(@product.priority)
 
     product_session @product
     #logger.debug 'final: ' + session[:product].to_s
