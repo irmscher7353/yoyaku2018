@@ -64,6 +64,9 @@ class Order < ApplicationRecord
       due_datenum = Date.parse(params[:due_date]).datenum
     else
       summary[:caption] = SUMMARY_BYDATE
+      if menu_id != Menu.latest.id
+        summary[:caption] += '（%s）' % Menu.find(menu_id).name
+      end
       summary[:type] = 'date'
       summary[:label_format] = '%m/%d'
     end
