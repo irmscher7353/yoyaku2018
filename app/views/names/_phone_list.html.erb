@@ -1,0 +1,18 @@
+<table >
+  <colgroup span="1" class="phone" ></colgroup>
+  <colgroup span="1" class="name" ></colgroup>
+  <thead >
+    <tr >
+      <th ><%= t ('orders.index.phone') %></th>
+      <th ><%= t ('orders.index.name') %></th>
+    </tr>
+  </thead>
+  <tbody >
+<% @orders.each do |order| %>
+    <tr >
+      <td ><%= order.phone %></td>
+      <td ><%= order.name %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

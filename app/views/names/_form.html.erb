@@ -11,37 +11,44 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label t 'names.value' %>
-    <%= form.text_field :value, id: :name_value %>
-  </div>
-
-  <div class="field">
-    <%= form.label t 'names.is_shamei' %>
-    <%= form.check_box :is_shamei, id: :name_is_shamei %>
-  </div>
-
-  <div class="field">
-    <%= form.label t 'names.is_sitenmei' %>
-    <%= form.check_box :is_sitenmei, id: :name_is_sitenmei %>
-  </div>
-
-  <div class="field">
-    <%= form.label t 'names.is_sei' %>
-    <%= form.check_box :is_sei, id: :name_is_sei %>
-  </div>
-
-  <div class="field">
-    <%= form.label t 'names.is_mei' %>
-    <%= form.check_box :is_mei, id: :name_is_mei %>
-  </div>
-
-  <div class="field">
-    <%= form.label t 'names.is_title' %>
-    <%= form.check_box :is_title, id: :name_is_title %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit class: 'button-submit' %>
-  </div>
+<table id="names-index" >
+  <thead >
+    <tr >
+      <th ><%= form.label t 'names.value' %></th>
+      <th class="center checkbox" ><%= form.label t 'names.is_shamei' %></th>
+      <th class="center checkbox" ><%= form.label t 'names.is_sitenmei' %></th>
+      <th class="center checkbox" ><%= form.label t 'names.is_sei' %></th>
+      <th class="center checkbox" ><%= form.label t 'names.is_mei' %></th>
+      <th class="center checkbox" ><%= form.label t 'names.is_title' %></th>
+      <th ></th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr >
+      <td ><%= form.text_field :value, id: :name_value %></td>
+      <td class="center" ><%= form.check_box :is_shamei, id: :name_is_shamei %></td>
+      <td class="center" ><%= form.check_box :is_sitenmei, id: :name_is_sitenmei %></td>
+      <td class="center" ><%= form.check_box :is_sei, id: :name_is_sei %></td>
+      <td class="center" ><%= form.check_box :is_mei, id: :name_is_mei %></td>
+      <td class="center" ><%= form.check_box :is_title, id: :name_is_title %></td>
+      <td ><%= form.submit class: 'button-submit' %></td>
+    </tr>
+  </tbody>
+</table>
 <% end %>
+
+<table >
+  <thead >
+    <tr >
+      <th ><%= t ('orders.index.name') %></th>
+    </tr>
+  </thead>
+  <tbody >
+<% @orders.each do |order| %>
+    <tr >
+      <td ><%= order.name %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

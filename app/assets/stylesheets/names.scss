@@ -5,4 +5,45 @@ table#names-index {
   th.checkbox {
     width: 4rem;
   }
+  td.current-name {
+    background-color: wheat;
+  }
+}
+div#list-container {
+  margin-left: 2rem;
+  div#name-list {
+    border: solid 1px gray;
+    display: none;
+    margin-bottom: 1rem;
+    max-height: 45vh;
+    overflow-y: auto;
+    table {
+      table-layout: fixed;
+      colgroup.name {
+        width: 70%;
+      }
+      colgroup.phone {
+        width: 8rem;
+      }
+      tr.current-phone {
+        background-color: wheat;
+      }
+    }
+  }
+  div#phone-list {
+    border: solid 1px gray;
+    display: none;
+    margin-bottom: 1rem;
+    max-height: 45vh;
+    overflow-y: auto;
+    table {
+      table-layout: fixed;
+      colgroup.name {
+        width: 70%;
+      }
+      colgroup.phone {
+        width: 8rem;
+      }
+    }
+  }
 }

@@ -30,6 +30,12 @@ class Order < ApplicationRecord
   SUMMARY_BYTIME_LINEITEMS = '残り予約一覧'
 
   scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
+  scope :has_name, -> (name) {
+    where(["name LIKE '%s %s' OR name LIKE '%s %s %s' OR name LIKE '%s %s'" % [name, '%%', '%%', name, '%%', '%%', name, ]])
+  }
+  scope :has_phone, -> (phone) {
+    where(phone: phone)
+  }
   scope :of, -> (menu_id) { where(menu_id: menu_id) }
   scope :on, -> (datenum) {
     where(datenum.present? ? ['due_datenum = ?', datenum] : [])

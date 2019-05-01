@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   # root to: 'orders#index' だと url が変わらない．
   get '/' => redirect('orders')
-  resources :names
+  resources :names do
+    collection do
+      get :update_name_list
+      get :update_phone_list
+    end
+  end
   resources :line_items
   resources :orders do
     collection do

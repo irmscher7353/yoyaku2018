@@ -1,0 +1,6 @@
+$('div#name-list').html("<%= escape_javascript(render 'name_list' ) %>").css('display', 'block')
+$('div#phone-list').css('display','none')
+$('a.phone').click(function(){
+  $('.current-phone').removeClass('current-phone')
+  $(this).parent().parent().addClass('current-phone')
+});

@@ -19,6 +19,7 @@ class NamesController < ApplicationController
 
   # GET /names/1/edit
   def edit
+    @orders = Order.has_name(@name.value).select(:name).distinct
   end
 
   # POST /names
@@ -59,6 +60,14 @@ class NamesController < ApplicationController
       format.html { redirect_to names_url, notice: 'Name was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def update_name_list
+    @orders = Order.has_name(params[:name]).select(:name, :phone).distinct.order(:name)
+  end
+
+  def update_phone_list
+    @orders = Order.has_phone(params[:phone]).select(:name, :phone).distinct.order(:name)
   end
 
   private

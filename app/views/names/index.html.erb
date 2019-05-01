@@ -2,6 +2,7 @@
 
 <h1>Names</h1>
 
+<div class="d-flex flex-row" >
 <table id="names-index" >
   <thead>
     <tr>
@@ -18,7 +19,7 @@
   <tbody>
     <% @names.each do |name| %>
       <tr>
-        <td><%= name.value %></td>
+        <td><%= link_to name.value, update_name_list_names_path(name: name.value), remote: true, class: 'name' %></td>
         <td class="center" ><%= check_box_tag :is_shamei, true, name.is_shamei %></td>
         <td class="center" ><%= check_box_tag :is_sitenmei, true, name.is_sitenmei %></td>
         <td class="center" ><%= check_box_tag :is_sei, true, name.is_sei %></td>
@@ -35,6 +36,13 @@
     <% end %>
   </tbody>
 </table>
+<div id="list-container" class="flex-fill" >
+  <div id="name-list" >
+  </div>
+  <div id="phone-list" >
+  </div>
+</div>
+</div>
 
 <div id="pager" >
 <%= paginate @names %>
