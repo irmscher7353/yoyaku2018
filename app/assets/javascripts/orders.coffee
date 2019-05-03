@@ -430,10 +430,13 @@ $(document).on 'turbolinks:load', ->
 
     # 各種イベントハンドラの登録．
 
-    $('#order_name').on 'blur', (event) =>
-      #$('.kana-panel').removeClass('current-panel').addClass('hidden')
-      #$('.base-panel').removeClass('hidden')
-      #$('.message-panel').addClass('current-panel').removeClass('hidden')
+    $('#order_name').on 'change', (event) =>
+      # ひらがなをカタカナに変換する．
+      s = $('#order_name').val().replace /[\u3041-\u3096]/g,(m) ->
+        String.fromCharCode(m.charCodeAt(0) + 0x60)
+      # 全角のダッシュ？とハイフンを長音記号に揃える．
+      s = s.replace /[−‐]/g, 'ー'
+      $('#order_name').val(s)
 
     $('#order_phone').on 'keyup', (event) =>
       v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
