@@ -1,0 +1,49 @@
+        <td><%= link_to name.value, update_name_list_names_path(name: name.value), remote: true, class: 'name' %></td>
+        <td class="center" >
+          <%= check_box_tag 'old_is_shamei-%d' % [name.id], true, name.is_shamei,
+              class: 'hidden' %>
+          <%= check_box_tag 'is_shamei-%d' % [name.id], true, name.is_shamei,
+              class: 'checkbox', name_id: name.id %>
+        </td>
+        <td class="center" >
+          <%= check_box_tag 'old_is_sitenmei-%d' % [name.id], true, name.is_sitenmei,
+              class: 'hidden' %>
+          <%= check_box_tag 'is_sitenmei-%d' % [name.id], true, name.is_sitenmei,
+              class: 'checkbox', name_id: name.id %>
+        </td>
+        <td class="center" >
+          <%= check_box_tag 'old_is_sei-%d' % [name.id], true, name.is_sei,
+              class: 'hidden' %>
+          <%= check_box_tag 'is_sei-%d' % [name.id], true, name.is_sei,
+              class: 'checkbox', name_id: name.id %>
+        </td>
+        <td class="center" >
+          <%= check_box_tag 'old_is_mei-%d' % [name.id], true, name.is_mei,
+              class: 'hidden' %>
+          <%= check_box_tag 'is_mei-%d' % [name.id], true, name.is_mei,
+              class: 'checkbox', name_id: name.id %>
+        </td>
+        <td class="center" >
+          <%= check_box_tag 'old_is_title-%d' % [name.id], true, name.is_title,
+              class: 'hidden' %>
+          <%= check_box_tag 'is_title-%d' % [name.id], true, name.is_title,
+              class: 'checkbox', name_id: name.id %>
+        </td>
+        <td>
+        <%= form_with(model: name, url: inline_update_name_path(name)) do |form| %>
+          <%= form.check_box :is_shamei, id: 'new_is_shamei-%d' % [name.id], class: 'hidden' %>
+          <%= form.check_box :is_sitenmei, id: 'new_is_sitenmei-%d' % [name.id], class: 'hidden' %>
+          <%= form.check_box :is_sei, id: 'new_is_sei-%d' % [name.id], class: 'hidden' %>
+          <%= form.check_box :is_mei, id: 'new_is_mei-%d' % [name.id], class: 'hidden' %>
+          <%= form.check_box :is_title, id: 'new_is_title-%d' % [name.id], class: 'hidden' %>
+          <%= form.submit t('Update'), name: 'inline-update', disabled: true,
+              id: 'inline-update-%d' % [name.id], class: 'link-update-inline' %>
+        <% end %>
+        </td>
+        <td><%= link_to t('Show'), name,
+                class: 'link-show-inline' %></td>
+        <td><%= link_to t('Edit'), edit_name_path(name),
+                class: 'link-edit-inline' %></td>
+        <td><%= link_to t('Destroy'), name,
+                class: 'button-destroy-inline',
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>

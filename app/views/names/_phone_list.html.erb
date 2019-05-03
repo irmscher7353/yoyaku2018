@@ -13,6 +13,10 @@
       <td ><%= order.phone %></td>
       <td ><%= order.name %></td>
     </tr>
+    <tr >
+      <td ></td>
+      <td ><%= order.name.each_codepoint.map{|c| '%X' % [c] } %></td>
+    </tr>
 <% end %>
   </tbody>
 </table>

@@ -12,26 +12,14 @@
       <th class="center checkbox" ><%= t 'names.is_sei' %></th>
       <th class="center checkbox" ><%= t 'names.is_mei' %></th>
       <th class="center checkbox" ><%= t 'names.is_title' %></th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @names.each do |name| %>
-      <tr>
-        <td><%= link_to name.value, update_name_list_names_path(name: name.value), remote: true, class: 'name' %></td>
-        <td class="center" ><%= check_box_tag :is_shamei, true, name.is_shamei %></td>
-        <td class="center" ><%= check_box_tag :is_sitenmei, true, name.is_sitenmei %></td>
-        <td class="center" ><%= check_box_tag :is_sei, true, name.is_sei %></td>
-        <td class="center" ><%= check_box_tag :is_mei, true, name.is_mei %></td>
-        <td class="center" ><%= check_box_tag :is_title, true, name.is_title %></td>
-        <td><%= link_to t('Show'), name,
-                class: 'link-show-inline' %></td>
-        <td><%= link_to t('Edit'), edit_name_path(name),
-                class: 'link-edit-inline' %></td>
-        <td><%= link_to t('Destroy'), name,
-                class: 'button-destroy-inline',
-                method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id="name-<%= name.id %>" >
+<%= render 'name_line', name: name %>
       </tr>
     <% end %>
   </tbody>

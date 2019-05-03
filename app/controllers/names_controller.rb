@@ -1,5 +1,5 @@
 class NamesController < ApplicationController
-  before_action :set_name, only: [:show, :edit, :update, :destroy]
+  before_action :set_name, only: [:show, :edit, :inline_update, :update, :destroy]
 
   # GET /names
   # GET /names.json
@@ -60,6 +60,10 @@ class NamesController < ApplicationController
       format.html { redirect_to names_url, notice: 'Name was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def inline_update
+    @name.update(name_params)
   end
 
   def update_name_list

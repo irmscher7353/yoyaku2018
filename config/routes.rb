@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get :update_name_list
       get :update_phone_list
     end
+    member do
+      patch :inline_update
+    end
   end
   resources :line_items
   resources :orders do

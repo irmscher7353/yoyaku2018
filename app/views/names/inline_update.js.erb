@@ -1,0 +1,6 @@
+$('tr#name-<%= @name.id %>').fadeOut(500);
+$('tr#name-<%= @name.id %>').html("<%= escape_javascript(render 'name_line', name: @name) %>");
+$('tr#name-<%= @name.id %>').fadeIn(500);
+$('input.checkbox').click(function(){
+  names.toggle_checkbox($(this));
+});

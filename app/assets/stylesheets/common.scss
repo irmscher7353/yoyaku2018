@@ -194,6 +194,17 @@ table {
   @extend .btn-xs;
 }
 
+.link-update {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-primary;
+}
+
+.link-update-inline {
+  @extend .link-update;
+  @extend .btn-xs;
+}
+
 .nav-item {
    width: $nav-item-width;
 }
