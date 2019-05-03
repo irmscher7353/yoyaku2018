@@ -1,0 +1,11 @@
+<h1 >Invalid names</h1>
+<dl >
+  <dt >
+    <%= @caption[:invalid] %>
+  </dt>
+  <dd >
+<% @names[:invalid].each do |name| %>
+    <span ><%= name.value %></span><br/>
+<% end %>
+  </dd>
+</dl>

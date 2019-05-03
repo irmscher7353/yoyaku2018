@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/' => redirect('orders')
   resources :names do
     collection do
+      get :stats
       get :update_name_list
       get :update_phone_list
     end

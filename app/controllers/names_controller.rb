@@ -66,6 +66,17 @@ class NamesController < ApplicationController
     @name.update(name_params)
   end
 
+  def stats
+    @caption = {}
+    @caption[:invalid] = 'カタカナとスペース以外を含む名前．'
+    @names = {:invalid => []}
+    Name.all.each do |name|
+      if not name.value.match(/^[ア-ンァ-ォ　（）ー ]+$/)
+        @names[:invalid] << name
+      end
+    end
+  end
+
   def update_name_list
     @orders = Order.has_name(params[:name]).select(:name, :phone).distinct.order(:name)
   end
