@@ -395,6 +395,26 @@ div.show_order {
     transform-origin: left top;
     transform: scale(1.5, 0.4);
   }
+  span.show_order_cancelled {
+    border: solid 2mm tomato;
+    border-radius: 4mm;
+    color: tomato;
+    opacity: 0.7;
+    font-family: Impact;
+    font-size: 15mm;
+    position: absolute;
+    margin: auto;
+    padding: 5mm;
+    top: 45%;
+    left: 50%;
+    transform-origin: center center;
+    transform: translateX(-50%) translateY(-50%) rotate(-15deg);
+  }
+  div.show_order_line_items_container {
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+  }
   table.show_order_header {
     table-layout: fixed;
     margin-bottom: 5.0mm;
