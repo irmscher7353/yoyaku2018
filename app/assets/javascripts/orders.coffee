@@ -127,6 +127,7 @@
         $('.base-panel').addClass('hidden')
       else
         $('.base-panel').removeClass('hidden')
+        $('.names-panel').addClass('hidden')
       $('.current-panel').removeClass('current-panel').addClass('hidden')
       $('.'+panel).addClass('current-panel').removeClass('hidden')
 
@@ -430,6 +431,10 @@ $(document).on 'turbolinks:load', ->
 
     # 各種イベントハンドラの登録．
 
+    $('#order_name').on 'focus', (event) =>
+      #$(event.target).removeAttr('readonly')
+      orders.select_kana(event.target)
+
     $('#order_name').on 'change', (event) =>
       # ひらがなをカタカナに変換する．
       s = $('#order_name').val().replace /[\u3041-\u3096]/g,(m) ->
@@ -437,6 +442,9 @@ $(document).on 'turbolinks:load', ->
       # 全角のダッシュ？とハイフンを長音記号に揃える．
       s = s.replace /[−‐]/g, 'ー'
       $('#order_name').val(s)
+
+    $('#order_phone').on 'focus', (event) =>
+      orders.select_phone(event.target)
 
     $('#order_phone').on 'keyup', (event) =>
       v = $(event.target).val().replace(/[^0-9\-]/g, '').replace(/[\-]+$/, '-')
@@ -451,6 +459,10 @@ $(document).on 'turbolinks:load', ->
     $('#order_note').on 'focus', (event) =>
       if $('.base-panel').hasClass('hidden')
         orders.select_panel 'message-panel'
+
+    $('input.due').on 'focus', (event) =>
+      orders.select_text(event.target)
+      orders.select_datetime(event.target)
 
     $('.line_item').each (index, tr) ->
       if 0 <= (product_remain = Number($(tr).find('.product_remain').val()))

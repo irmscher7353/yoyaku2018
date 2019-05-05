@@ -104,8 +104,8 @@
     <%= form.label :name %>
     </th>
     <td class="field">
-    <%= form.text_field :name, id: :order_name, size: 32, class: 'mandatory ui',
-        autocomplete: 'off', onFocus: "orders.select_kana(this);" %>
+    <%= form.text_field :name, id: :order_name, size: 32,
+        class: 'mandatory ui', autocomplete: 'off' %>
     </td>
     <td class="honorific" >
     様
@@ -115,8 +115,7 @@
     </th>
     <td class="field order_phone">
     <%= form.text_field :phone, id: :order_phone, size: 16, type: :tel,
-        class: 'mandatory ui',
-        autocomplete: 'off', onFocus: "orders.select_phone(this);" %>
+        class: 'mandatory ui', autocomplete: 'off' %>
     </td>
   </tr>
   <tr >
@@ -124,8 +123,8 @@
     <%= form.label :address %>
     </th>
     <td class="field" colspan="<%= colspan %>" >
-    <%= form.text_field :address, id: :order_address, class: 'optional ui',
-        autocomplete: 'off' %>
+    <%= form.text_field :address, id: :order_address,
+        class: 'optional ui', autocomplete: 'off' %>
     </td>
   </tr>
   <tr >
@@ -137,27 +136,17 @@
          効かなくなり，css の width で指定する必要が出て来る． -->
     <% nd = 4 %>
     <%= form.text_field :due_year, id: :due_year, type: :number, size: nd,
-        class: 'mandatory due no-spin-button center hidden',
-        onClick: "orders.select_text(this);",
-        onFocus: "orders.select_datetime(this);" %><!-- 年 -->
+        class: 'mandatory due no-spin-button center hidden' %><!-- 年 -->
     <%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
-        class: 'ui mandatory due no-spin-button center',
-        onClick: "orders.select_text(this);",
-        onFocus: "orders.select_datetime(this);" %> 月
+        class: 'ui mandatory due no-spin-button center' %> 月
     <%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
-        class: 'ui mandatory due no-spin-button center',
-        onClick: "orders.select_text(this);",
-        onFocus: "orders.select_datetime(this);" %> 日
+        class: 'ui mandatory due no-spin-button center' %> 日
     （ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
     <%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
-        class: 'ui mandatory due no-spin-button center',
-        onClick: "orders.select_text(this);",
-        onFocus: "orders.select_datetime(this);" %> 時
+        class: 'ui mandatory due no-spin-button center' %> 時
     <!-- minute の type を number にすると，"00" と表示できなくなる．-->
     <%= form.text_field :due_min, id: :due_minute, type: :text, size: nd,
-        class: 'ui mandatory due no-spin-button center',
-        onClick: "orders.select_text(this);",
-        onFocus: "orders.select_datetime(this);" %> 分
+        class: 'ui mandatory due no-spin-button center' %> 分
     </td>
     <td class="numeric" >
     <% if order.created_at.present? %>
