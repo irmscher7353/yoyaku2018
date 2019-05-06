@@ -404,7 +404,7 @@
 
 $(document).on 'turbolinks:load', ->
   # orders/_form
-  if $('table.order-form')
+  if 0 < $('table.order-form').length
     # サブパネルのボタン上辺を揃える．
     h = $('.order_total_price').parent().css('height')
     $('.datetime_selector_header').css('height', h)
@@ -538,7 +538,7 @@ $(document).on 'turbolinks:load', ->
       orders.update_ui_status()
 
   # orders/summary
-  if $('table#orders-summary-bydate')
+  if 0 < $('table.orders-summary-bydate').length
     orders.summary.hide_all_details()
 
     $('th.abstruct.count-undelivered').on 'click', (event) =>
