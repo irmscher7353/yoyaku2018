@@ -1,6 +1,11 @@
 <%= button_tag('Ｘ', id: 'close-names-panel', type: :button, remote: true,
     onClick: "orders.close_names_panel(this);", ) %>
-<% names.each do |name| %>
+<% names.each do |k,name_list| %>
+  <% if k != '' %>
+<label ><%= k %></label>
+  <% end %>
+  <% name_list.each do |name| %>
 <%= button_tag(name.text, type: :button, remote: true,
     onClick: "orders.set_last_name(this);", ) %>
+  <% end %>
 <% end %>

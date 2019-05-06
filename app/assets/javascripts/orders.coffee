@@ -435,6 +435,9 @@ $(document).on 'turbolinks:load', ->
       #$(event.target).removeAttr('readonly')
       orders.select_kana(event.target)
 
+    $('#order_name').on 'keyup', (event) =>
+      orders.name_modified($('#order_name'))
+
     $('#order_name').on 'change', (event) =>
       # ひらがなをカタカナに変換する．
       s = $('#order_name').val().replace /[\u3041-\u3096]/g,(m) ->

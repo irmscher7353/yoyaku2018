@@ -4,7 +4,7 @@ class Name < ApplicationRecord
   paginates_per 15
 
   def self.candidates(s)
-    result = []
+    result = Hash.new{|h,k| h[k] = [] }
     if s.present? and s != ''
       tokens = s.split
       if (w = tokens[-1]) != ''
@@ -30,7 +30,14 @@ class Name < ApplicationRecord
         else
           filter = ["value LIKE ?", '%s%%' % [w] ]
         end
-        result = where(filter).order(:value)
+        where(filter).order(:value).each do |name|
+          if name.value.length <= w.length
+            k = ''
+          else
+            k = name.value[w.length]
+          end
+          result[k] << name
+        end
       end
     end
     result
