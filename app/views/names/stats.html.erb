@@ -1,11 +1,25 @@
 <h1 >Invalid names</h1>
 <dl >
   <dt >
-    <%= @caption[:invalid] %>
+    <%= @stats[:invalid][:caption] %>
   </dt>
-  <dd >
-<% @names[:invalid].each do |name| %>
+  <dd class="invalid" >
+<% @stats[:invalid][:names].each do |name| %>
     <span ><%= name.value %></span><br/>
 <% end %>
   </dd>
 </dl>
+
+<% @stats[:tokens].each do |n,h| %>
+<h1 ><%= n %> tokens</h1>
+<dl >
+  <dt >
+    <%= n %> 語の名前
+  </dt>
+  <dd >
+<% h[:orders].sort_by{|i| i.name }.each do |order| %>
+    <span ><%= order.name %></span><br/>
+<% end %>
+  </dd>
+</dl>
+<% end %>

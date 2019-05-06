@@ -43,6 +43,29 @@ class Name < ApplicationRecord
     result
   end
 
+  def self.stats
+    stats = {}
+
+    stats[:invalid] = {
+      :caption => 'カタカナとスペース以外を含む名前．',
+      :names => [],
+    }
+    Name.all.each do |name|
+      if not name.value.match(/^[ア-ンァ-ォ　（）ー ]+$/)
+        stats[:invalid][:names] << name
+      end
+    end
+
+    stats[:tokens] = Hash.new{|h,k| h[k] = {:orders => []} }
+    Order.select(:name).distinct.each do |order|
+      tokens = order.name.split
+      n = tokens.length
+      stats[:tokens][n][:orders] << order
+    end
+
+    stats
+  end
+
   def is_last?
     is_title or not (is_shamei or is_sitenmei or is_sei)
   end

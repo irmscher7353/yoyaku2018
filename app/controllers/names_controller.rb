@@ -67,14 +67,7 @@ class NamesController < ApplicationController
   end
 
   def stats
-    @caption = {}
-    @caption[:invalid] = 'カタカナとスペース以外を含む名前．'
-    @names = {:invalid => []}
-    Name.all.each do |name|
-      if not name.value.match(/^[ア-ンァ-ォ　（）ー ]+$/)
-        @names[:invalid] << name
-      end
-    end
+    @stats = Name.stats
   end
 
   def update_name_list
