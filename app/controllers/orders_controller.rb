@@ -185,6 +185,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if not invalid and @order.save
+        Name.add @order.name
         @preferences = Preference.to_hash
         #puts "saved: @order.line_items.count = %d" % @order.line_items.count
         format.html { redirect_to @order, notice: 'Order was successfully created.' }

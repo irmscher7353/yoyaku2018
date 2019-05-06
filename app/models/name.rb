@@ -3,6 +3,20 @@ class Name < ApplicationRecord
 
   paginates_per 15
 
+  def self.add(name)
+    tokens = name.split
+    (0...(n = tokens.length)).each do |i|
+      next if where(value: tokens[i]).first
+      create(value: tokens[i],
+        is_shamei: (n == 3 && i == 0),
+        is_sitenmei: (0 < i && tokens[i].match(/テン$/)),
+        is_sei: ((n - i) == 2),
+        is_mei: (2 <= n && (n - i) == 1),
+        is_title: ((n - i) == 1 && tokens[i].match(/チョウ$/)),
+      )
+    end
+  end
+
   def self.candidates(s)
     result = Hash.new{|h,k| h[k] = [] }
     if s.present? and s != ''
