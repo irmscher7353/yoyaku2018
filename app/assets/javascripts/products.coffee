@@ -24,11 +24,11 @@
 
   updateLines: (element, id) ->
     #console.log('updateLines: ' + element.id)
-    element.blur()
+    $('#product_size').focus()
     f = element.form
     f.method = "get"
     f.data_remote = true
-    document.getElementById('submit_update').click()
+    $('#submit_update').click()
     f.method = "post"
     f.data_remote = false
     @updateButtonStatus(element, id)

@@ -18,6 +18,13 @@
       <th><%= t 'products.remain' %></th>
       <th colspan="3"></th>
     </tr>
+  </thead>
+
+  <tbody id="index_tbody" >
+<%= render 'index_lines', products: @products %>
+  </tbody>
+
+  <tfoot >
     <tr >
       <td ><!-- Menu -->
         <%= form.collection_select :menu_id, @menus, :id, :name,
@@ -56,17 +63,12 @@
             disabled: (@product.title_id.blank? || @product.price.blank?) %>
       </td>
     </tr>
-  </thead>
-
-  <tbody id="index_tbody" >
-<%= render 'index_lines', products: @products %>
-  </tbody>
-
-  <tfoot >
   </tfoot>
 </table>
 <% end %>
 
 <br>
 
+<!--
 <%= link_to t('New'), new_product_path, class: 'link-new' %>
+-->
