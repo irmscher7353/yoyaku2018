@@ -49,9 +49,19 @@
       <!-- <%= dt.to_s %> -->
       <% classes = [@summary[:type]] %>
       <% classes << (dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M')) %>
-      <% attrs = dt == @summary[:previous] ? 'id=previous' : '' %>
+      <% if dt == @summary[:previous] %>
+        <% classes << "previous" %>
+      <% end %>
       <% url = summary_orders_path(dt.is_a?(Date) ? {due_date: dt} : {}) %>
-      <th colspan="7" class="<%= classes.join(' ') %>" <%= attrs %> >
+      <th colspan="6" class="<%= classes.join(' ') %> detail" >
+      <% if @summary[:type] == 'date' %>
+        <%= link_to dt.strftime(@summary[:label_format]), url,
+            class: 'btn btn-xs btn-outline-success' %>
+      <% else %>
+        <%= dt.strftime(@summary[:label_format]) %>
+      <% end %>
+      </th>
+      <th colspan="2" class="<%= classes.join(' ') %> abstruct" >
       <% if @summary[:type] == 'date' %>
         <%= link_to dt.strftime(@summary[:label_format]), url,
             class: 'btn btn-xs btn-outline-success' %>
@@ -61,17 +71,18 @@
       </th>
     <% end %>
     </tr>
-    <tr >
+    <tr id="header" >
      <% @summary[:dates].each do |dt| %>
       <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
       <% attrs = '%snum=%s' % [@summary[:type], klass] %>
-      <th class="<%= klass %> detail count-reserved" <%= attrs %> >予約</th>
+      <th class="<%= klass %> detail count reserved" <%= attrs %> >予約</th>
       <th class="<%= klass %> detail" <%= attrs %> >-</th>
-      <th class="<%= klass %> detail count-delivered" <%= attrs %> >渡済</th>
+      <th class="<%= klass %> detail count delivered" <%= attrs %> >渡済</th>
       <th class="<%= klass %> detail" <%= attrs %> >=</th>
-      <th class="<%= klass %> detail count-undelivered" <%= attrs %> >未渡</th>
-      <th class="<%= klass %> abstruct count-undelivered" <%= attrs %> >未渡</th>
-      <th class="<%= klass %>" >渡残</th>
+      <th class="<%= klass %> detail count undelivered" <%= attrs %> >未渡</th>
+      <th class="<%= klass %> detail" >渡残</th>
+      <th class="<%= klass %> abstruct count undelivered" <%= attrs %> >未渡</th>
+      <th class="<%= klass %> abstruct" >渡残</th>
      <% end %>
     </tr>
   </thead>
@@ -83,11 +94,11 @@
     <% @summary[:dates].each do |dt| %>
       <% klass = dt.is_a?(Date) ? dt.datenum : dt.strftime('%H%M') %>
       <% if count[dt].present? and 0 < count[dt][:reserved] %>
-      <td class="<%= klass %> detail numeric count-reserved" ><%= count[dt][:reserved] %></td>
+      <td class="<%= klass %> detail numeric count reserved" ><%= count[dt][:reserved] %></td>
       <td class="<%= klass %> detail sign" >-</td>
-      <td class="<%= klass %> detail numeric count-delivered" ><%= count[dt][:delivered] %></td>
+      <td class="<%= klass %> detail numeric count delivered" ><%= count[dt][:delivered] %></td>
       <td class="<%= klass %> detail sign" >=</td>
-      <td class="<%= klass %> detail numeric count-undelivered" ><%= count[dt][:undelivered] %></td>
+      <td class="<%= klass %> detail numeric count undelivered" ><%= count[dt][:undelivered] %></td>
       <% else %>
       <td class="<%= klass %> detail" ></td>
       <td class="<%= klass %> detail" ></td>
@@ -95,11 +106,15 @@
       <td class="<%= klass %> detail" ></td>
       <td class="<%= klass %> detail" ></td>
       <% end %>
-      <td class="<%= klass %> abstruct numeric count-undelivered" >
+      <td class="<%= klass %> detail numeric" >
+        <span class="<%= count[dt][:total_undelivered] <= 0 ? 'invisible' : '' %>" >
+        <%= count[dt][:total_undelivered] %></span>
+      </td>
+      <td class="<%= klass %> abstruct numeric count undelivered" >
         <span class="<%= count[dt][:undelivered] <= 0 ? 'invisible' : '' %>" >
         <%= count[dt][:undelivered] %></span>
       </td>
-      <td class="<%= klass %> numeric" >
+      <td class="<%= klass %> abstruct numeric" >
         <span class="<%= count[dt][:total_undelivered] <= 0 ? 'invisible' : '' %>" >
         <%= count[dt][:total_undelivered] %></span>
       </td>
@@ -115,7 +130,7 @@
 <table class="orders-summary-bydate" >
   <thead >
     <tr >
-      <th rowspan=2" class="count-undelivered" >未渡合計</th>
+      <th rowspan=2" class="count undelivered" >未渡合計</th>
       <th rowspan=2" >予約合計</th>
       <th rowspan=2" >限定残り</th>
       <th rowspan=2" >　限定　</th>
@@ -130,7 +145,7 @@
   <% @summary[:products].each do |product| %>
     <% count = @summary[:count][product.id] %>
     <tr class="<%= cycle('odd', 'even') %>" >
-      <td class="numeric count-undelivered" ><%= count[:total][:undelivered].to_s(:delimited) %></td>
+      <td class="numeric count undelivered" ><%= count[:total][:undelivered].to_s(:delimited) %></td>
       <td class="numeric" ><%= count[:total][:reserved].to_s(:delimited) %></td>
       <td class="numeric" ><%= product.remain.to_s(:delimited) %></td>
       <td class="numeric" ><%= product.limit.to_s(:delimited) %></td>

@@ -681,18 +681,18 @@ table.orders-summary-bydate {
   .abstruct {
     cursor: default;
   }
-  th.abstruct {
+  th.abstruct.count {
     &:hover {
       background-color: wheat;
     }
   }
-  .count-delivered {
+  .count.delivered {
     color: green;
   }
-  .count-reserved {
+  .count.reserved {
     color: blue;
   }
-  .count-undelivered {
+  .count.undelivered {
     color: red;
   }
   th.date {
@@ -711,7 +711,7 @@ table.orders-summary-bydate {
   .detail {
     cursor: default;
   }
-  th.detail {
+  th.detail.count {
     &:hover {
       background-color: wheat;
     }

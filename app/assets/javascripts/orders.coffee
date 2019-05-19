@@ -371,28 +371,45 @@
   hide_all_details: () ->
     $('.detail').css('display', 'none')
     $('.abstruct').css('display', '')
-    $('th.date').attr('colspan', 2)
-    $('th.time').attr('colspan', 2)
 
   hide_details: (th) ->
-    if (datenum = $(th).attr('datenum'))
-      $('.'+datenum+'.detail').css('display', 'none')
-      $('.'+datenum+'.abstruct').css('display', '')
-      $('th.'+datenum+'.date').attr('colspan', 2)
-    if (timenum = $(th).attr('timenum'))
-      $('.'+timenum+'.detail').css('display', 'none')
-      $('.'+timenum+'.abstruct').css('display', '')
-      $('th.'+timenum+'.time').attr('colspan', 2)
+    parent_id = '#orders-summary-bydate-center'
+    sx = $(parent_id).scrollLeft()
+    tx = $(th).position().left
+    num = $(th).attr('datenum') || $(th).attr('timenum')
+    dx = 0
+    $('.'+num+'.abstruct').css('display', '')
+    $('tr#header .'+num+'.detail').each (index,element) ->
+      dx -= parseInt($(element).css('width')) + 2
+    $('tr#header .'+num+'.abstruct').each (index,element) ->
+      dx += parseInt($(element).css('width')) + 2
+    $('.'+num+'.detail').css('display', 'none')
+    x0 = -1
+    $('tr#header .'+num+'.abstruct').each (index,element) ->
+      if x0 < 0
+        x0 = $(element).position().left
+    # どういう条件にするかは微妙なところだ．
+    if 0 <= (sx + dx) and x0 < tx
+      $(parent_id).scrollLeft(sx + dx)
 
   show_details: (th) ->
-    if (datenum = $(th).attr('datenum'))
-      $('.'+datenum+'.detail').css('display', '')
-      $('.'+datenum+'.abstruct').css('display', 'none')
-      $('th.'+datenum+'.date').attr('colspan', 6)
-    if (timenum = $(th).attr('timenum'))
-      $('.'+timenum+'.detail').css('display', '')
-      $('.'+timenum+'.abstruct').css('display', 'none')
-      $('th.'+timenum+'.time').attr('colspan', 6)
+    parent_id = '#orders-summary-bydate-center'
+    num = $(th).attr('datenum') || $(th).attr('timenum')
+    dx = 0
+    $('.'+num+'.detail').css('display', '')
+    $('tr#header .'+num+'.detail').each (index,element) ->
+      dx += parseInt($(element).css('width')) + 2
+    $('tr#header .'+num+'.abstruct').each (index,element) ->
+      dx -= parseInt($(element).css('width')) + 2
+    $('.'+num+'.abstruct').css('display', 'none')
+    x0 = -1
+    $('tr#header .'+num+'.detail').each (index,element) ->
+      if x0 < 0
+        x0 = $(element).position().left
+    sx = $(parent_id).scrollLeft()
+    # どういう条件にするかは微妙なところだ．
+    if sx <= (x0 - dx)
+      $(parent_id).scrollLeft(sx + dx)
 
   hide_line_items: () ->
     $('div.orders-summary-line_items-container').css('display', 'none')
@@ -544,7 +561,7 @@ $(document).on 'turbolinks:load', ->
   if 0 < $('table.orders-summary-bydate').length
     orders.summary.hide_all_details()
 
-    $('th.abstruct.count-undelivered').on 'click', (event) =>
+    $('th.abstruct.count.undelivered').on 'click', (event) =>
       orders.summary.show_details(event.target)
 
     $('th.detail').on 'click', (event) =>
@@ -561,7 +578,7 @@ $(document).on 'turbolinks:load', ->
     $('#hide-line_items').on 'click', (event) =>
       orders.summary.hide_line_items()
 
-    if 0 < $('#previous').length
+    if 0 < $('.previous').length
       parent_id = '#orders-summary-bydate-center'
-      $(parent_id).animate({scrollLeft: $('#previous').offset().left - $(parent_id).offset().left})
+      $(parent_id).animate({scrollLeft: $('.previous:last').offset().left - $(parent_id).offset().left})
 
