@@ -89,17 +89,19 @@ class Order < ApplicationRecord
       pairs << [order.id, order.revision]
       summary[:count][:total][:orders][key] += 1
     end
-    LineItem.of(pairs).each do |line_item|
-      order_id = line_item.order_id
-      key = key_of[order_id]
-      due_date = due_date_of[order_id]
-      product_id = line_item.product_id
-      quantity = line_item.quantity
-      summary[:count][product_id][due_date][key] += quantity
-      summary[:count][product_id][due_date][:reserved] += quantity
-      summary[:count][product_id][:total][:reserved] += quantity
-      if due_datenum.present? and key == :undelivered
-        summary[:line_items][due_date] << line_item
+    if 0 < pairs.length
+      LineItem.of(pairs).each do |line_item|
+        order_id = line_item.order_id
+        key = key_of[order_id]
+        due_date = due_date_of[order_id]
+        product_id = line_item.product_id
+        quantity = line_item.quantity
+        summary[:count][product_id][due_date][key] += quantity
+        summary[:count][product_id][due_date][:reserved] += quantity
+        summary[:count][product_id][:total][:reserved] += quantity
+        if due_datenum.present? and key == :undelivered
+          summary[:line_items][due_date] << line_item
+        end
       end
     end
 
