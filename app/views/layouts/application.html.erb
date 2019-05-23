@@ -73,13 +73,14 @@
               </li>
             </ul>
             <div id="menu_selector" >
-              <%= form_tag(set_current_menus_path, method: :get, ) do |form| %>
+              <%= form_with url: set_current_menus_path, method: :get do |form| %>
                 <%= select_tag :menu_id, options_from_collection_for_select(
                     Menu.ordered, :id, :name,
                     session[:menu].present? ? session[:menu]['id'] : Menu.latest.id ),
-                    include_blank: true, onchange: 'this.form.submit()',
-                    class: 'nav-item'
+                    include_blank: true,
+                    id: :menu_selection, class: 'nav-item'
                 %>
+                <%= form.submit id: :set_current, class: :hidden %>
               <% end %>
             </div>
             <div id="logo" >
