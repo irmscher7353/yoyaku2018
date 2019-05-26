@@ -420,6 +420,16 @@
     $('div.orders-summary-line_items-container').css('display', '')
 
 $(document).on 'turbolinks:load', ->
+  # orders/index
+  if 0 < $('table.order-index').length
+    console.log 'table.order-index'
+    $('.link-inline').on 'mouseenter', (event) ->
+      console.log $(event.target).parent().parent()
+      $(event.target).parent().parent().css('background-color', 'wheat')
+    $('.link-inline').on 'mouseleave', (event) ->
+      console.log $(event.target).parent().parent()
+      $(event.target).parent().parent().css('background-color', '')
+
   # orders/_form
   if 0 < $('table.order-form').length
     # サブパネルのボタン上辺を揃える．
