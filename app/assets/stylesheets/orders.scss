@@ -627,9 +627,11 @@ div#orders-summary-bydate {
 div#orders-summary-bydate-left {
   width: -moz-fit-content;
 }
-div#orders-summary-bydate-center {
-  flex-grow: 1;
-  overflow: auto;
+@media screen {
+  div#orders-summary-bydate-center {
+    flex-grow: 1;
+    overflow: auto;
+  }
 }
 div#orders-summary-bydate-right {
   width: -moz-fit-content;

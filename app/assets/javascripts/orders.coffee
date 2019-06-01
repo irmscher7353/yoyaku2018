@@ -569,6 +569,15 @@ $(document).on 'turbolinks:load', ->
 
   # orders/summary
   if 0 < $('table.orders-summary-bydate').length
+    # summary は A4 landscape にしたい．
+    text = document.createTextNode('@page { size: A4 landscape; }')
+    style = document.createElement('style')
+    style.media = 'all'
+    style.type = 'text/css'
+    style.appendChild(text)
+    $('head').append(style)
+    # head に sylte は追加されるが，印刷のプロパティに反映されない．
+
     orders.summary.hide_all_details()
 
     $('th.abstruct.count.undelivered').on 'click', (event) =>

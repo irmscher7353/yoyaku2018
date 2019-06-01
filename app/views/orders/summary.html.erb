@@ -2,7 +2,7 @@
 <div class="orders-summary-bydate-container" >
 <div class="caption" >
 <% if @summary[:type] == 'time' %>
-  <div class="buttons" >
+  <div class="buttons no-print" >
   <%= link_to Order::SUMMARY_BYDATE, summary_orders_path,
       class: 'btn btn-outline-secondary' %>
   <%= link_to Order::SUMMARY_BYTIME_LINEITEMS, '', id: 'show-line_items',
