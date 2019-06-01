@@ -139,8 +139,8 @@
         class: 'mandatory due no-spin-button center hidden' %><!-- 年 -->
     <%= form.text_field :due_month, id: :due_month, type: :number, size: nd,
         class: 'ui mandatory due no-spin-button center' %> 月
-    <%= form.text_field :due_day, id: :due_day, type: :number, size: nd,
-        class: 'ui mandatory due no-spin-button center' %> 日
+    <%= form.number_field :due_day, id: :due_day, type: :number, size: nd,
+        class: 'ui mandatory due center', min: 1, max: 31 %> 日
     （ <span id="due_wday" class="mandatory" ><%= order.due_wday %></span> ）
     <%= form.text_field :due_hour, id: :due_hour, type: :number, size: nd,
         class: 'ui mandatory due no-spin-button center' %> 時
