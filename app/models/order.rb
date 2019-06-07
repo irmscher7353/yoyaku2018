@@ -30,6 +30,10 @@ class Order < ApplicationRecord
   SUMMARY_BYTIME_LINEITEMS = '残り予約一覧'
 
   scope :alive, -> { where(['state != ?', STATE_CANCELLED]) }
+  scope :from_number, -> (number) {
+    where(number: number.gsub(/^0+/, '').to_i)
+  }
+
   scope :has_name, -> (name) {
     where(["name LIKE '%s %s' OR name LIKE '%s %s %s' OR name LIKE '%s %s'" % [name, '%%', '%%', name, '%%', '%%', name, ]])
   }

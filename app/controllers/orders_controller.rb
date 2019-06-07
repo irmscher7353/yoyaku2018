@@ -292,10 +292,17 @@ class OrdersController < ApplicationController
   end
 
   def edit_order
-    @order = Order.where(number: params[:number].gsub(/^0+/,'')).first
+    @order = Order.from_number(params[:number]).first
 
     respond_to do |format|
-      format.html { redirect_to action: :edit, id: @order.id }
+      format.html do
+        if @order.present?
+          redirect_to action: :edit, id: @order.id
+        else
+          msg = "予約番号 %d の予約が見つかりませんでした．" % [params[:number]]
+          redirect_back fallback_location: orders_path, notice: msg
+        end
+      end
     end
   end
 
@@ -304,10 +311,17 @@ class OrdersController < ApplicationController
   end
 
   def show_order
-    @order = Order.where(number: params[:number].gsub(/^0+/,'')).first
+    @order = Order.from_number(params[:number]).first
 
     respond_to do |format|
-      format.html { redirect_to @order }
+      format.html do
+        if @order.present?
+          redirect_to action: :show, id: @order.id
+        else
+          msg = "予約番号 %d の予約が見つかりませんでした．" % [params[:number]]
+          redirect_back fallback_location: orders_path, notice: msg
+        end
+      end
     end
   end
 
