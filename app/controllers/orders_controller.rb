@@ -379,7 +379,8 @@ class OrdersController < ApplicationController
     def normalize_params
       # params[:order] を正規化する．つまり，
       # name 空白文字を正規化する．
-      params[:order][:name].gsub!(/[\s　]+/, ' ').gsub!(/(^\s|\s+$)/, '')
+      params[:order][:name].gsub!(/[\s　]+/, ' ')
+      params[:order][:name].strip!
       # 年・月・日・時・分の文字列から datetime を生成する．
       params[:order][:due] = Time.zone.local(
         params[:order][:due_year].to_i,
