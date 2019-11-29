@@ -25,7 +25,7 @@
 
   edit_order: (number) ->
     #console.log 'orders.edit_order(' + order_number + ')'
-    window.location.href = '/orders/edit_order?number='+number
+    $('#order_number').parent().attr('action', $('#edit_order').attr('href')).submit()
 
   get_reserved: (product_id) ->
     # product_id の reserved を取得する．
@@ -288,7 +288,7 @@
 
   show_order: (number) ->
     #console.log 'orders.show_order(' + order_number + ')'
-    window.location.href = '/orders/show_order?number='+number
+    $('#order_number').parent().attr('action', $('#show_order').attr('href')).submit()
 
   update_button_status: () ->
     disabled = do () ->
@@ -422,12 +422,12 @@
 $(document).on 'turbolinks:load', ->
   # orders/index
   if 0 < $('table.order-index').length
-    console.log 'table.order-index'
+    #console.log 'table.order-index'
     $('.link-inline').on 'mouseenter', (event) ->
-      console.log $(event.target).parent().parent()
+      #console.log $(event.target).parent().parent()
       $(event.target).parent().parent().css('background-color', 'wheat')
     $('.link-inline').on 'mouseleave', (event) ->
-      console.log $(event.target).parent().parent()
+      #console.log $(event.target).parent().parent()
       $(event.target).parent().parent().css('background-color', '')
 
   # orders/_form
