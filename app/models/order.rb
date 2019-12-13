@@ -165,6 +165,14 @@ class Order < ApplicationRecord
     persisted? and state == STATE_RESERVED
   end
 
+  def payment_done?
+    payment == PAYMENT_DONE
+  end
+
+  def payment_yet?
+    payment != PAYMENT_DONE
+  end
+
   def current_line_items(n_lines=0, items=[])
     items.blank? and items = line_items.where(revision: revision).to_a
     while items.count < n_lines

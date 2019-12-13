@@ -72,9 +72,9 @@
         <td class="note_head" >備考</td>
         <td class="payment_label" >代金</td>
         <td class="payment" colspan="2" >
-          <div class="payment <%= @order.balance == 0 ? '' : 'circle' -%>" >未</div>
+          <div class="payment <%= @order.payment_yet? ? 'circle' : '' -%>" >未</div>
           ・
-          <div class="payment <%= @order.balance == 0 ? 'circle' : '' -%>" >済</div>
+          <div class="payment <%= @order.payment_done? ? 'circle' : '' -%>" >済</div>
         </td>
       </tr>
       <tr >

@@ -401,6 +401,10 @@ class OrdersController < ApplicationController
           params[:order][:amount_paid] = 0
         else
           params[:order][:amount_paid] = params[:order][:amount_paid].to_i
+          # 払い済みが総額と同じで "未" の場合は返金済みとする．
+          if params[:order][:amount_paid] == params[:order][:total_price]
+            params[:order][:amount_paid] = 0
+          end
         end
       end
       # total_price と amount_paid から balance を産出する．
