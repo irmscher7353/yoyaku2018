@@ -206,6 +206,7 @@ class OrdersController < ApplicationController
     command = case
     when params[:cancel].present? then :cancel
     when params[:deliver].present? then :deliver
+    when params[:return].present? then :return
     when params[:revert].present? then :revert
     else :commit
     end
@@ -232,6 +233,7 @@ class OrdersController < ApplicationController
     d = case command
     when :cancel then deltas({}, current_line_items)
     when :deliver then {}
+    when :return then {}
     when :revert then deltas(line_items_attributes)
     else deltas(line_items_attributes, current_line_items)
     end
@@ -248,6 +250,9 @@ class OrdersController < ApplicationController
       when :deliver
         params[:order][:state] = Order::STATE_DELIVERED
         @message = 'この予約は引渡し済みです．'
+      when :return
+        params[:order][:state] = Order::STATE_RESERVED
+        @message = '引渡しを取り消しました．'
       when :revert
         params[:order][:state] = Order::STATE_RESERVED
         @message = '予約を復元しました．'

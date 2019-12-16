@@ -357,18 +357,18 @@
     <th >
     </th>
     <td colspan="2" class="actions" >
-    <%= form.submit t('.Deliver'), id: :deliver, name: :deliver,
-        class: 'btn btn-sm btn-success',
-        disabled: (not order.deliverable?) %>
+    <%= form.submit t('.Cancel'), id: :cancel, name: :cancel,
+        class: 'btn btn-sm btn-danger',
+        data: { confirm: 'この予約を取消しますか？' } %>
     </td>
   </tr>
   <tr class="base-panel fixed-height" >
     <th >
     </th>
     <td colspan="2" class="actions" >
-    <%= form.submit t('.Cancel'), id: :cancel, name: :cancel,
-        class: 'btn btn-sm btn-danger',
-        data: { confirm: 'この予約を取消しますか？' } %>
+    <%= form.submit t('.Deliver'), id: :deliver, name: :deliver,
+        class: 'btn btn-sm btn-success',
+        disabled: (not order.deliverable?) %>
     </td>
   </tr>
 <% end %>
@@ -379,6 +379,24 @@
     <td colspan="2" class="actions" >
     <%= form.submit t('.Revert'), id: :revert, name: :revert,
         class: 'ui btn btn-sm btn-success', disabled: true %>
+    </td>
+  </tr>
+  <tr class="base-panel fixed-height" >
+    <th >
+    </th>
+    <td colspan="2" class="unlock" >
+      <%= check_box_tag :unlock, true, false, {id: :unlock} %>ロック解除
+    </td>
+  </tr>
+<% end %>
+<% if order.delivered? %>
+  <tr class="base-panel fixed-height" >
+    <th >
+    </th>
+    <td colspan="2" class="actions" >
+    <%= form.submit t('.Return'), id: :return, name: :return,
+        class: 'ui btn btn-sm btn-warning', disabled: true,
+        data: { confirm: '引渡しを取消しますか？' } %>
     </td>
   </tr>
   <tr class="base-panel fixed-height" >

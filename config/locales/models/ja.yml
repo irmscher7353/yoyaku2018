@@ -60,6 +60,7 @@ ja:
     form:
       Cancel: 予約取消
       Deliver: お引渡し
+      Return: 引渡取消
       Revert: 予約復元
     index:
       Search: 検索する
