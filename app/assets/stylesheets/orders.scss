@@ -650,6 +650,8 @@ div.orders-summary-line_items {
   border: solid tan 0.25rem;
   padding: 1.5rem;
   position: relative;
+  max-height: 90vh;
+  overflow-y: scroll;
   #hide-line_items {
     /* border: solid gray 1px; */
     position: absolute;
@@ -661,7 +663,6 @@ div.orders-summary-line_items-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 95%;
   position: absolute;
   bottom: 0;
   left: 0;
