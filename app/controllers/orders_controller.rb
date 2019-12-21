@@ -339,6 +339,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  # GET /orders/undeliver
+  def undeliver
+    @summary = Order.undeliver(session[:menu]['id'], params)
+
+    respond_to do |format|
+      format.html { render :undeliver }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order

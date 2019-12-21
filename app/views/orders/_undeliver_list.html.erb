@@ -1,0 +1,42 @@
+<div class="caption" >
+  <div class="buttons no-print" >
+    <%= link_to Order::SUMMARY_BYDATE, summary_orders_path,
+      class: 'btn btn-outline-secondary' %>
+    <%= link_to Order::SUMMARY_BYTIME,
+      summary_orders_path(due_date: @summary[:due_date]),
+      class: 'btn btn-outline-success' %>
+  </div>
+  <table id="orders-summary-bydate-caption" >
+    <caption ><%= @summary[:caption] %></caption>
+  </table>
+</div>
+<table class="orders-summary-bydate orders-summary-line_items" align="center" >
+  <thead >
+    <tr >
+      <th >名前</th>
+      <th >予約時刻</th>
+      <th >商品名</th>
+      <th >サイズ</th>
+      <th >数量</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% reset_cycle %>
+  <% @summary[:line_items].each do |line_item| %>
+    <tr class="<%= cycle('odd', 'even') %>" >
+      <td ><%= line_item.order.name %></td>
+      <td class="center" ><%= line_item.order.due.strftime('%H:%M') %></td>
+      <td ><%= line_item.product.title.name %></td>
+      <td class="center" ><%= line_item.product.size %></td>
+      <td class="numeric" ><%= line_item.quantity.to_s(:delimited) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot >
+<% if @summary[:footer].present? %>
+  <tr >
+    <td colspan="5" ><%= @summary[:footer] %></td>
+  </tr>
+<% end %>
+  </tfoot>
+</table>

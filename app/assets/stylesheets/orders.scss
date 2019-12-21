@@ -7,6 +7,10 @@
 }
 /* */
 
+div.buttons {
+  width: 100%;
+}
+
 div.caption {
   position: relative;
   div {
@@ -674,7 +678,7 @@ table.orders-summary-line_items {
   caption {
     white-space: nowrap;
   }
-  min-width: 100%;
+  //min-width: 100%;
 }
 
 table#orders-summary-bydate-caption {

@@ -66,11 +66,10 @@ class Order < ApplicationRecord
     }
     case true
     when params[:due_date].present?
+      summary[:due_date] = Date.parse(params[:due_date])
       summary[:caption] = '%s（%s）' % [SUMMARY_BYTIME, params[:due_date]]
-      summary[:caption2] = '%s（%s）' % [SUMMARY_BYTIME_LINEITEMS, params[:due_date]]
       summary[:type] = 'time'
       summary[:label_format] = '%H:%M'
-      summary[:line_items] = Hash.new{|h,k| h[k] = Array.new }
       due_datenum = Date.parse(params[:due_date]).datenum
     else
       summary[:caption] = SUMMARY_BYDATE
@@ -103,9 +102,6 @@ class Order < ApplicationRecord
         summary[:count][product_id][due_date][key] += quantity
         summary[:count][product_id][due_date][:reserved] += quantity
         summary[:count][product_id][:total][:reserved] += quantity
-        if due_datenum.present? and key == :undelivered
-          summary[:line_items][due_date] << line_item
-        end
       end
     end
 
@@ -141,6 +137,16 @@ class Order < ApplicationRecord
       end
     end
 
+    return summary
+  end
+
+  def self.undeliver(menu_id, params)
+    summary = {}
+    due_date = (params[:due_date].present? and Date.parse(params[:due_date]) or Time.zone.today)
+    datenum = due_date.datenum
+    summary[:due_date] = due_date
+    summary[:caption] = '%s（%s）' % [SUMMARY_BYTIME_LINEITEMS, due_date.to_s ]
+    summary[:line_items] = LineItem.where(order: of(menu_id).on(datenum).reserved).joins(:order).order('orders.due')
     return summary
   end
 

@@ -5,8 +5,8 @@
   <div class="buttons no-print" >
   <%= link_to Order::SUMMARY_BYDATE, summary_orders_path,
       class: 'btn btn-outline-secondary' %>
-  <%= link_to Order::SUMMARY_BYTIME_LINEITEMS, '', id: 'show-line_items',
-      class: 'btn btn-outline-success', remote: true %>
+  <%= link_to Order::SUMMARY_BYTIME_LINEITEMS, undeliver_orders_path(due_date: @summary[:due_date]),
+      class: 'btn btn-outline-primary', style: 'position: absolute; right: 0;' %>
   </div>
 <% end %>
   <table id="orders-summary-bydate-caption" >
@@ -80,9 +80,13 @@
       <th class="<%= klass %> detail count delivered" <%= attrs %> >渡済</th>
       <th class="<%= klass %> detail" <%= attrs %> >=</th>
       <th class="<%= klass %> detail count undelivered" <%= attrs %> >未渡</th>
-      <th class="<%= klass %> detail" >渡残</th>
+      <th class="<%= klass %> detail" >
+        <%= link_to_if @summary[:type] == 'date', '渡残', undeliver_orders_path(due_date: dt) %>
+      </th>
       <th class="<%= klass %> abstruct count undelivered" <%= attrs %> >未渡</th>
-      <th class="<%= klass %> abstruct" >渡残</th>
+      <th class="<%= klass %> abstruct" >
+        <%= link_to_if @summary[:type] == 'date', '渡残', undeliver_orders_path(due_date: dt) %>
+      </th>
      <% end %>
     </tr>
   </thead>
@@ -159,45 +163,4 @@
   </div>
 </div>
 </div>
-<% if @summary[:type] == 'time' %>
-<div class="orders-summary-line_items-container" >
-<div class="orders-summary-line_items" >
-<%= link_to '×', '', remote: true,  id: 'hide-line_items',
-    class: 'btn btn-xs btn-outline-secondary' %>
-<table class="orders-summary-bydate orders-summary-line_items" >
-  <caption ><%= @summary[:caption2] %></caption>
-  <thead >
-    <tr >
-      <th >名前</th>
-      <th >予約時刻</th>
-      <th >商品名</th>
-      <th >サイズ</th>
-      <th >数量</th>
-    </tr>
-  </thead>
-  <tbody >
-  <% reset_cycle %>
-  <% @summary[:line_items].keys.each do |dt| %>
-    <% @summary[:line_items][dt].each do |line_item| %>
-    <tr class="<%= cycle('odd', 'even') %>" >
-      <td ><%= line_item.order.name %></td>
-      <td class="center" ><%= line_item.order.due.strftime('%H:%M') %></td>
-      <td ><%= line_item.product.title.name %></td>
-      <td class="center" ><%= line_item.product.size %></td>
-      <td class="numeric" ><%= line_item.quantity.to_s(:delimited) %></td>
-    </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-  <tfoot >
-<% if @summary[:footer].present? %>
-  <tr >
-    <td colspan="5" ><%= @summary[:footer] %></td>
-  </tr>
-<% end %>
-  </tfoot>
-</table>
-</div>
-</div>
-<% end %>
 </div>
