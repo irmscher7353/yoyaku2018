@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :names
       get :show_order
       get :summary
+      get :undeliver
     end
   end
   resources :buyers

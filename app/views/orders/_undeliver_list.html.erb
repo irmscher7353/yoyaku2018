@@ -13,6 +13,7 @@
 <table class="orders-summary-bydate orders-summary-line_items" align="center" >
   <thead >
     <tr >
+      <th >予約番号</th>
       <th >名前</th>
       <th >予約時刻</th>
       <th >商品名</th>
@@ -24,6 +25,7 @@
   <% reset_cycle %>
   <% @summary[:line_items].each do |line_item| %>
     <tr class="<%= cycle('odd', 'even') %>" >
+      <td ><%= link_to line_item.order.number, edit_order_path(line_item.order) %></td>
       <td ><%= line_item.order.name %></td>
       <td class="center" ><%= line_item.order.due.strftime('%H:%M') %></td>
       <td ><%= line_item.product.title.name %></td>
