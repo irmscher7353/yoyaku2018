@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
       @orders = Order.of(session[:menu]['id'])
       if p.present?
         if p[:name].present?
-          @orders = @orders.where("name like ?", ["%#{p[:name]}%", ])
+          @orders = @orders.where("name like ?", ["%#{p[:name]}%", ]).or(@orders.where("address like ?", ["%#{p[:name]}%", ]))
           @order.name = p[:name]
         end
         if p[:phone].present?
